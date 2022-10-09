@@ -23,8 +23,10 @@ ClientSideSocket.listen(1)
 
 while True:
 	#Receive message
-connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-message = connectionSocket.recv(2048) 
+
+	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
+	message = connectionSocket.recv(2048) 
 
 
 # Step b
@@ -32,16 +34,16 @@ message = connectionSocket.recv(2048)
 # 3. Once the proxy gets connected to the client, it should then connect to the server.
 	#a. create a server socket (TCP) and connect to it
 
-ServerSocket = socket(AF_INET, SOCK_STREAM)
-ServerSideSocket.connect((serverName,serverPort))
+	ServerSocket = socket(AF_INET, SOCK_STREAM)
+	ServerSideSocket.connect((serverName,serverPort))
 
     #b. send received message from client
 
-connectionSocket.send(message)
+	connectionSocket.send(message)
 
 	#c. close socket connection
 
-ServerSideSocket.close()
+	ServerSideSocket.close()
     
 
 
