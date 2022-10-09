@@ -11,7 +11,7 @@ from socket import *
 # specified as a command line argument.
 	#a. connect client (TCP)
 ClientSideSocket = socket(AF_INET, SOCK_STREAM) 
-ClientSideSocket.connect((serverName, serverPort)
+ClientSideSocket.connect((serverName, serverPort))
 	#b. bind and listen for message
 ClientSideSocket.bind(IP, 8080)
 ClientSideSocket.listen(1)
