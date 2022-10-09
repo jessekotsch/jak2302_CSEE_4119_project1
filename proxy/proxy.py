@@ -34,8 +34,9 @@ ClientSideSocket.listen(1)
 while debugcontinue == "yes":
 	#Receive message
 
-    print("Accepting client side socket message...")
+	print("Accepting client side socket message...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
 	print("Message Received...")
 	message = connectionSocket.recv(2048) 
 
