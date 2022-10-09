@@ -18,7 +18,7 @@ IP = '1.0.0.1'
 	#a. connect client (TCP)
 
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.connect(('1.0.0.1', 8080))
+ClientSideSocket.connect(('4.0.0.1', 8080))
 #ClientSideSocket.connect((serverName, serverPort))
 
 	#b. bind and listen for message
