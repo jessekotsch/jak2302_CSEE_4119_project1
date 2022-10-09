@@ -3,8 +3,6 @@
 import sys
 from socket import *
 
-#for debug
-debugcontinue = "yes"
 
 
 #Make Input later
@@ -31,7 +29,7 @@ ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
 #while True:
-while debugcontinue == "yes":
+while true:
 	#Receive message
 
 	print("Accepting client side socket message...")
@@ -58,9 +56,6 @@ while debugcontinue == "yes":
 	#c. close socket connection
 	print("Closing Server Side Socket...")
 	ServerSideSocket.close()
-
-
-	debugcontinue = input("Would you like to continue (yes/no:" )
     
 
 
