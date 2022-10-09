@@ -4,6 +4,10 @@ import sys
 from socket import *
 
 
+serverName = 'localhost'
+serverPort = 11000
+
+
 
 # Step a:
 # Establish connection with a client
