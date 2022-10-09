@@ -6,8 +6,8 @@ from socket import *
 
 
 #Make Input later
-serverIP = sys.argv[0]
-serverPort = int(sys.argv[1])
+serverIP = sys.argv[1]
+serverPort = int(sys.argv[2])
 
 
 
