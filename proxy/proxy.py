@@ -3,6 +3,13 @@
 import sys
 from socket import *
 
+#for debug
+import keyboard
+keyboard.add_hotkey('q', lambda: quit())
+def quit():
+    global exitProgram
+    exitProgram=True
+
 
 #Make Input later
 clientIP = '4.0.0.1'
@@ -27,8 +34,8 @@ ClientSideSocket.bind(('', 11000))
 ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
-
-while True:
+#while True:
+while not exitProgram:
 	#Receive message
 
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
