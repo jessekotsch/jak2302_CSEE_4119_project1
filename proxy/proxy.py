@@ -4,7 +4,7 @@ import sys
 from socket import *
 
 #for debug
-debugcontinue = "no"
+debugcontinue = "yes"
 
 
 #Make Input later
