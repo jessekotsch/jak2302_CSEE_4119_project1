@@ -41,7 +41,7 @@ while True:
 	message = connectionSocket.recv(2048) 
 	print("Message Received...")
 	print(message)
-	print("Closing connection socket"
+	print("Closing connection socket")
 	connectionSocket.close()
 
 # Step b
