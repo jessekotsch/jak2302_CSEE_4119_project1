@@ -4,8 +4,10 @@ import sys
 from socket import *
 
 
-serverName = 'localhost'
+#Make Input later
+serverName = 1.0.0.1
 serverPort = 11000
+IP = 1.0.0.1
 
 
 
