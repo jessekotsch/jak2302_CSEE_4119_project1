@@ -55,7 +55,6 @@ while debugcontinue == "yes":
 
 	ServerSideSocket.close()
 
-    clientSocket.send(message.encode())
 
     debugcontinue = input("Would you like to continue (yes/no:")
     
