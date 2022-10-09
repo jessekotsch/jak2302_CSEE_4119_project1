@@ -4,7 +4,7 @@ import sys
 from socket import *
 
 #for debug
-import keyboard
+from keyboard import *
 keyboard.add_hotkey('q', lambda: quit())
 def quit():
     global exitProgram
