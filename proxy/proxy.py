@@ -52,7 +52,7 @@ while True:
 
 	print("Opening Server Side Socket...")
 	ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-	ServerSideSocket.connect((serverIP,serverPort))
+	ServerSideSocket.connect((serverIP,8080))
 
     #b. send received message from client
 	print("Sending Message...")
