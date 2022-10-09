@@ -52,11 +52,11 @@ while debugcontinue == "yes":
 	ServerSideSocket.connect((serverName,serverPort))
 
     #b. send received message from client
-    print("Sending Message...")
+	print("Sending Message...")
 	connectionSocket.send(message)
 
 	#c. close socket connection
-    print("Closing Server Side Socket...")
+	print("Closing Server Side Socket...")
 	ServerSideSocket.close()
 
 
