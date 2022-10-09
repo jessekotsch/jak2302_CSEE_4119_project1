@@ -6,8 +6,8 @@ from socket import *
 
 
 #Make Input later
-serverIP = 'localhost'
-serverPort = 8080
+serverIP = sys.argv[0]
+serverPort = sys.argv[1]
 
 
 
@@ -35,8 +35,8 @@ while True:
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 	print("Ready to recieve message")
-	message = connectionSocket.recv(2048) 
-    print("Message Received...")
+	message = connectionSocket.recv(serverPort) 
+	print("Message Received...")
 	print(message)
 
 # Step b
