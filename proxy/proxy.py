@@ -6,9 +6,10 @@ from socket import *
 
 
 #Make Input later <listen-port> <fake-ip> <server-ip>
-serverPort = int(sys.argv[1])
+listenPort = int(sys.argv[1])
 clientIP = sys.argv[2]
 serverIP = sys.argv[3]
+serverPort = sys.argv[4]
 
 
 
@@ -25,7 +26,7 @@ ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 	#b. bind and listen for message
 
 
-ClientSideSocket.bind((clientIP, serverPort))
+ClientSideSocket.bind((clientIP, listenPort))
 ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
@@ -52,7 +53,7 @@ while True:
 
 	print("Opening Server Side Socket...")
 	ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-	ServerSideSocket.connect((serverIP,8080))
+	ServerSideSocket.connect((serverIP,serverPort))
 
     #b. send received message from client
 	print("Sending Message...")
