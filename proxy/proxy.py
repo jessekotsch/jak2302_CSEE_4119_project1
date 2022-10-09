@@ -9,7 +9,7 @@ from socket import *
 listenPort = int(sys.argv[1])
 clientIP = sys.argv[2]
 serverIP = sys.argv[3]
-serverPort = sys.argv[4]
+serverPort = int(sys.argv[4])
 
 
 
