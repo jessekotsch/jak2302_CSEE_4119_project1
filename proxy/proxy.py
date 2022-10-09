@@ -7,7 +7,7 @@ from socket import *
 
 #Make Input later
 serverIP = sys.argv[0]
-serverPort = sys.argv[1]
+serverPort = int(sys.argv[1])
 
 
 
