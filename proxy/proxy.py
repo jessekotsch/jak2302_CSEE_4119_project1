@@ -5,9 +5,9 @@ from socket import *
 
 
 #Make Input later
-serverName = 1.0.0.1
+serverName = '1.0.0.1'
 serverPort = 11000
-IP = 1.0.0.1
+IP = '1.0.0.1'
 
 
 
