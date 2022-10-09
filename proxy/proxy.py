@@ -23,7 +23,7 @@ ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 
 #ClientSideSocket.bind((clientIP, clientPort))
 
-ClientSideSocket.bind(('', 8080))
+ClientSideSocket.bind(('', 11000))
 ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
