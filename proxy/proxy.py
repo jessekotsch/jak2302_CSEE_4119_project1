@@ -4,7 +4,7 @@ import sys
 from socket import *
 
 #for debug
-debugcontinue = "yes"
+debugcontinue = "no"
 
 
 #Make Input later
@@ -34,8 +34,9 @@ ClientSideSocket.listen(1)
 while debugcontinue == "yes":
 	#Receive message
 
+    print("Accepting client side socket message...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
+	print("Message Received...")
 	message = connectionSocket.recv(2048) 
 
 
@@ -44,15 +45,17 @@ while debugcontinue == "yes":
 # 3. Once the proxy gets connected to the client, it should then connect to the server.
 	#a. create a server socket (TCP) and connect to it
 
+
+	print("Opening Server Side Socket...")
 	ServerSocket = socket(AF_INET, SOCK_STREAM)
 	ServerSideSocket.connect((serverName,serverPort))
 
     #b. send received message from client
-
+    print("Sending Message...")
 	connectionSocket.send(message)
 
 	#c. close socket connection
-
+    print("Closing Server Side Socket...")
 	ServerSideSocket.close()
 
 
