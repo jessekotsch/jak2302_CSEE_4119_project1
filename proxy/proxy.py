@@ -5,9 +5,8 @@ from socket import *
 
 
 #Make Input later
-serverName = '1.0.0.1'
-serverPort = 8080
-IP = '1.0.0.1'
+clientIP = '4.0.0.1'
+clientPort = 8080
 
 
 
@@ -18,12 +17,11 @@ IP = '1.0.0.1'
 	#a. connect client (TCP)
 
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.connect(('4.0.0.1', 8080))
-#ClientSideSocket.connect((serverName, serverPort))
+ClientSideSocket.connect((clientIP, clientPort))
 
 	#b. bind and listen for message
 
-ClientSideSocket.bind(IP, 8080)
+ClientSideSocket.bind((clientIP, clientPort))
 ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
