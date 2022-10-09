@@ -6,7 +6,7 @@ from socket import *
 
 #Make Input later
 serverName = '1.0.0.1'
-serverPort = 11000
+serverPort = 8080
 IP = '1.0.0.1'
 
 
