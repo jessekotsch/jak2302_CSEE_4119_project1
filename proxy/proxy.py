@@ -6,8 +6,8 @@ from socket import *
 
 
 #Make Input later
-clientIP = '4.0.0.1'
-clientPort = 8080
+serverIP = 'localhost'
+serverPort = 8080
 
 
 
@@ -22,14 +22,13 @@ ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 
 	#b. bind and listen for message
 
-#ClientSideSocket.bind((clientIP, clientPort))
 
-ClientSideSocket.bind(('', 2020))
+ClientSideSocket.bind((serverIP, serverPort))
 ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
 #while True:
-while true:
+while True:
 	#Receive message
 
 	print("Accepting client side socket message...")
