@@ -2,4 +2,4 @@
 
 To get the newest version of starter code:
 
-		git pull origin master
+		git pull origin master# jak2302_CSEE_4119_project1
