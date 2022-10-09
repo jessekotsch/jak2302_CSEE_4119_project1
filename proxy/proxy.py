@@ -35,11 +35,14 @@ while True:
 
 	print("Accepting client side socket message...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+ 
 
 	print("Ready to recieve message")
-	message = connectionSocket.recv(serverPort) 
+	message = connectionSocket.recv(2048) 
 	print("Message Received...")
 	print(message)
+	print("Closing connection socket"
+	connectionSocket.close()
 
 # Step b
 # Establish connection with a server
