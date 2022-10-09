@@ -17,7 +17,7 @@ clientPort = 8080
 	#a. connect client (TCP)
 
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.connect((clientIP, clientPort))
+#ClientSideSocket.connect((clientIP, clientPort))
 
 	#b. bind and listen for message
 
