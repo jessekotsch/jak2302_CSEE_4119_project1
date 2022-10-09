@@ -34,15 +34,15 @@ while True:
 	#Receive message
 
 	print("Accepting client side socket message...")
-	clientconnectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
  
 
 	print("Ready to recieve message")
-	message = clientconnectionSocket.recv(2048) 
+	message = connectionSocket.recv(2048) 
 	print("Message Received...")
 	print(message)
 	print("Closing connection socket")
-	clientconnectionSocket.close()
+	connectionSocket.close()
 
 # Step b
 # Establish connection with a server
@@ -53,11 +53,10 @@ while True:
 	print("Opening Server Side Socket...")
 	ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 	ServerSideSocket.connect((serverIP,serverPort))
-	serverconnectionSocket, addr = ServerSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
     #b. send received message from client
 	print("Sending Message...")
-	serverconnectionSocket.send(message)
+	ServerSideSocket.send(message)
 
 	#c. close socket connection
 	print("Closing Server Side Socket...")
