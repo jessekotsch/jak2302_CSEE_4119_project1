@@ -4,11 +4,7 @@ import sys
 from socket import *
 
 #for debug
-from keyboard import *
-keyboard.add_hotkey('q', lambda: quit())
-def quit():
-    global exitProgram
-    exitProgram=True
+debugcontinue = "yes"
 
 
 #Make Input later
@@ -35,7 +31,7 @@ ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
 #while True:
-while not exitProgram:
+while debugcontinue = "yes"
 	#Receive message
 
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
@@ -58,6 +54,10 @@ while not exitProgram:
 	#c. close socket connection
 
 	ServerSideSocket.close()
+
+    clientSocket.send(message.encode())
+
+    debugcontinue = input("Would you like to continue (yes/no:")
     
 
 
