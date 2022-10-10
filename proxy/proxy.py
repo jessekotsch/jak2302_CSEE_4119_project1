@@ -65,8 +65,8 @@ while True:
 	ServerSideSocket.send(message)
 
 	#c. close socket connection
-	print("Closing Server Side Socket...")
-	ServerSideSocket.close()
+	#print("Closing Server Side Socket...")
+	#ServerSideSocket.close()
     
 
 
