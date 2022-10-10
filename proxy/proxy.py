@@ -51,13 +51,17 @@ ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 ServerSideSocket.connect((serverIP,serverPort))
 
 
-# 2. Your proxy should accept multiple connections from clients (one-by-one)
+#b. send received message from client
+print("Sending Message...")
+ServerSideSocket.send(message)
 
-	#Receive message
+# Repeat until connection needs to be closed
 while True:
 
 	print("Ready to recieve message")
-	message = connectionSocket.recv(2048) 
+	message = connectionSocket.recv(2048)
+	if message == '':
+		break
 	print("Message Received...")
 	print(message)
 	
@@ -69,11 +73,11 @@ while True:
 
 
     
-#print("Closing connection socket")
-#connectionSocket.close()
-#close socket connection
-#print("Closing Server Side Socket...")
-#ServerSideSocket.close()
+print("Closing connection socket")
+connectionSocket.close()
+close socket connection
+print("Closing Server Side Socket...")
+ServerSideSocket.close()
 
 
 
