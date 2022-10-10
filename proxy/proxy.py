@@ -6,9 +6,13 @@ from socket import *
 
 
 #Make Input later <listen-port> <fake-ip> <server-ip>
-listenPort = int(sys.argv[1])
-clientIP = sys.argv[2]
-serverIP = sys.argv[3]
+#listenPort = int(sys.argv[1])
+#clientIP = sys.argv[2]
+#serverIP = sys.argv[3]
+
+clientIP = sys.argv[1]
+serverIP = sys.argv[2]
+listenPort = int(sys.argv[3])
 serverPort = int(sys.argv[4])
 
 
