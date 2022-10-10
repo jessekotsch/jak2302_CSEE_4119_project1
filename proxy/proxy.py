@@ -35,6 +35,12 @@ print("Accepting client side socket message...")
 connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 
+print("Ready to recieve message")
+message = connectionSocket.recv(2048) 
+print("Message Received...")
+print(message)
+
+
 # Step b
 # Establish connection with a server
 # 3. Once the proxy gets connected to the client, it should then connect to the server.
