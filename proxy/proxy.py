@@ -59,13 +59,13 @@ ServerSideSocket.send(message)
 while True:
 
 
-    fullMessage = Null
+	fullMessage = Null
 
 
 	print("Ready to recieve message")
-    while message:
+	while message:
 		message = connectionSocket.recv(2048)
-        fullMessage = fullMessage + message
+		fullMessage = fullMessage + message
 	 
 	if not fullMessage:
 		print("AHHHHHHHH...")
