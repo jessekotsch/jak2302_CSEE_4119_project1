@@ -70,7 +70,10 @@ while True:
 
     #b. send received message from client
 	print("Sending Message...")
-	ServerSideSocket.send(message)
+	try:
+		ServerSideSocket.send(message)
+	except:
+		print("No Server Connection")
 
 
 
