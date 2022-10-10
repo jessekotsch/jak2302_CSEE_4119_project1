@@ -34,6 +34,17 @@ ClientSideSocket.listen(1)
 print("Accepting client side socket message...")
 connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
+
+# Step b
+# Establish connection with a server
+# 3. Once the proxy gets connected to the client, it should then connect to the server.
+	#a. create a server socket (TCP) and connect to it
+
+print("Opening Server Side Socket...")
+ServerSideSocket = socket(AF_INET, SOCK_STREAM)
+ServerSideSocket.connect((serverIP,serverPort))
+
+
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
 
 	#Receive message
@@ -43,27 +54,21 @@ while True:
 	message = connectionSocket.recv(2048) 
 	print("Message Received...")
 	print(message)
-	#print("Closing connection socket")
-	#connectionSocket.close()
-
-# Step b
-# Establish connection with a server
-# 3. Once the proxy gets connected to the client, it should then connect to the server.
-	#a. create a server socket (TCP) and connect to it
-
-
-	print("Opening Server Side Socket...")
-	ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-	ServerSideSocket.connect((serverIP,serverPort))
+	
 
     #b. send received message from client
 	print("Sending Message...")
 	ServerSideSocket.send(message)
 
-	#c. close socket connection
-	#print("Closing Server Side Socket...")
-	#ServerSideSocket.close()
+
+
     
+#print("Closing connection socket")
+#connectionSocket.close()
+#close socket connection
+#print("Closing Server Side Socket...")
+#ServerSideSocket.close()
+
 
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
