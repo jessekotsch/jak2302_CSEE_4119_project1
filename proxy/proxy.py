@@ -37,7 +37,7 @@ connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
 
 	#Receive message
-	while True:
+while True:
 
 	print("Ready to recieve message")
 	message = connectionSocket.recv(2048) 
