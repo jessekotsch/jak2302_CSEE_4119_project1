@@ -74,6 +74,7 @@ while True:
 		ServerSideSocket.send(message)
 	except:
 		print("No Server Connection")
+		break
 
 
 
