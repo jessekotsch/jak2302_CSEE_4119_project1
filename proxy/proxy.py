@@ -58,9 +58,16 @@ ServerSideSocket.send(message)
 # Repeat until connection needs to be closed
 while True:
 
+
+    fullMessage = Null
+
+
 	print("Ready to recieve message")
-	message = connectionSocket.recv(8)
-	if not message:
+    while message:
+		message = connectionSocket.recv(2048)
+        fullMessage = fullMessage + message
+	 
+	if not fullMessage:
 		print("AHHHHHHHH...")
 		break
 
