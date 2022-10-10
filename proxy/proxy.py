@@ -59,7 +59,7 @@ ServerSideSocket.send(message)
 while True:
 
 	print("Ready to recieve message")
-	message = connectionSocket.recv(2048)
+	message = connectionSocket.recv(8)
 	if not message:
 		print("AHHHHHHHH...")
 		break
