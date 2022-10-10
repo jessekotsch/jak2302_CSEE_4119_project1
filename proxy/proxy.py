@@ -60,7 +60,7 @@ while True:
 
 	print("Ready to recieve message")
 	message = connectionSocket.recv(2048)
-	if message == '':
+	if message == 'b''':
 		print("AHHHHHHHH...")
 		break
 	print("Message Received...")
