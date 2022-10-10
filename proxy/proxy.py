@@ -16,7 +16,7 @@ listenPort = int(sys.argv[3])
 serverPort = int(sys.argv[4])
 
 
-
+while True:
 
 # Step a:
 # Establish connection with a client
@@ -24,19 +24,16 @@ serverPort = int(sys.argv[4])
 # specified as a command line argument.
 	#a. connect client (TCP)
 
-ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-#ClientSideSocket.connect((clientIP, clientPort))
+	ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 
 	#b. bind and listen for message
 
 
-ClientSideSocket.bind((clientIP, listenPort))
-ClientSideSocket.listen(1)
+	ClientSideSocket.bind((clientIP, listenPort))
+	ClientSideSocket.listen(1)
 
 # 2. Your proxy should accept multiple connections from clients (one-by-one)
-#while True:
 
-while True:
 	#Receive message
 
 	print("Accepting client side socket message...")
