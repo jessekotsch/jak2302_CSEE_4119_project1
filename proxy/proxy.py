@@ -59,7 +59,7 @@ ServerSideSocket.send(message)
 while True:
 
 
-	fullMessage = None
+	fullMessage = bytearray()
 
 
 	print("Ready to recieve message")
