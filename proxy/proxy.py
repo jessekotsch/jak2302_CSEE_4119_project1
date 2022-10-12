@@ -58,13 +58,11 @@ ServerSideSocket.send(message)
 while True:
 
 
-	fullMessage = bytearray()
-
-
 	print("Ready to recieve message")
-	receivingMessage = True 
 	message = connectionSocket.recv(bufferSize)
 	 
+	if not message:
+		break
 
 	print("Message Received...")
 	print(message)
