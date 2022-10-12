@@ -12,6 +12,8 @@ serverIP = sys.argv[3]
 
 serverPort = 8080
 
+bufferSize = 8
+
 
 
 # Step a:
@@ -33,7 +35,7 @@ connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 
 print("Ready to recieve message")
-message = connectionSocket.recv(2048) 
+message = connectionSocket.recv(bufferSize) 
 print("Message Received...")
 print(message)
 
@@ -61,7 +63,7 @@ while True:
 
 	print("Ready to recieve message")
 	receivingMessage = True 
-	message = connectionSocket.recv(8,MSG_WAITALL)
+	message = connectionSocket.recv(bufferSize)
 	 
 
 	print("Message Received...")
