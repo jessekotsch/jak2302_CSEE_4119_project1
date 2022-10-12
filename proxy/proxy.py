@@ -34,7 +34,8 @@ while True:
 			ClientSideSocket.bind((clientIP, listenPort))
 			ClientSideSocket.listen(1)
 			break
-		except Exception as e: print(e)
+		except Exception as e:
+			print(e)
 			time.sleep(10)
 		
 
