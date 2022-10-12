@@ -2,7 +2,7 @@
 
 import sys
 from socket import *
-from time import *
+import time
 
 
 
