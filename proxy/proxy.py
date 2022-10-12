@@ -58,10 +58,17 @@ while True:
 # Establish connection with a server
 # 3. Once the proxy gets connected to the client, it should then connect to the server.
 	#a. create a server socket (TCP) and connect to it
-
-		print("Opening Server Side Socket...")
-		ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-		ServerSideSocket.connect((serverIP,serverPort))
+		while True:
+			try:
+				print("Opening Server Side Socket...")
+				ServerSideSocket = socket(AF_INET, SOCK_STREAM)
+				ServerSideSocket.connect((serverIP,serverPort))
+				print("Server Connected")
+				break
+			except Exception as e:
+				print(e)
+				time.sleep(10)
+	
 
 
 #b. send received message from client
