@@ -2,6 +2,7 @@
 
 import sys
 from socket import *
+from time import *
 
 
 
@@ -27,16 +28,21 @@ while True:
 	ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 
 	#b. bind and listen for message
+	print("Binding to Client")
+	while True:
+		try: 
+			ClientSideSocket.bind((clientIP, listenPort))
+			ClientSideSocket.listen(1)
+			break
+		except Exception as e: print(e)
+			time.sleep(10)
+		
 
-
-	ClientSideSocket.bind((clientIP, listenPort))
-	ClientSideSocket.listen(1)
-
-	print("Accepting client side socket message...")
+	print("Listening for Client...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 
-	print("Ready to recieve message")
+	print("Client Connected: Ready to recieve message")
 	message = connectionSocket.recv(bufferSize)
 	# if the connection with the client sdrops before the first message is sent then close the connection and start over
 	if not message:
@@ -65,7 +71,7 @@ while True:
 		while True:
 
 
-			print("Ready to recieve message")
+			print("Maintaing Client Connection: Ready to recieve another message")
 			message = connectionSocket.recv(bufferSize)
 	 
 			if not message:
