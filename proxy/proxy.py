@@ -64,7 +64,7 @@ while True:
 		message = connectionSocket.recv(2048)
 		print("partial message: " + message)
 		fullMessage = fullMessage + message
-    except:
+	except:
 		print("MESSAGE END: " + message)
 	 
 	if not fullMessage:
