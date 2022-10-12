@@ -60,25 +60,26 @@ while True:
 
 
 	print("Ready to recieve message")
-	try:
-		message = connectionSocket.recv(8)
-		print("partial message: " , message)
-		fullMessage = fullMessage + message
-	except:
-		print("MESSAGE END: ",  message)
+	receivingMessage = True 
+    while receivingMessage == True:
+		try:
+			message = connectionSocket.recv(8)
+			print("partial message: " , message)
+			fullMessage = fullMessage + message
+		except:
+			print("MESSAGE END: ",  fullMessage)
+			receivingMessage = False 
 	 
-	if not fullMessage:
-		print("AHHHHHHHH...")
-		break
+
 
 	print("Message Received...")
-	print(message)
+	print(fullMessage)
 	
 
     #b. send received message from client
 	print("Sending Message...")
 	try:
-		ServerSideSocket.send(message)
+		ServerSideSocket.send(fullMessage)
 	except:
 		print("No Server Connection")
 		break
