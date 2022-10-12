@@ -61,7 +61,7 @@ while True:
 
 	print("Ready to recieve message")
 	try:
-		message = connectionSocket.recv(2048)
+		message = connectionSocket.recv(8)
 		print("partial message: " , message)
 		fullMessage = fullMessage + message
 	except:
