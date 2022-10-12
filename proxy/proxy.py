@@ -6,14 +6,11 @@ from socket import *
 
 
 #Make Input later <listen-port> <fake-ip> <server-ip>
-#listenPort = int(sys.argv[1])
-#clientIP = sys.argv[2]
-#serverIP = sys.argv[3]
+listenPort = int(sys.argv[1])
+clientIP = sys.argv[2]
+serverIP = sys.argv[3]
 
-clientIP = sys.argv[1]
-serverIP = sys.argv[2]
-listenPort = int(sys.argv[3])
-serverPort = int(sys.argv[4])
+serverPort = 8080
 
 
 
@@ -63,9 +60,12 @@ while True:
 
 
 	print("Ready to recieve message")
-	while message:
+	try:
 		message = connectionSocket.recv(2048)
+		print("partial message: " + message)
 		fullMessage = fullMessage + message
+    except:
+		print("MESSAGE END: " + message)
 	 
 	if not fullMessage:
 		print("AHHHHHHHH...")
