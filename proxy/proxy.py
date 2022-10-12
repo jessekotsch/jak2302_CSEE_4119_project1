@@ -62,10 +62,10 @@ while True:
 	print("Ready to recieve message")
 	try:
 		message = connectionSocket.recv(2048)
-		print("partial message: " + message)
+		print("partial message: "  message)
 		fullMessage = fullMessage + message
 	except:
-		print("MESSAGE END: " + message)
+		print("MESSAGE END: "  message)
 	 
 	if not fullMessage:
 		print("AHHHHHHHH...")
