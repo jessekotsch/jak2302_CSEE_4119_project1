@@ -8,10 +8,8 @@ import time
 
 #Make Input later <listen-port> <fake-ip> <server-ip>
 listenPort = int(sys.argv[1])
-clientIP = sys.argv[2]
+fakeIP = sys.argv[2]
 serverIP = sys.argv[3]
-
-serverPort = 8080
 
 bufferSize = 8
 
@@ -30,7 +28,8 @@ ClientSideSocket.listen(10)
 
 
 ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-ServerSideSocket.connect((serverIP,serverPort))
+ServerSideSocket.bind((fakeIP, 8080))
+ServerSideSocket.connect((serverIP,8080))
 
 
 while True:
