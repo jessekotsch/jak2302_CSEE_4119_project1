@@ -40,7 +40,7 @@ while True:
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 	except Exception as e:
 		print(e)
-		sleep(5)
+		time.sleep(5)
 		continue
 	else:
 
