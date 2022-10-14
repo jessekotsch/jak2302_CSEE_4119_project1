@@ -25,7 +25,7 @@ bufferSize = 8
 
 
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.bind((clientIP, listenPort))
+ClientSideSocket.bind(('', listenPort))
 ClientSideSocket.listen(10)
 
 
