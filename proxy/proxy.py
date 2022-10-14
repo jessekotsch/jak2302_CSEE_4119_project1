@@ -33,44 +33,49 @@ ServerSideSocket.bind((fakeIP, 0))
 
 
 while True:
-	print("Connecting Server")
-	ServerSideSocket.connect((serverIP,8080))
-	print("Listening for Client...")
-	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+	try: 
+		print("Connecting Server")
+		ServerSideSocket.connect((serverIP,8080))
+		print("Listening for Client...")
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+	except Exception as e:
+		print(e)
+		continue
+	else:
 
-	while True:
+		while True:
 
 
-		print("Client Connected: Ready to recieve message")
-		message = connectionSocket.recv(bufferSize)
-		# if the connection with the client sdrops before the first message is sent then close the connection and start over
-		if not message:
-			print("Client Connection Has Beed Lost. Closing Connections...")
-			break
-		else:
-			print("Message Received...")
-			print(message)
+			print("Client Connected: Ready to recieve message")
+			message = connectionSocket.recv(bufferSize)
+			# if the connection with the client sdrops before the first message is sent then close the connection and start over
+			if not message:
+				print("Client Connection Has Beed Lost. Closing Connections...")
+				break
+			else:
+				print("Message Received...")
+				print(message)
 	
 
 
-	#b. send received message from client
-			#b. send received message from client
-		print("Sending Message...")
-		try:
-			ServerSideSocket.send(message)
-		except:
-			print("Server Connection Has Beed Lost. Closing Connections...")
-			break
+		#b. send received message from client
+				#b. send received message from client
+			print("Sending Message...")
+			try:
+				ServerSideSocket.send(message)
+			except:
+				print("Server Connection Has Beed Lost. Closing Connections...")
+				break
 
 
     
-	print("Closing connection socket")
-	connectionSocket.close()
-	#close socket connection
+		print("Closing connection socket")
+		connectionSocket.close()
+		#close socket connection
 
-	# Assuming socket connection never fails for preliminary stage 
-	print("Closing Server Side Socket...")
-	ServerSideSocket.close()
+		# Assuming socket connection never fails for preliminary stage 
+		print("Closing Server Side Socket...")
+		ServerSideSocket.close()
 
 
 
