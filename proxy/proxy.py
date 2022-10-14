@@ -39,7 +39,7 @@ while True:
 		ServerSideSocket.bind((fakeIP, 0))
 		ServerSideSocket.connect((serverIP,8080))
 		
-	except e as Exception:
+	except except Exception as e:
 		print(e)
 		time.sleep(3)
 	else:
