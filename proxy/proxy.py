@@ -23,91 +23,52 @@ bufferSize = 8
 # specified as a command line argument.
 	#a. connect client (TCP)
 
+
+ClientSideSocket = socket(AF_INET, SOCK_STREAM)
+ClientSideSocket.bind((clientIP, listenPort))
+ClientSideSocket.listen(10)
+
+
+ServerSideSocket = socket(AF_INET, SOCK_STREAM)
+ServerSideSocket.connect((serverIP,serverPort))
+
+
 while True:
-
-	ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-
-	#b. bind and listen for message
-	print("Binding to Client")
-	while True:
-		try: 
-			ClientSideSocket.bind((clientIP, listenPort))
-			ClientSideSocket.listen(10)
-			break
-		except Exception as e:
-			print(e)
-			time.sleep(10)
-		
 
 	print("Listening for Client...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-
-	print("Client Connected: Ready to recieve message")
-	message = connectionSocket.recv(bufferSize)
-	# if the connection with the client sdrops before the first message is sent then close the connection and start over
-	if not message:
-		#connectionSocket.close()
-		ClientSideSocket.close()
-		continue
-	else:
-		print("Message Received...")
-		print(message)
+	while True:
 
 
-# Step b
-# Establish connection with a server
-# 3. Once the proxy gets connected to the client, it should then connect to the server.
-	#a. create a server socket (TCP) and connect to it
-		while True:
-			try:
-				print("Opening Server Side Socket...")
-				ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-				ServerSideSocket.connect((serverIP,serverPort))
-				print("Server Connected")
-				break
-			except Exception as e:
-				print(e)
-				print("Run Server to continue") 
-				time.sleep(10)
-	
-
-
-#b. send received message from client
-		print("Sending Message...")
-		ServerSideSocket.send(message)
-
-# Repeat until connection needs to be closed
-		while True:
-
-
-			print("Maintaing Client Connection: Ready to recieve another message")
-			message = connectionSocket.recv(bufferSize)
-	 
-			if not message:
-				break
-
+		print("Client Connected: Ready to recieve message")
+		message = connectionSocket.recv(bufferSize)
+		# if the connection with the client sdrops before the first message is sent then close the connection and start over
+		if not message:
+			connectionSocket.close()
+			break
+		else:
 			print("Message Received...")
 			print(message)
 	
 
-			#b. send received message from client
-			print("Sending Message...")
-			try:
-				ServerSideSocket.send(message)
-			except:
-				print("No Server Connection")
-				break
 
+	#b. send received message from client
+			#b. send received message from client
+		print("Sending Message...")
+		try:
+			ServerSideSocket.send(message)
+		except:
+			print("No Server Connection")
+			break
 
 
     
-		print("Closing connection socket")
-		#connectionSocket.close()
-		ClientSideSocket.close()
-		#close socket connection
-		print("Closing Server Side Socket...")
-		ServerSideSocket.close()
+	print("Closing connection socket")
+	connectionSocket.close()
+	#close socket connection
+	print("Closing Server Side Socket...")
+	ServerSideSocket.close()
 
 
 
