@@ -66,8 +66,10 @@ while True:
 	print("Closing connection socket")
 	connectionSocket.close()
 	#close socket connection
-	print("Closing Server Side Socket...")
-	ServerSideSocket.close()
+
+	# Assuming socket connection never fails for preliminary stage 
+	#print("Closing Server Side Socket...")
+	#ServerSideSocket.close()
 
 
 
