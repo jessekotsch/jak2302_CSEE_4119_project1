@@ -27,13 +27,14 @@ ClientSideSocket.bind(('', listenPort))
 ClientSideSocket.listen(10)
 
 
-ServerSideSocket = socket(AF_INET, SOCK_STREAM)
+#ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 ServerSideSocket.bind((fakeIP, 0))
 #ServerSideSocket.connect((serverIP,8080))
 
 
 while True:
 	print("Connecting Server")
+	ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 	ServerSideSocket.connect((serverIP,8080))
 	print("Listening for Client...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
