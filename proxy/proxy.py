@@ -29,11 +29,12 @@ ClientSideSocket.listen(10)
 
 ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 ServerSideSocket.bind((fakeIP, 0))
-ServerSideSocket.connect((serverIP,8080))
+#ServerSideSocket.connect((serverIP,8080))
 
 
 while True:
-
+	print("Connecting Server")
+	ServerSideSocket.connect((serverIP,8080))
 	print("Listening for Client...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
@@ -44,7 +45,7 @@ while True:
 		message = connectionSocket.recv(bufferSize)
 		# if the connection with the client sdrops before the first message is sent then close the connection and start over
 		if not message:
-			connectionSocket.close()
+			print("Client Connection Has Beed Lost. Closing Connections...")
 			break
 		else:
 			print("Message Received...")
@@ -58,7 +59,7 @@ while True:
 		try:
 			ServerSideSocket.send(message)
 		except:
-			print("No Server Connection")
+			print("Server Connection Has Beed Lost. Closing Connections...")
 			break
 
 
@@ -68,8 +69,8 @@ while True:
 	#close socket connection
 
 	# Assuming socket connection never fails for preliminary stage 
-	#print("Closing Server Side Socket...")
-	#ServerSideSocket.close()
+	print("Closing Server Side Socket...")
+	ServerSideSocket.close()
 
 
 
