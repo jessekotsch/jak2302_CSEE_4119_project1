@@ -32,7 +32,7 @@ while True:
 	while True:
 		try: 
 			ClientSideSocket.bind((clientIP, listenPort))
-			ClientSideSocket.listen(1)
+			ClientSideSocket.listen(10)
 			break
 		except Exception as e:
 			print(e)
@@ -67,6 +67,7 @@ while True:
 				break
 			except Exception as e:
 				print(e)
+				print("Run Server to continue") 
 				time.sleep(10)
 	
 
