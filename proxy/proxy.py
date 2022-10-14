@@ -21,21 +21,19 @@ bufferSize = 8
 # specified as a command line argument.
 	#a. connect client (TCP)
 
-
+print("Connecting CLient")
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 ClientSideSocket.bind(('', listenPort))
 ClientSideSocket.listen(10)
 
-
+print("Connecting Server")
 ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 ServerSideSocket.bind((fakeIP, 0))
-#ServerSideSocket.connect((serverIP,8080))
+ServerSideSocket.connect((serverIP,8080))
 
 
 while True:
 	
-	print("Connecting Server")
-	ServerSideSocket.connect((serverIP,8080))
 	print("Listening for Client...")
 	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
