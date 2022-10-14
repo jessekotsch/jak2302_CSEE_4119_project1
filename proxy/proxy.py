@@ -28,7 +28,7 @@ ClientSideSocket.listen(10)
 
 
 ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-ServerSideSocket.bind((fakeIP, 8080))
+ServerSideSocket.bind((fakeIP, 0))
 ServerSideSocket.connect((serverIP,8080))
 
 
