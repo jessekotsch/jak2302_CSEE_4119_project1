@@ -47,7 +47,8 @@ while True:
 	message = connectionSocket.recv(bufferSize)
 	# if the connection with the client sdrops before the first message is sent then close the connection and start over
 	if not message:
-		connectionSocket.close()
+		#connectionSocket.close()
+		ClientSideSocket.close()
 		continue
 	else:
 		print("Message Received...")
@@ -102,7 +103,8 @@ while True:
 
     
 		print("Closing connection socket")
-		connectionSocket.close()
+		#connectionSocket.close()
+		ClientSideSocket.close()
 		#close socket connection
 		print("Closing Server Side Socket...")
 		ServerSideSocket.close()
