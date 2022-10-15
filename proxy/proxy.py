@@ -7,7 +7,7 @@ import time
 
 
 
-#Make Input later <listen-port> <fake-ip> <server-ip>
+#Inputs: <listen-port> <fake-ip> <server-ip>
 listenPort = int(sys.argv[1])
 fakeIP = sys.argv[2]
 serverIP = sys.argv[3]
@@ -16,43 +16,36 @@ bufferSize = 8
 
 
 
-# Step a:
-# Establish connection with a client
-# 1. Your proxy should listen for connnections from a client on any IP address on the port
-# specified as a command line argument.
-	#a. connect client (TCP)
-
+# Create client side socket, bind and listen 
 print("Connecting Client")
 ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 ClientSideSocket.bind(('', listenPort))
 ClientSideSocket.listen(10)
 
 
-#ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-#ServerSideSocket.bind((fakeIP, 0))
-#ServerSideSocket.connect((serverIP,8080))
-
-
 while True:
 	try:
+		# Connect to server  
 		print("Connecting Server")
 		ServerSideSocket = socket(AF_INET, SOCK_STREAM)
 		ServerSideSocket.bind((fakeIP, 0))
 		ServerSideSocket.connect((serverIP,8080))
 		
 	except Exception as e:
+		# If server is not running print error and keep tryin to connect
 		print(e)
 		time.sleep(3)
 	else:
+		# if Server connects then wait for client 
 		print("Listening for Client...")
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 		while True:
-
-
+            
+			# client has connected to wait until message is recieved 
 			print("Client Connected: Ready to recieve message")
 			message = connectionSocket.recv(bufferSize)
-			# if the connection with the client sdrops before the first message is sent then close the connection and start over
+			# if the connection with the client drops before the first message is sent then close the connection and start over
 			if not message:
 				print("Client Connection Has Beed Lost. Closing Connections...")
 				break
@@ -61,18 +54,16 @@ while True:
 				print(message)
 	
 
-
-		#b. send received message from client
-				#b. send received message from client
-			print("Sending Message...")
+			# try sending the message to the server
 			try:
 				ServerSideSocket.send(message)
 			except:
+				# If message fails to send the server has been disconnected
 				print("Server Connection Has Beed Lost. Closing Connections...")
 				break
 
 
-    
+		# Close client and sever connections and restart
 		print("Closing connection socket")
 		connectionSocket.close()
 		#close socket connection
@@ -81,12 +72,6 @@ while True:
 		print("Closing Server Side Socket...")
 		ServerSideSocket.close()
 
-
-
-# 2. Your proxy should accept multiple connections from clients (one-by-one)
-# 4. The server IP is provided as a command line argument
-# 5. As for the port number, use 8080. 
-# 6. Make sure to close connections to the client and server when either of them disconnects. 
 
 
 
