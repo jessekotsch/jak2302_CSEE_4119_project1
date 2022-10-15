@@ -1,3 +1,4 @@
+#!/usr/bin/python3.10
 #jak2302
 
 import sys
