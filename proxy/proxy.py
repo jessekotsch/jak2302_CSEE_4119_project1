@@ -55,7 +55,7 @@ while True:
 		
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
-		if 'mpd' in response:
+		if 'mpd' in str(response):
 			print("Found!")
 			print("Response Received")
 			print("##########################")
