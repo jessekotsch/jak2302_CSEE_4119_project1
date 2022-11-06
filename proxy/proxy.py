@@ -15,6 +15,7 @@ import time
 listenPort = int(sys.argv[1])
 fakeIP = sys.argv[2]
 webserverIP = sys.argv[3]
+bufferSize = 4096
 
 
 # Bind and listen on client side
@@ -38,7 +39,7 @@ while True:
 
 
 		# Accept request from client
-		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET 
 		message = connectionSocket.recv(bufferSize)
 		print("MESSAGE: " + message)
 		
