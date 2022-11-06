@@ -34,7 +34,7 @@ while True:
 		# Create socket on  web server side and try and connect 
 		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
 		WebServerSideSocket.bind((fakeIP, 0))
-		WebServerSideSocket.connect((serverIP,8080))
+		WebServerSideSocket.connect((webserverIP,8080))
 
 
 		# Accept request from client
