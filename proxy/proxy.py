@@ -50,6 +50,7 @@ while True:
 		
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
+		print("Response Received")
 		print(response.decode())
 
 
