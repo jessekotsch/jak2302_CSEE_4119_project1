@@ -32,17 +32,17 @@ print("Listening on port: " + str(listenPort))
 while True: 
 
 	try:
-		# Create socket on  web server side and try and connect 
+		# Create socket on  web server side and try and connect
+		print("Connecting to Webserver") 
 		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
 		WebServerSideSocket.bind((fakeIP, 0))
 		WebServerSideSocket.connect((webserverIP,8080))
 
 
 		# Accept request from client
-		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET 
-		message = connectionSocket.recv(bufferSize).decode() #.split('\n'+[0]+'\n').encode()
-		print(message)
-		message.encode()
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET  
+		message = connectionSocket.recv(bufferSize)
+		print(message.decode())
 
 		# Forward request to server 
 		WebServerSideSocket.send(message)
