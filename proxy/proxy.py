@@ -59,7 +59,8 @@ while True:
 		if 'mpd' in str(response):
 			print("Found!")
 			root = ET.fromstring(str(response))
-			print(root)
+			for child in root: 
+				print(child.tag, child.attrib)
 			"""
 			print("Response Received")
 			print("##########################")
