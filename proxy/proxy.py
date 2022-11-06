@@ -4,6 +4,7 @@
 import sys
 from socket import *
 import time
+import xml.etree.ElementTree as ET
 
 
 #Start by saving time of chunk request
@@ -57,6 +58,10 @@ while True:
 		response = WebServerSideSocket.recv(bufferSize)
 		if 'mpd' in str(response):
 			print("Found!")
+			tree = ET.parse('country_data.xml')
+			root = tree.getroot()
+			print(root)
+			"""
 			print("Response Received")
 			print("##########################")
 			print("##########################")
@@ -64,6 +69,7 @@ while True:
 			print(response)
 			print("##########################")
 			print("##########################")
+			"""
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
