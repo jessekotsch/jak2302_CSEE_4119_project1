@@ -51,7 +51,11 @@ while True:
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
 		print("Response Received")
-		print(response.decode())
+		print(response.decode)
+
+		# Send Response Back to Client
+		ClientSideSocket.send(response)
+		print("Response Sent")
 
 
 	except Exception as e:
