@@ -42,7 +42,12 @@ while True:
 		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET  
 		message = connectionSocket.recv(bufferSize)
+		print("##########################")
+		print("##########################")
+		print("CLIENT REQUEST MESSAGE:")
 		print(message.decode())
+		print("##########################")
+		print("##########################")
 
 		# Forward request to server 
 		WebServerSideSocket.send(message)
@@ -51,7 +56,12 @@ while True:
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
 		print("Response Received")
+		print("##########################")
+		print("##########################")
+		print("SERVER RESPONSE MESSAGE:")
 		print(response)
+		print("##########################")
+		print("##########################")
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
