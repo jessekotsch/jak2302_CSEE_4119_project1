@@ -6,7 +6,84 @@ from socket import *
 import time
 
 
+#Start by saving time of chunk request
 
+#stime = time.time()
+#print("start time: ", stime)
+
+#Inputs: <listen-port> <fake-ip> <server-ip>
+listenPort = int(sys.argv[1])
+fakeIP = sys.argv[2]
+webserverIP = sys.argv[3]
+
+
+# Bind and listen on client side
+ClientSideSocket = socket(AF_INET, SOCK_STREAM)
+ClientSideSocket.bind(('', listenPort))
+ClientSideSocket.listen(10)
+
+print("Listening on port: " + listenPort)
+
+
+
+
+
+while True: 
+
+	try:
+		# Create socket on  web server side and try and connect 
+		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
+		WebServerSideSocket.bind((fakeIP, 0))
+		WebServerSideSocket.connect((serverIP,8080))
+
+
+		# Accept request from client
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+		message = connectionSocket.recv(bufferSize)
+		if message is None:
+			return None
+		print(message)
+		
+
+
+
+	except Exception as e:
+		print(e)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########################
+# ORIGINAL PROXY CODE
+# SAVE JUST IN CASE
+########################
+"""
 #Inputs: <listen-port> <fake-ip> <server-ip>
 listenPort = int(sys.argv[1])
 fakeIP = sys.argv[2]
@@ -74,5 +151,5 @@ while True:
 
 
 
-
+"""
 
