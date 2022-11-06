@@ -58,7 +58,7 @@ while True:
 		response = WebServerSideSocket.recv(bufferSize)
 		if 'mpd' in str(response):
 			print("Found!")
-			root = getroot(response)
+			root = ET.fromstring(str(response))
 			print(root)
 			"""
 			print("Response Received")
