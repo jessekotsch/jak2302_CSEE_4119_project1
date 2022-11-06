@@ -58,7 +58,7 @@ while True:
 		response = WebServerSideSocket.recv(bufferSize)
 		if 'mpd' in str(response):
 			print("Found!")
-			tree = ET.parse('country_data.xml')
+			tree = ET.parse(response)
 			root = tree.getroot()
 			print(root)
 			"""
