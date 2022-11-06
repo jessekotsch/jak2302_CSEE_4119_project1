@@ -40,7 +40,7 @@ while True:
 
 		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET 
-		message = connectionSocket.recv(bufferSize).decode().split('\n')[0]+'\n').encode()
+		message = connectionSocket.recv(bufferSize).decode().split('\n'+[0]+'\n').encode()
 		print("MESSAGE: " + message)
 		
 
