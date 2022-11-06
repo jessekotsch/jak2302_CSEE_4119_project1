@@ -46,7 +46,10 @@ while True:
 
 
 	except Exception as e:
+		print("An Error Has Occured:")
 		print(e)
+		time.sleep(3)
+	
 
 
 
