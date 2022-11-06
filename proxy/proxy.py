@@ -42,7 +42,7 @@ while True:
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET 
 		message = connectionSocket.recv(bufferSize).decode() #.split('\n'+[0]+'\n').encode()
 		print(message)
-		message.split('\n'+[0]+'\n').encode()
+		#message.split('\n'+[0]+'\n').encode()
 
 		# Forward request to server 
 		WebServerSideSocket.send(message)
