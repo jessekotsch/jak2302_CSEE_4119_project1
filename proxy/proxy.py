@@ -55,13 +55,15 @@ while True:
 		
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
-		print("Response Received")
-		print("##########################")
-		print("##########################")
-		print("SERVER RESPONSE MESSAGE:")
-		print(response)
-		print("##########################")
-		print("##########################")
+		if 'mpd' in response:
+			print("Found!")
+			print("Response Received")
+			print("##########################")
+			print("##########################")
+			print("SERVER RESPONSE MESSAGE:")
+			print(response)
+			print("##########################")
+			print("##########################")
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
