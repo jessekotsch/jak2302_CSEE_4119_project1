@@ -48,9 +48,8 @@ while True:
 		WebServerSideSocket.send(message)
 		print("Message forwarded to web server")
 		
-		# Accept request from client
-		severConnectionSocket, addr = WebServerSideSocket.accept() ## RETURNS CONNECTION SOCKET    
-		response = severConnectionSocket.recv(bufferSize)
+		# Accept request from server
+		response = WebServerSideSocket.recv(bufferSize)
 		print(response.decode())
 
 
