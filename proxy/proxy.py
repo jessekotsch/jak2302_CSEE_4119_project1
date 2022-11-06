@@ -40,9 +40,7 @@ while True:
 		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 		message = connectionSocket.recv(bufferSize)
-		if message is None:
-			return None
-		print(message)
+		print("MESSAGE: " + message)
 		
 
 
