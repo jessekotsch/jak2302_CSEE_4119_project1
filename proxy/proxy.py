@@ -22,7 +22,7 @@ ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 ClientSideSocket.bind(('', listenPort))
 ClientSideSocket.listen(10)
 
-print("Listening on port: " + listenPort)
+print("Listening on port: " + str(listenPort))
 
 
 
