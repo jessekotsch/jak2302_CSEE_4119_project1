@@ -95,10 +95,8 @@ class Proxy:
 			content_length (int) : content length of message
 		"""
 		start = 'Content-Length:'
-		fields = response.split("\r\n")
-		for field in fields:
-			if start in field:
-				content_length = field
+		end = '\n'
+		((s.split(start))[1].split(end)[0])
 
 		return content_length
 
@@ -172,7 +170,7 @@ if __name__ == '__main__':
 			response = WebServerSideSocket.recv(bufferSize)
 			ftime = time.time()
 
-			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(response)
+			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
 			print("CONTENT LENGTH")
 			print(content_lingth)
 
