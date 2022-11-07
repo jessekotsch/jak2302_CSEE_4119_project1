@@ -153,8 +153,8 @@ while True:
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
 			#availible_bitrates = bitrate_search(response)
 
-			# Initialize current bitrate to lowest bitrate
-			bitrate = min(bitrates)
+			# Initialize current bitrate to lowest bitrate 
+			bitrate = min(availible_bitrates)
 			T_curr = bitrate
 		else:
 			T_new = throughput_calc(beta, ftime, stime)
