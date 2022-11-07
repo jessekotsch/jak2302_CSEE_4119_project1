@@ -172,7 +172,7 @@ if __name__ == '__main__':
 			response_fields = str(response).split("\r\n")
 			#content_length = response_fields # GET / HTTP/1.1
 			for field in response_fields:
-				print('###################SPLITTING FIELDS##################")
+				print('###################SPLITTING FIELDS##################')
 				print(field)
 
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
