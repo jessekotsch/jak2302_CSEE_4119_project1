@@ -147,7 +147,8 @@ while True:
 
 		#print(response)
 
-		availible_bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE
+		availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
+		print("Message Received")
 		# At beginning search minifest file for availible bitrates 
 		if 'mpd' in str(response):
 			print("Parsing Manifest")
