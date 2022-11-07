@@ -58,6 +58,7 @@ while True:
 		response = WebServerSideSocket.recv(bufferSize)
 		if 'mpd' in str(response):
 			print("Found!")
+			print(str(response))
 			root = ET.fromstring(str(response.decode()))
 			#for child in root: 
 				#print(child.tag, child.attrib)
