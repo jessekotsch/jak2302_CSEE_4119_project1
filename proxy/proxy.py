@@ -61,6 +61,7 @@ while True:
 			root = ET.fromstring(str(response.decode()))
 			#for child in root: 
 				#print(child.tag, child.attrib)
+			print(str(response))
 			"""
 			print("Response Received")
 			print("##########################")
