@@ -96,7 +96,7 @@ class Proxy:
 		"""
 		start = 'Content-Length:'
 		end = '\n'
-		((s.split(start))[1].split(end)[0])
+		((response.split(start))[1].split(end)[0])
 
 		return content_length
 
