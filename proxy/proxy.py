@@ -106,15 +106,15 @@ def bitrate_search(manifest):
 
     """
 
-    availible_bitrates = []
+	availible_bitrates = []
 
-    print("Found!")
+	print("Found!")
 	root = ET.fromstring(str(manifest.decode()))
 	#for child in root: 
 	    #print(child.tag, child.attrib)
 
     
-    return availible_bitrates
+	return availible_bitrates
 
 
 
