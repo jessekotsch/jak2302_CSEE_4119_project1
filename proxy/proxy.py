@@ -169,8 +169,8 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 			ftime = time.time()
-			response_fields = str(response).split("\r\n")
-			content_length = Proxy.find_content_length(str(response))
+			response_fields = str(response)#.split("\r\n")
+			content_length = Proxy.find_content_length(response_fields)
 			print("CONTENT LENGTH:")
 			print(content_length)
 
