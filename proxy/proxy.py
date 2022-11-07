@@ -130,11 +130,6 @@ if __name__ == '__main__':
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 			message = connectionSocket.recv(bufferSize)
-			while True:
-				print("Receiving Message") 
-				message += connectionSocket.recv(bufferSize)
-				print(message.decode())
-				if not message: break
 
 			stime = time.time() #Start by saving time of chunk request
 			print("##########################")
