@@ -164,16 +164,16 @@ if __name__ == '__main__':
 			if 'mpd' in str(response):
 				print("Parsing Manifest")
 				availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
-				#availible_bitrates = bitrate_search(response)
+				#availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(response)
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
 				T_curr = bitrate
 			else:
 				print("Calculating Throughput")
-				T_new = throughput_calc(beta, ftime, stime)
-				T_curr = ewma_calc(T_curr, alpha, T_new)
-				bitrate = bitrate_select(T_curr, availible_bitrates)
+				T_new = Proxy(listenPort, fakeIP, webserverIP).throughput_calc(beta, ftime, stime)
+				T_curr = Proxy(listenPort, fakeIP, webserverIP).ewma_calc(T_curr, alpha, T_new)
+				bitrate = Proxy(listenPort, fakeIP, webserverIP).bitrate_select(T_curr, availible_bitrates)
 			
 			
 
