@@ -169,14 +169,15 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 			ftime = time.time()
-			response_fields = str(response)#.split("\r\n")
-			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(response_fields)
-			print("CONTENT LENGTH:")
-			print(response_fields)
+			
+			while 'Partial Content' in str(response):
+				print("Adding Partial Content together")
+				response += WebServerSideSocket.recv(bufferSize)
 
+			
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
 			print("Message Received")
-			# At beginning search minifest file for availible bitrates 
+			# At beginning search minifest file for availible bitrates
 			if 'mpd' in str(response):
 				print("Parsing Manifest")
 				availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
