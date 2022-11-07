@@ -147,11 +147,11 @@ while True:
 
 		print(response)
 
-		bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE
+		availible_bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE
 		# At beginning search minifest file for availible bitrates
 		if 'mpd' in str(response):
-			bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
-			#bitrates = bitrate_search(response)
+			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
+			#availible_bitrates = bitrate_search(response)
 
 			# Initialize current bitrate to lowest bitrate
 			bitrate = min(bitrates)
@@ -159,7 +159,7 @@ while True:
 		else:
 			T_new = throughput_calc(beta, ftime, stime)
 			T_curr = ewma_calc(T_curr, alpha, T_new)
-			bitrate = bitrate_select
+			bitrate = bitrate_select(T_curr, availible_bitrates)
 
 
 		fields = response.split("\r\n")
