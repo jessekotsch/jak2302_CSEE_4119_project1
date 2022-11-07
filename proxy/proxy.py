@@ -140,16 +140,15 @@ while True:
 
 		print("Parsing GET Request")
 		fields = str_message.split("\r\n")
-		print("HERE1")
 		fields = fields[1:] #ignore the GET / HTTP/1.1
-		print("HERE2")
 		output = {}
 		for field in fields:
 			if not field:
 				continue
-			key,value = field.split(':')
-			output[key] = value    
-		print(output)
+			print(field)
+			#key,value = field.split(':')
+			#output[key] = value    
+		#print(output)
 
 		# Forward request to server
 		WebServerSideSocket.send(message)
