@@ -9,7 +9,10 @@ import xml.etree.ElementTree as ET
 
 class Proxy:
 
-	def __init__(self):
+	def __init__(self, listenPort, fakeIP, webserverIP):
+		self.listenPort = listenPort
+		self.fakeIP = fakeIP
+		self.webserverIP = webserverIP
 
 
 	def bitrate_select(self, T_curr, availible_bitrates):
