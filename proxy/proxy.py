@@ -98,9 +98,8 @@ class Proxy:
 		end = 'Content-Range'
 		
 		temp = ((response.split(start))[1].split(end)[0])
-		temp = temp.rstrip()
-		content_length = int(temp)
-		print(temp)
+		content_length = temp.split()
+		print(content_length)
 		return content_length
 
 
