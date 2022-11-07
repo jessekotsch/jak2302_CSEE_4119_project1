@@ -102,7 +102,8 @@ webserverIP = sys.argv[3]
 bufferSize = 4096
 
 beta = 1
-alpha = 1 
+alpha = 1
+Tcurr = 45514
 
 
 # Bind and listen on client side
@@ -146,7 +147,7 @@ while True:
 
 		print(response)
 
-		bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE 
+		bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE
 		# At beginning search minifest file for availible bitrates
 		if 'mpd' in str(response):
 			bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
