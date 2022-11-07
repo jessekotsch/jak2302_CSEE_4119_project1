@@ -158,7 +158,7 @@ while True:
 		else:
 			T_new = throughput_calc(beta, ftime, stime)
 			T_curr = ewma_calc(T_curr, alpha, T_new)
-            bitrate = bitrate_select
+			bitrate = bitrate_select
 
 
 		fields = response.split("\r\n")
