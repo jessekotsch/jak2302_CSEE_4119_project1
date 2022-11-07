@@ -178,7 +178,7 @@ if __name__ == '__main__':
 
 			if 'Partial Content' in str(response):
 				while True:
-					print("Adding Partial Content together")
+					#print("Adding Partial Content together")
 					try: 
 						partial_response = WebServerSideSocket.recv(bufferSize)
 						response += partial_response
