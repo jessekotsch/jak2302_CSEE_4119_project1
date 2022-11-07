@@ -142,7 +142,8 @@ while True:
 		print(response)
 		# At beginning search minifest file for availible bitrates
 		if 'mpd' in str(response):
-			bitrates = bitrate_search(response)
+			bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE 
+			#bitrates = bitrate_search(response)
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
