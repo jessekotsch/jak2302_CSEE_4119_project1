@@ -172,7 +172,7 @@ if __name__ == '__main__':
 			response_fields = str(response)#.split("\r\n")
 			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(response_fields)
 			print("CONTENT LENGTH:")
-			print(content_length)
+			print(response_fields)
 
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
 			print("Message Received")
