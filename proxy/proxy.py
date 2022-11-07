@@ -133,12 +133,13 @@ while True:
 		print("##########################")
 		print("##########################")
 		print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
+		str_message = message.decode()
 		print(message.decode())
 		print("##########################")
 		print("##########################")
 
 		print("Parsing GET Request")
-		fields = message.split("\r\n")
+		fields = str_message.split("\r\n")
 		fields = fields[1:] #ignore the GET / HTTP/1.1 
 		output = {}
 		for field in fields:
