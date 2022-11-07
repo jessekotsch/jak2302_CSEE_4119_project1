@@ -99,7 +99,7 @@ class Proxy:
 		
 		temp = ((response.split(start))[1].split(end)[0])
 		content_length = temp.split('\n')
-		print(content_length)
+		print(len(content_length))
 		return content_length
 
 
