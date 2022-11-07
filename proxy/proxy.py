@@ -140,7 +140,7 @@ while True:
 
 		print("Parsing GET Request")
 		fields = str_message.split("\r\n")
-		fields = fields[1:] # GET / HTTP/1.1
+		fields = fields[0] # GET / HTTP/1.1
 		print("GET:")
 		print(fields)
 		output = {}
