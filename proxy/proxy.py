@@ -92,19 +92,19 @@ def bitrate_select(Tcurr, availible_bitrates):
         
     """
     
-    return bitrate
+	return bitrate
 
 
 def bitrate_search(manifest):
-    """
-    This function parses the manifest (mpd) file requested at the beginning of the stream for available bitrates
+	"""
+	This function parses the manifest (mpd) file requested at the beginning of the stream for available bitrates
     (noted as bandwidths in the file"
-    Inputs:
-        manifest (str) : .mdp file requested at the beginning of the stream (encoded in XML). Used to extract possible bitrates. 
-    Outputs:
-        availible_bitrates [list]  : availible bitrates found from parsing minifest file
+	Inputs:
+		manifest (str) : .mdp file requested at the beginning of the stream (encoded in XML). Used to extract possible bitrates. 
+	Outputs:
+		availible_bitrates [list]  : availible bitrates found from parsing minifest file
 
-    """
+	"""
 
 	availible_bitrates = []
 
