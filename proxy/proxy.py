@@ -176,6 +176,8 @@ if __name__ == '__main__':
 					try: 
 						partial_response = WebServerSideSocket.recv(bufferSize)
 						response += partial_response
+						print("############")
+						print(str(partial_response))
 					except:
 						break
 					
