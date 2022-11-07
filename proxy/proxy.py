@@ -85,6 +85,22 @@ class Proxy:
 
 		return newT_curr
 
+	def find_content_length(self, response):
+		"""
+		This functions parses the HTTP response for the content length 
+		Inputs:
+			response (str) : HTTP repsonse message
+
+		Output :
+			content_length (int) : content length of message
+		"""
+		start = 'Content-Length:'
+		end = '\r\n'
+		content_length = ((s.split(start))[1].split(end)[0])
+
+		return content_length
+
+
 ###############################################
 ###############################################
 ###############################################
@@ -156,6 +172,7 @@ if __name__ == '__main__':
 			response_fields = str(response).split("\r\n")
 			#content_length = response_fields # GET / HTTP/1.1
 			for field in response_fields:
+				print('###################SPLITTING FIELDS##################")
 				print(field)
 
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
