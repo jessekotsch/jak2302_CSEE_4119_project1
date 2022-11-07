@@ -23,6 +23,8 @@ def bitrate_select(Tcurr, availible_bitrates):
         bitrate (str)  : chosen bitrate (A connections can support a bitrate if the average throughput is at least 1.5x the bitrate)
         
 	"""
+	###TO DO
+	bitrate = 45514
     
 	return bitrate
 
@@ -92,16 +94,15 @@ def ewma_calc(T_curr, alpha, T_new):
 ###############################################
 
 
-#Start by saving time of chunk request
-
-#stime = time.time()
-#print("start time: ", stime)
 
 #Inputs: <listen-port> <fake-ip> <server-ip>
 listenPort = int(sys.argv[1])
 fakeIP = sys.argv[2]
 webserverIP = sys.argv[3]
 bufferSize = 4096
+
+beta = 1
+alpha = 1 
 
 
 # Bind and listen on client side
@@ -123,11 +124,14 @@ while True:
 
 
 		# Accept request from client
-		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET  
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
 		message = connectionSocket.recv(bufferSize)
+
+		stime = time.time() #Start by saving time of chunk request
 		print("##########################")
 		print("##########################")
-		print("CLIENT REQUEST MESSAGE:")
+		print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
 		print(message.decode())
 		print("##########################")
 		print("##########################")
@@ -138,12 +142,36 @@ while True:
 		
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
+		ftime = time.time() 
 
 		print(response)
+
+		bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE 
 		# At beginning search minifest file for availible bitrates
 		if 'mpd' in str(response):
-			bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE 
+			bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
 			#bitrates = bitrate_search(response)
+
+			# Initialize current bitrate to lowest bitrate
+			bitrate = min(bitrates)
+			T_curr = bitrate
+		else:
+			T_new = throughput_calc(beta, ftime, stime)
+			T_curr = ewma_calc(T_curr, alpha, T_new)
+            bitrate = bitrate_select
+
+
+		fields = response.split("\r\n")
+		fields = fields[1:] #ignore the GET / HTTP/1.1
+		output = {}
+		for field in fields:
+			if not field:
+				continue
+			 key,value = field.split(':')
+				output[key] = value    
+		print(output)
+			
+			
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
