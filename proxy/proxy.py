@@ -129,7 +129,7 @@ if __name__ == '__main__':
 			# Accept request from client
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-			message = None
+			message = bytearray()
 			while True:
 				message += connectionSocket.recv(bufferSize)
 
