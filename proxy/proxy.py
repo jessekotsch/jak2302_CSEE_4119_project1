@@ -143,7 +143,6 @@ if __name__ == '__main__':
 			print("Parsing GET Request")
 			fields = str_message.split("\r\n")
 			url = fields[0] # GET / HTTP/1.1
-			print("GET:")
 			print(url)
 
 			# Forward request to server
@@ -155,9 +154,9 @@ if __name__ == '__main__':
 			response = WebServerSideSocket.recv(bufferSize)
 			ftime = time.time()
 			response_fields = str(response).split("\r\n")
-			content_length = response_fields[4] # GET / HTTP/1.1
-
-			print(content_length)
+			#content_length = response_fields # GET / HTTP/1.1
+			for field in response_fields:
+				print(field)
 
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
 			print("Message Received")
