@@ -103,7 +103,7 @@ bufferSize = 4096
 
 beta = 1
 alpha = 1
-Tcurr = 45514
+T_curr = 45514
 
 
 # Bind and listen on client side
