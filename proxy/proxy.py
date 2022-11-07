@@ -8,74 +8,6 @@ import xml.etree.ElementTree as ET
 
 
 
-#Start by saving time of chunk request
-
-#stime = time.time()
-#print("start time: ", stime)
-
-#Inputs: <listen-port> <fake-ip> <server-ip>
-listenPort = int(sys.argv[1])
-fakeIP = sys.argv[2]
-webserverIP = sys.argv[3]
-bufferSize = 4096
-
-
-# Bind and listen on client side
-ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.bind(('', listenPort))
-ClientSideSocket.listen(10)
-
-print("Listening on port: " + str(listenPort))
-
-
-
-
-
-while True: 
-
-	try:
-		# Create socket on  web server side and try and connect
-		print("Connecting to Webserver") 
-		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
-		WebServerSideSocket.bind((fakeIP, 0))
-		WebServerSideSocket.connect((webserverIP,8080))
-
-
-		# Accept request from client
-		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET  
-		message = connectionSocket.recv(bufferSize)
-		print("##########################")
-		print("##########################")
-		print("CLIENT REQUEST MESSAGE:")
-		print(message.decode())
-		print("##########################")
-		print("##########################")
-
-		# Forward request to server 
-		WebServerSideSocket.send(message)
-		print("Message forwarded to web server")
-		
-		# Accept request from server
-		response = WebServerSideSocket.recv(bufferSize)
-
-		print(response)
-		# At beginning search minifest file for availible bitrates
-		if 'mpd' in str(response):
-			bitrates = bitrate_search(response)
-
-		# Send Response Back to Client
-		connectionSocket.send(response)
-		print("Response Sent")
-
-
-	except Exception as e:
-		print("An Error Has Occured:")
-		print(e)
-		time.sleep(3)
-	
-
-
-
 ####################################
 ### FUNCTIONS
 ####################################
@@ -149,6 +81,79 @@ def ewma_calc(T_curr, alpha, T_new):
 
     return newT_curr
 
+###############################################
+###############################################
+###############################################
+###############################################
+## PROXY CODE
+###############################################
+###############################################
+###############################################
+###############################################
+
+
+#Start by saving time of chunk request
+
+#stime = time.time()
+#print("start time: ", stime)
+
+#Inputs: <listen-port> <fake-ip> <server-ip>
+listenPort = int(sys.argv[1])
+fakeIP = sys.argv[2]
+webserverIP = sys.argv[3]
+bufferSize = 4096
+
+
+# Bind and listen on client side
+ClientSideSocket = socket(AF_INET, SOCK_STREAM)
+ClientSideSocket.bind(('', listenPort))
+ClientSideSocket.listen(10)
+
+print("Listening on port: " + str(listenPort))
+
+
+while True: 
+
+	try:
+		# Create socket on  web server side and try and connect
+		print("Connecting to Webserver") 
+		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
+		WebServerSideSocket.bind((fakeIP, 0))
+		WebServerSideSocket.connect((webserverIP,8080))
+
+
+		# Accept request from client
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET  
+		message = connectionSocket.recv(bufferSize)
+		print("##########################")
+		print("##########################")
+		print("CLIENT REQUEST MESSAGE:")
+		print(message.decode())
+		print("##########################")
+		print("##########################")
+
+		# Forward request to server 
+		WebServerSideSocket.send(message)
+		print("Message forwarded to web server")
+		
+		# Accept request from server
+		response = WebServerSideSocket.recv(bufferSize)
+
+		print(response)
+		# At beginning search minifest file for availible bitrates
+		if 'mpd' in str(response):
+			bitrates = bitrate_search(response)
+
+		# Send Response Back to Client
+		connectionSocket.send(response)
+		print("Response Sent")
+
+
+	except Exception as e:
+		print("An Error Has Occured:")
+		print(e)
+		time.sleep(3)
+	
 
 
 
