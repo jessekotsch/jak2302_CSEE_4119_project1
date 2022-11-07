@@ -172,9 +172,9 @@ if __name__ == '__main__':
 			complete_info=''
 			while True:
 				response = WebServerSideSocket.recv(bufferSize) 
-				if len(response)<=0:
+				if len(response)<=0: 
 					break
-				complete_info+=response.decode("utf-8")
+				#complete_info+=response.decode("utf-8")
 
 			print("GOT OUT")
 			print(complete_info)
