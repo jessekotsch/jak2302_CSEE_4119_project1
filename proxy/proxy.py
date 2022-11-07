@@ -137,7 +137,7 @@ while True:
 		print("##########################")
 		print("##########################")
 
-		print("Parsing GET Request"
+		print("Parsing GET Request")
 		fields = response.split("\r\n")
 		fields = fields[1:] #ignore the GET / HTTP/1.1 
 		output = {}
