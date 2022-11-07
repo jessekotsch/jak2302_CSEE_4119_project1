@@ -95,7 +95,7 @@ class Proxy:
 ###############################################
 ###############################################
 
-if __name__ = '__main__':
+if __name__ == '__main__':
 
 	#Inputs: <listen-port> <fake-ip> <server-ip>
 	listenPort = int(sys.argv[1])
