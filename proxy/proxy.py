@@ -167,8 +167,8 @@ while True:
 		for field in fields:
 			if not field:
 				continue
-			 key,value = field.split(':')
-				output[key] = value    
+			key,value = field.split(':')
+			output[key] = value    
 		print(output)
 			
 			
