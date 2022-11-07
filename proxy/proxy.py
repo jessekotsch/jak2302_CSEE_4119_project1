@@ -167,8 +167,20 @@ if __name__ == '__main__':
 		
 			# Accept request from server
 
-			response = WebServerSideSocket.recv(bufferSize)
+			#response = WebServerSideSocket.recv(bufferSize)
+
+			complete_info=''
+			while True:
+				response = WebServerSideSocket.recv(bufferSize) 
+				if len(response)<=0:
+					break
+				complete_info+=response.decode("utf-8")
+
+			print("GOT OUT")
+			print(complete_info)
 			ftime = time.time()
+
+				"""
 
 			if 'Partial Content' in str(response):
 
@@ -176,8 +188,7 @@ if __name__ == '__main__':
 				print("CONTENT LENGTH")
 				print(content_lingth)
 
-			"""
-
+			
 			
 				while True:
 					# print("Adding Partial Content together")
