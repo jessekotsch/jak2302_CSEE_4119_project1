@@ -131,6 +131,7 @@ if __name__ == '__main__':
 
 			message = connectionSocket.recv(bufferSize)
 			while True:
+				print("Receiving Message") 
 				message += connectionSocket.recv(bufferSize)
 
 			stime = time.time() #Start by saving time of chunk request
