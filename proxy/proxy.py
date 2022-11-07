@@ -152,6 +152,7 @@ if __name__ == '__main__':
 			print("Message forwarded to web server")
 		
 			# Accept request from server
+
 			response = WebServerSideSocket.recv(bufferSize)
 			ftime = time.time() 
 
