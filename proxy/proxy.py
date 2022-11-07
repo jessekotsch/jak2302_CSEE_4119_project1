@@ -82,7 +82,7 @@ while True:
 
 
 def bitrate_select(Tcurr, availible_bitrates):
-    """
+	"""
     This function calculates the throughput of a single chunk
     Inputs:
         T_curr (int)               : current EWMA Threshold
@@ -90,7 +90,7 @@ def bitrate_select(Tcurr, availible_bitrates):
     Outputs:
         bitrate (str)  : chosen bitrate (A connections can support a bitrate if the average throughput is at least 1.5x the bitrate)
         
-    """
+	"""
     
 	return bitrate
 
