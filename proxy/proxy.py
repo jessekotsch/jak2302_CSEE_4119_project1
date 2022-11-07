@@ -98,7 +98,7 @@ class Proxy:
 		end = 'Keep-Alive'
 		
 		temp = ((response.split(start))[1].split(end)[0])
-		content length = [int(s) for s in content_length.split() if s.isdigit()]
+		content_length = [int(s) for s in content_length.split() if s.isdigit()]
 
 		return content_length
 
