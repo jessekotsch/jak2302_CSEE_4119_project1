@@ -6,11 +6,6 @@ import sys
 import time
 
 
-#Start by saving time of chunk request
-
-stime = time.time()
-print("start time: ", stime)
-
 
 def throughput_calc(beta, ftime, stime):
     """
