@@ -137,7 +137,18 @@ while True:
 		print("##########################")
 		print("##########################")
 
-		# Forward request to server 
+		print("Parsing GET Request"
+		fields = response.split("\r\n")
+		fields = fields[1:] #ignore the GET / HTTP/1.1 
+		output = {}
+		for field in fields:
+			if not field:
+				continue
+			key,value = field.split(':')
+			output[key] = value    
+		print(output)
+
+		# Forward request to server
 		WebServerSideSocket.send(message)
 		print("Message forwarded to web server")
 		
@@ -159,20 +170,10 @@ while True:
 			bitrate = min(availible_bitrates)
 			T_curr = bitrate
 		else:
+			print("Calculating Throughput")
 			T_new = throughput_calc(beta, ftime, stime)
 			T_curr = ewma_calc(T_curr, alpha, T_new)
 			bitrate = bitrate_select(T_curr, availible_bitrates)
-
-
-		fields = response.split("\r\n")
-		fields = fields[1:] #ignore the GET / HTTP/1.1
-		output = {}
-		for field in fields:
-			if not field:
-				continue
-			key,value = field.split(':')
-			output[key] = value    
-		print(output)
 			
 			
 
