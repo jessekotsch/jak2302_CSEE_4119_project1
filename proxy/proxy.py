@@ -95,8 +95,10 @@ class Proxy:
 			content_length (int) : content length of message
 		"""
 		start = 'Content-Length:'
-		end = \r\n
-		content_length = ((response.split(start))[1].split(end)[0])
+		fields = response.split("\r\n")
+		for field in fields:
+			if start in response:
+				content_length = field
 
 		return content_length
 
@@ -171,6 +173,8 @@ if __name__ == '__main__':
 			ftime = time.time()
 
 			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(response)
+			print("CONTENT LENGTH")
+			print(content_lingth)
 
 			if 'Partial Content' in str(response):
 				while True:
@@ -178,8 +182,8 @@ if __name__ == '__main__':
 					try: 
 						partial_response = WebServerSideSocket.recv(bufferSize)
 						response += partial_response
-						print("############")
-						print(str(partial_response))
+						#print("############")
+						#print(str(partial_response))
 					except:
 						break
 					
