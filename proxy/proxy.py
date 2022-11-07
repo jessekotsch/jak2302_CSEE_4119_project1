@@ -99,7 +99,7 @@ class Proxy:
 		
 		temp = ((response.split(start))[1].split(end)[0])
 		content_length = [int(s) for s in temp.split() if s.isdigit()]
-
+		print(temp)
 		return content_length
 
 
