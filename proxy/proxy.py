@@ -95,7 +95,7 @@ class Proxy:
 			content_length (int) : content length of message
 		"""
 		start = 'Content-Length:'
-		end = '\r\nKeep-Alive'
+		end = 'Keep-Alive'
 		content_length = ((response.split(start))[1].split(end)[0])
 
 		return content_length
