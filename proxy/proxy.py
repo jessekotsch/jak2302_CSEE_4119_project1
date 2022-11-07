@@ -7,6 +7,11 @@ import time
 import xml.etree.ElementTree as ET
 
 
+# Additional Source files
+from Birtate import bitrate_select, bitrate_search
+from Throughput import throughput_calc, ewma_calc
+
+
 #Start by saving time of chunk request
 
 #stime = time.time()
@@ -56,22 +61,11 @@ while True:
 		
 		# Accept request from server
 		response = WebServerSideSocket.recv(bufferSize)
+
+		print(response)
+		# At beginning search minifest file for availible bitrates
 		if 'mpd' in str(response):
-			print("Found!")
-			print(str(response))
-			root = ET.fromstring(str(response.decode()))
-			#for child in root: 
-				#print(child.tag, child.attrib)
-			print(str(response))
-			"""
-			print("Response Received")
-			print("##########################")
-			print("##########################")
-			print("SERVER RESPONSE MESSAGE:")
-			print(response)
-			print("##########################")
-			print("##########################")
-			"""
+			bitrates = bitrate_search(response)
 
 		# Send Response Back to Client
 		connectionSocket.send(response)
