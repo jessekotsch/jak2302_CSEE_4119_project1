@@ -96,7 +96,9 @@ class Proxy:
 		"""
 		start = 'Content-Length:'
 		end = 'Keep-Alive'
-		content_length = ((response.split(start))[1].split(end)[0])
+		
+		temp = ((response.split(start))[1].split(end)[0])
+		content length = [int(s) for s in content_length.split() if s.isdigit()]
 
 		return content_length
 
@@ -167,18 +169,13 @@ if __name__ == '__main__':
 		
 			# Accept request from server
 
-			#response = WebServerSideSocket.recv(bufferSize)
+			response = WebServerSideSocket.recv(bufferSize)
 
-			complete_info=''
-			while True:
-				response = WebServerSideSocket.recv(bufferSize)
-				print(str(response))
-				if len(response)<=0: 
-					break
-				#complete_info+=response.decode("utf-8")
+			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
 
-			print("GOT OUT")
-			print(complete_info)
+			print("CONTENT LENGTH:")
+			print(content_lingth)
+
 			ftime = time.time()
 
 			"""
