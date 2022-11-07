@@ -145,11 +145,12 @@ while True:
 		response = WebServerSideSocket.recv(bufferSize)
 		ftime = time.time() 
 
-		print(response)
+		#print(response)
 
 		availible_bitrates = ['45514','176827','506300','1006743'] ###~!!! NEED TO CHANGE
-		# At beginning search minifest file for availible bitrates
+		# At beginning search minifest file for availible bitrates 
 		if 'mpd' in str(response):
+			print("Parsing Manifest")
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
 			#availible_bitrates = bitrate_search(response)
 
