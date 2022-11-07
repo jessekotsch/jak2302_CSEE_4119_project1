@@ -97,7 +97,7 @@ class Proxy:
 		start = 'Content-Length:'
 		fields = response.split("\r\n")
 		for field in fields:
-			if start in response:
+			if start in field:
 				content_length = field
 
 		return content_length
