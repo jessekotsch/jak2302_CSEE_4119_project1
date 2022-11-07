@@ -140,7 +140,9 @@ while True:
 
 		print("Parsing GET Request")
 		fields = str_message.split("\r\n")
-		fields = fields[1:] #ignore the GET / HTTP/1.1 
+		print("HERE1")
+		fields = fields[1:] #ignore the GET / HTTP/1.1
+		print("HERE2")
 		output = {}
 		for field in fields:
 			if not field:
