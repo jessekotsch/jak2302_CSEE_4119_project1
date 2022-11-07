@@ -13,7 +13,7 @@ import xml.etree.ElementTree as ET
 ####################################
 
 
-def bitrate_select(Tcurr, availible_bitrates):
+def bitrate_select(T_curr, availible_bitrates):
 	"""
     This function calculates the throughput of a single chunk
     Inputs:
@@ -79,7 +79,7 @@ def ewma_calc(T_curr, alpha, T_new):
         newT_curr : new current EWMA Threshold
     """
 
-    newT_curr = alpha*T_new + (1-alpha)*Tcurr
+    newT_curr = alpha*T_new + (1-alpha)*T_curr
 
     return newT_curr
 
