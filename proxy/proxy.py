@@ -223,7 +223,6 @@ if __name__ == '__main__':
 	webserverIP = sys.argv[3]
 	bufferSize = 4096
  
-	beta    = 1
 	alpha   = 1
 	T_curr  = 45514
 	T_new   = 45514
@@ -305,7 +304,7 @@ if __name__ == '__main__':
 			elif availible_bitrates == None:
 				pass
 			else:
-				T_new = Proxy(0).throughput_calc(beta, ftime, stime)
+				T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
 				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
 				bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
 			
