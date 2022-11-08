@@ -294,6 +294,7 @@ if __name__ == '__main__':
 					response += temp_response
 					print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
 					#if total_received >= content_length:break
+					if len(response) < bufferSize: break
 
 
 
