@@ -44,9 +44,9 @@ class Proxy:
 		availible_bitrates = []
 
 		print("Found!")
-		root = ET.fromstring(str(manifest.decode()))
-		#for child in root: 
-			#print(child.tag, child.attrib)
+		root = ET.fromstring(manifest)
+		for child in root: 
+			print(child.tag, child.attrib)
 
     
 		return availible_bitrates
@@ -234,7 +234,7 @@ if __name__ == '__main__':
 				T_curr = bitrate
 
 			elif availible_bitrates == None:
-				print("Need Manigfest File")
+				print("Need Manifest File")
 
 			else:
 				print("Calculating Throughput")
