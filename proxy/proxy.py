@@ -289,6 +289,8 @@ if __name__ == '__main__':
 				print("ERROR:")
 				print(str(response))
 
+			print("Partial flag:", partial_flag)
+
 			if partial_flag:
 				total_received = len(body)
 				while True:
