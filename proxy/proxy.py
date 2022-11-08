@@ -96,7 +96,7 @@ class Proxy:
 
 		split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
 
-		header = split[0].split("\r\n")
+		header = split[0].split("\\r\\n")
 		
 		
 
