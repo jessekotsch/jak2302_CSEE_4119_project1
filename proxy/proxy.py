@@ -94,7 +94,7 @@ class Proxy:
 		Outputs:
 
 		"""
-		char *eoh = strstr (HTTP_mesaage, "\r\n\r\n");
+		eoh = strstr (HTTP_mesaage, "\r\n\r\n");
 		if (eoh == NULL):
 			print("No EOH")
 		elif (eoh = HTTP_mesaage):
