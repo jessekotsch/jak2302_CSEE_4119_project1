@@ -119,11 +119,7 @@ class Proxy:
 			if "Content-Length:" in element:
 				content_length = element.split(" ")[1]
 
-		print("CONTENT LENGHT")
-		print(content_length)
-
-		#return content_length
-		return 0
+		return int(content_length)
 
 
 ###############################################
@@ -196,7 +192,11 @@ if __name__ == '__main__':
 
 			header,body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
+			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
+
+			print("Conetent length:" + str(content_length))
+			print("BODY:)
+			print(body)
 
 			ftime = time.time()
 
