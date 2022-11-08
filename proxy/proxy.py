@@ -225,7 +225,7 @@ if __name__ == '__main__':
 		
 			print("Message Received")
 			# At beginning search minifest file for availible bitrates
-			if 'mpd' in header:
+			if 'mpd' in url:
 				print("Parsing Manifest")
 				availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(body)
 
