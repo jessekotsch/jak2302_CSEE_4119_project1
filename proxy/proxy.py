@@ -29,7 +29,7 @@ class Proxy:
 
 		print("Selecting Bitrate")
 
-		print(type(T_curr, availible_bitrates))
+		print(type(T_curr), type(availible_bitrates))
 
 		for rate in availible_bitrates:
 			if T_curr/rate >= 1.5:
