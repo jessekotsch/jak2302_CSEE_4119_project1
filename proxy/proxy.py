@@ -202,14 +202,15 @@ class Proxy:
 		ctime = time.time()
 		duration = ftime - stime
 
-		chunkname.replace('GET', '')
-		chunkname.replace('HTTP/1.1', '\n')
+		chunkname = chunkname.replace('GET', '')
+		chunkname = chunkname.replace('HTTP/1.1', '\n')
 
 		log = ctime, duration, T_new, T_curr, bitrate, webserverIP, chunkname
 
 		f = open(filename, "a")
 		for thing in log:
 			f.write(str(thing))
+			f.write(' ')
 		f.close()
 
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
