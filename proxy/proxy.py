@@ -116,13 +116,17 @@ class Proxy:
 			content_length (int) : content length of message
 		"""
 		for element in header:
+			print(element)
+			print("############")
 			if "Content-Length:" in element:
 				content_length = element.split(" ")[1]
+				print("YAYA!!!)
 
-		print("CONTENT LENGHT")
-		print(content_length)
+		#print("CONTENT LENGHT")
+		#print(content_length)
 
-		return content_length
+		#return content_length
+		return 0
 
 
 ###############################################
