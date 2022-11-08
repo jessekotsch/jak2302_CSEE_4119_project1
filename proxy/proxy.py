@@ -322,7 +322,7 @@ if __name__ == '__main__':
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
-
+			print("HERE")
 			Proxy(0).log_data(stime, filename, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
