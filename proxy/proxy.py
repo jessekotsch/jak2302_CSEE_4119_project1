@@ -104,6 +104,9 @@ class Proxy:
 
 		header = split.pop()
 
+		print("NEWLENGTH:")
+		print(len(header))
+
 		body = split[-1]
 
 		print(len(body))
