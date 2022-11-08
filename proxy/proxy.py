@@ -245,11 +245,13 @@ if __name__ == '__main__':
 
 
 	# Accept request from client
-	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+	#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
 	while True: 
 
 		try:
-			
+			# Accept request from client
+			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 			print("Waiting for Request Message")
 			message = connectionSocket.recv(bufferSize)
 			print(message.decode())
