@@ -201,10 +201,10 @@ class Proxy:
 
 		ctime = time.time()
 		duration = ftime - stime
-
+		print("HERE5")
 		chunkname.replace('GET', '')
 		chunkname.replace('HTTP/1.1', '')
-
+		print("HERE4")
 		log = ctime, duration, T_new, T_curr, bitrate, webserverIP, chunkname
 		print("HERE")
 		f = open(filename, "a")
@@ -323,6 +323,7 @@ if __name__ == '__main__':
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
+			print("WHAT")
 			Proxy(0).log_data(stime, filename, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
