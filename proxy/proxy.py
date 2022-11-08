@@ -99,6 +99,9 @@ class Proxy:
 
 		split = HTTP_mesaage.split("\\r\\n")
 
+		print("LENGTH:")
+		print(len(split))
+
 		header = split.pop()
 
 		body = split[-1]
@@ -202,10 +205,7 @@ if __name__ == '__main__':
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-			print("LOOK HERE HEADER")
-			print(header)
-			print("BODY:")
-			print(body)
+	
 
 			"""
 
