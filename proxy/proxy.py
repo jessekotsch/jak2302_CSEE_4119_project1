@@ -93,7 +93,7 @@ class Proxy:
 		Output :
 			newT_curr : new current EWMA Threshold
 		"""
-
+		print("JESSE")
 		newT_curr = alpha*T_new + (1-alpha)*T_curr
 
 		return newT_curr
