@@ -293,7 +293,7 @@ if __name__ == '__main__':
 					total_received += len(temp_response)
 					response += temp_response
 					print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
-					if total_received >= content_length:break
+					#if total_received >= content_length:break
 
 
 
