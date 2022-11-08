@@ -94,6 +94,7 @@ class Proxy:
 		Outputs:
 
 		"""
+		HTTP_mesaage = HTTP_mesaage.decode()
 		eoh = HTTP_mesaage.split("\r\n\r\n");
 		header = eoh[0]
 		print("HEADER!!!")
