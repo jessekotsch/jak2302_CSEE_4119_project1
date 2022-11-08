@@ -185,8 +185,8 @@ if __name__ == '__main__':
 	webserverIP = sys.argv[3]
 	bufferSize = 4096
 
-	beta = 1
-	alpha = 1
+	beta   = 1
+	alpha  = 1
 	T_curr = 45514
 	availible_bitrates = None
 
@@ -275,7 +275,8 @@ if __name__ == '__main__':
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
-				T_curr = bitrate
+				T_curr  = bitrate
+				Tnew    = T_curr
 
 			elif availible_bitrates == None:
 				print("Need Manifest File")
