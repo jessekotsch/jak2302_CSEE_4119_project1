@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 
 class Proxy:
 
-	def __init__(self, listenPort, fakeIP, webserverIP):
+	def __init__(self):
 		pass
 
 
