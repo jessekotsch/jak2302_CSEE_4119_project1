@@ -218,10 +218,9 @@ if __name__ == '__main__':
 				total_received = len(body)
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
-					connectionSocket.send(response)
+					connectionSocket.send(temp_response)
 					header, body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 					total_received += len(body)
-					response += body
 					print("Total Received:" , total_received)
 					if total_received >= content_length:break
 
@@ -246,6 +245,11 @@ if __name__ == '__main__':
 				T_curr = Proxy(listenPort, fakeIP, webserverIP).ewma_calc(T_curr, alpha, T_new)
 				bitrate = Proxy(listenPort, fakeIP, webserverIP).bitrate_select(T_curr, availible_bitrates)
 			
+			
+
+			# Send Response Back to Client
+			connectionSocket.send(response)
+			print("Response Sent")
 
 
 		except Exception as e:
