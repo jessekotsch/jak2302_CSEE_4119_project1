@@ -228,7 +228,7 @@ if __name__ == '__main__':
 
 	#Inputs: <filename> <alpha> <listen-port> <fake-ip> <server-ip>
 	filename = str(sys.argv[1])
-	alpha = int(sys.argv[2])
+	alpha = float(sys.argv[2])
 	listenPort = int(sys.argv[3])
 	fakeIP = sys.argv[4]
 	webserverIP = sys.argv[5]
