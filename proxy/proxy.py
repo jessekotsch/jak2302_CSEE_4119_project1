@@ -188,7 +188,7 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 
-			Proxy(listenPort, fakeIP, webserverIP).parse_header(response)
+			Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
 			#content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
 
