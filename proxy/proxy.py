@@ -100,7 +100,7 @@ class Proxy:
 		split = HTTP_mesaage.split("\\r\\n")
 
 		print("LENGTH:")
-		print(len(split))
+		print(type(split))
 
 		header = split.pop()
 
