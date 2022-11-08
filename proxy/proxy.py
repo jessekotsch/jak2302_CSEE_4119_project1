@@ -281,7 +281,11 @@ if __name__ == '__main__':
 
 
 			header, body = Proxy(0).parse_header(str(response))
-			print(header)
+			print("############")
+			print("############")
+			print(body)
+			print("############")
+			print("############")
 			content_length, partial_flag = Proxy(0).find_content_length(header)
 
 
@@ -292,6 +296,11 @@ if __name__ == '__main__':
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					total_received += len(temp_response)
 					response += temp_response
+					print("############")
+					print("############")
+					print(temp_response)
+					print("############")
+					print("############")
 					print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
 					if total_received >= content_length:break
 
