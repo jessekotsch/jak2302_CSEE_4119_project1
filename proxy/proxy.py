@@ -99,17 +99,9 @@ class Proxy:
 
 		content_list = HTTP_mesaage.split("\\r\\n")
 
-		print("LENGTH:")
-		print(len(content_list))
-
 		header = content_list[:-1]
 
-		print("NEWLENGTH:")
-		print(len(header))
-
 		body = content_list[-1]
-
-		print(len(body))
 		
 		return header, body
 
@@ -162,6 +154,7 @@ if __name__ == '__main__':
 
 
 	# Bind and listen on client side
+
 	ClientSideSocket = socket(AF_INET, SOCK_STREAM)
 	ClientSideSocket.bind(('', listenPort))
 	ClientSideSocket.listen(10)
@@ -219,22 +212,21 @@ if __name__ == '__main__':
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					connectionSocket.send(temp_response)
-					header, body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
-					total_received += len(body)
+					temp_header, temp_body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+					total_received += len(temp_body)
+					body += temp_body
 					print("Total Received:" , total_received)
 					if total_received >= content_length:break
 
 
 			ftime = time.time()
 	
-			
-			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
+		
 			print("Message Received")
 			# At beginning search minifest file for availible bitrates
-			if 'mpd' in str(response):
+			if 'mpd' in header:
 				print("Parsing Manifest")
-				availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE 
-				#availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(response)
+				availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(body)
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
