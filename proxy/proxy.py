@@ -208,9 +208,6 @@ if __name__ == '__main__':
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-	
-
-			"""
 
 			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
@@ -230,7 +227,7 @@ if __name__ == '__main__':
 					print("Total Received:" , total_received)
 					if total_received >= content_length:break
 
-			"""
+
 			ftime = time.time()
 	
 			
