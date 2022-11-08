@@ -193,16 +193,28 @@ if __name__ == '__main__':
 			print(url)
 
 			# Forward request to server
+
 			WebServerSideSocket.send(message)
 			print("Message forwarded to web server")
 		
 			# Accept request from server
 
 			response = WebServerSideSocket.recv(bufferSize)
+			print("Receiving Response....")
 			connectionSocket.send(response)
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
+			print("##########################")
+			print("##########################")
+			print("HEADER")
+			print(header)
+			print("##########################")
+			print("##########################")
+			print("BODY")
+			print(body)
+			print("##########################")
+			print("##########################")
 
 			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
