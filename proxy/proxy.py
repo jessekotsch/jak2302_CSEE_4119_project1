@@ -161,6 +161,7 @@ class Proxy:
 		print("##########################")
 
 		print("Parsing GET Request")
+		print(type(str_message))
 		fields = str_message.split("\r\n")
 		url = fields[0] # GET / HTTP/1.1
 
