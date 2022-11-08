@@ -284,6 +284,9 @@ if __name__ == '__main__':
 			content_length, partial_flag = Proxy(0).find_content_length(header)
 			print("HERE")
 			print("	content length:" , content_length)
+			if content_length == 0:
+				print("ERROR:")
+				print(str(response))
 
 			if partial_flag:
 				total_received = len(body)
