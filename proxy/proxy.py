@@ -97,7 +97,7 @@ class Proxy:
 		eoh = strstr (HTTP_mesaage, "\r\n\r\n");
 		if (eoh == NULL):
 			print("No EOH")
-		elif (eoh = HTTP_mesaage):
+		elif (eoh == HTTP_mesaage):
 			print("Message Empty")
 		else:
 			header = HTTP_mesaage[0:eoh-1]
