@@ -177,7 +177,7 @@ class Proxy:
 
 		return new_message.encode(), mpd_flag, new_url
 
-	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname):
+	def log_data(self, filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname):
 		"""
 		This process is responsible for logging important information into
 		the file name provided in the command line. The data is formatted as such:
@@ -202,7 +202,15 @@ class Proxy:
 		ctime = time.time()
 		duration = ftime - stime
 
+		chunkname.replace('GET', '')
+		chunkname.replace('HTTP/1.1', '')
+
 		log = ctime, duration, T_new, T_curr, bitrate, webserverIP, chunkname
+
+		f = open(filename, "a")
+		f.write(log)
+		f.close()
+
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
 
@@ -218,13 +226,15 @@ class Proxy:
 
 if __name__ == '__main__':
 
-	#Inputs: <listen-port> <fake-ip> <server-ip>
-	listenPort = int(sys.argv[1])
-	fakeIP = sys.argv[2]
-	webserverIP = sys.argv[3]
+	#Inputs: <filename> <alpha> <listen-port> <fake-ip> <server-ip>
+	filename = sys.argv[1]
+	alpha = sys.argv[2]
+	listenPort = int(sys.argv[3])
+	fakeIP = sys.argv[4]
+	webserverIP = sys.argv[5]
+
 	bufferSize = 4096
  
-	alpha   = .5
 	T_curr  = 45514
 	T_new   = 45514
 	bitrate = 45514
@@ -254,11 +264,7 @@ if __name__ == '__main__':
 			# Accept request from client
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-			print("Waiting for Request Message")
 			message = connectionSocket.recv(bufferSize)
-			print("#############")
-			print(message.decode())
-			print("#############")
 			stime = time.time() #Start by saving time of chunk request
 
 			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
@@ -286,14 +292,10 @@ if __name__ == '__main__':
 
 			if (content_length > bufferSize):
 				total_received = len(body)
-				print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
 				while True:
-					#WebServerSideSocket.send(message)
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					total_received += len(temp_response)
 					response += temp_response
-					print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
-					#if total_received >= content_length:break
 					if len(temp_response) < bufferSize: break
 
 
@@ -301,8 +303,7 @@ if __name__ == '__main__':
 			ftime = time.time()
 	
 		
-			print("Message Received")
-			# At beginning search minifest file for availible bitrates
+			# At beginning search minifest file for availible bitrates 
 			if mpd_flag:
 				availible_bitrates = Proxy(0).bitrate_search(manifest_header)
 
@@ -322,7 +323,7 @@ if __name__ == '__main__':
 			# Send Response Back to Client
 			connectionSocket.send(response)
 
-			Proxy(0).log_data(stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+			Proxy(0).log_data(stime, filename, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
 		except Exception as e:
