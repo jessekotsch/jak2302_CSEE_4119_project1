@@ -27,10 +27,15 @@ class Proxy:
 		
 		availible_bitrates.sort(reverse = True)
 
+		print("Selecting Bitrate")
+
+		print(type(T_curr, availible_bitrates))
+
 		for rate in availible_bitrates:
 			if T_curr/rate >= 1.5:
 				bitrate = rate
 				break
+		print("New Bitrate", bitrate)
     
 		return bitrate
 
