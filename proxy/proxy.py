@@ -166,6 +166,7 @@ class Proxy:
 
 		# Return nolist files so requested bandwidth will always be 1000
 		if 'mpd' in url:
+			print("MPD File Received")
 			mpd_flag = True
 			new_message = message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
@@ -173,8 +174,8 @@ class Proxy:
 		else:
 			new_message = message
 
-		
-		print(url)
+		print("New Message")
+		print(new_message)
 
 		return new_message.encode(), mpd_flag
 
