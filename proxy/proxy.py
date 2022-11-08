@@ -203,7 +203,8 @@ class Proxy:
 		ctime = time.time()
 		duration = ftime - stime
 
-		log = ctime, duration, T_new, T_curr, bitrate, webserverIP
+		log = ctime, duration, T_new, T_curr, bitrate, webserverIP, chunkname
+		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
 
 ###############################################
