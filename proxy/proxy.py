@@ -55,7 +55,7 @@ class Proxy:
 				for temp in new_elements:
 					if "bandwidth" in temp:
 						new_temp = temp.split('"')
-						availible_bitrates.append(int(new_temp[1])) 
+						availible_bitrates.append(new_temp[1])
 
 
     
@@ -139,6 +139,43 @@ class Proxy:
 
 		return int(content_length), partial_flag
 
+	def edit_client_request_message(self, message, bitrate):
+		"""
+		This process accepts a client request message and edits the bitrate if necessary
+		Inputs:
+			message : HTTP message
+			bitrate(int) : desired bitrate
+		Output:
+			new_message : edited HTTP message
+			mpd_flag    : indicates if mpd file was requested
+		"""
+
+		mpd_flag = False
+
+		print("##########################")
+		print("##########################")
+		print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
+		str_message = message.decode()
+		print(message.decode())
+		print("##########################")
+		print("##########################")
+
+		print("Parsing GET Request")
+		fields = str_message.split("\r\n")
+		url = fields[0] # GET / HTTP/1.1
+
+		# Return nolist files so requested bandwidth will always be 1000
+		if 'mpd' in url:
+			mpd_flag = True
+			new_message = message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+		elif "BigBuckBunny" in url:
+			new_message = message.replace("1000bps", str(bitrate)+'bps')
+
+		
+		print(url)
+
+		return new_message, mpd_flag
+
 	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP):
 		"""
 		This process is responsible for logging important information into
@@ -189,7 +226,7 @@ if __name__ == '__main__':
 	alpha   = 1
 	T_curr  = 45514
 	T_new   = 45514
-	bitrate = 45514
+	bitrate = '45514'
 	availible_bitrates = None
 
 
@@ -219,22 +256,12 @@ if __name__ == '__main__':
 
 			stime = time.time() #Start by saving time of chunk request
 
-			print("##########################")
-			print("##########################")
-			print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
-			str_message = message.decode()
-			print(message.decode())
-			print("##########################")
-			print("##########################")
+			new_message, mpd_flag = Proxy(0).edit_client_request_message(message, bitrate)
 
-			print("Parsing GET Request")
-			fields = str_message.split("\r\n")
-			url = fields[0] # GET / HTTP/1.1
-			print(url)
 
 			# Forward request to server
 
-			WebServerSideSocket.send(message)
+			WebServerSideSocket.send(new_message)
 			print("Message forwarded to web server")
 		
 			# Accept request from server
@@ -258,10 +285,6 @@ if __name__ == '__main__':
 					temp_header, temp_body  = Proxy(0).parse_header(str(response))
 					total_received += len(temp_body)
 					body += temp_body
-					print("Body:")
-					print(body)
-					print("########################")
-					print("Total Received:" , total_received)
 					if total_received >= content_length:break
 
 
@@ -271,7 +294,7 @@ if __name__ == '__main__':
 		
 			print("Message Received")
 			# At beginning search minifest file for availible bitrates
-			if 'mpd' in url:
+			if mpd_flag:
 				print("Parsing Manifest")
 				availible_bitrates = Proxy(0).bitrate_search(header)
 
@@ -280,7 +303,7 @@ if __name__ == '__main__':
 				T_curr  = bitrate
 				T_new   = T_curr
 
-			elif availible_bitrates == None:
+			if availible_bitrates == None:
 				print("Need Manifest File")
 
 			else:
