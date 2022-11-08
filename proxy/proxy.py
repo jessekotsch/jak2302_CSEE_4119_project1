@@ -216,6 +216,9 @@ if __name__ == '__main__':
 					temp_header, temp_body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 					total_received += len(temp_body)
 					body += temp_body
+					print("Partial Content")
+					print(body)
+					print("########################")
 					print("Total Received:" , total_received)
 					if total_received >= content_length:break
 
