@@ -94,7 +94,6 @@ class Proxy:
 		Outputs:
 
 		"""
-		HTTP_mesaage = HTTP_mesaage.decode()
 		eoh = HTTP_mesaage.split("\r\n\r\n");
 		header = eoh[0]
 		print("HEADER!!!")
@@ -189,7 +188,7 @@ if __name__ == '__main__':
 		
 			# Accept request from server
 
-			response = WebServerSideSocket.recv(bufferSize)
+			response = WebServerSideSocket.recv(bufferSize).decode()
 
 			Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
