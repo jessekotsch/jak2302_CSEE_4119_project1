@@ -103,7 +103,7 @@ class Proxy:
 
 		body = split[-1]
 
-		print(body)
+		print(len(body))
 		
 		return header, body
 
