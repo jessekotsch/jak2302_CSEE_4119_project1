@@ -97,12 +97,12 @@ class Proxy:
 
 		#split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
 
-		split = HTTP_mesaage.split("\\r\\n")
+		content_list = HTTP_mesaage.split("\\r\\n")
 
 		print("LENGTH:")
-		print(type(split))
+		print(len(content_list))
 
-		header = split.pop()
+		header = content_list.pop()
 
 		print("NEWLENGTH:")
 		print(len(header))
