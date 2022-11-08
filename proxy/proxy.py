@@ -27,7 +27,6 @@ class Proxy:
 		
 		availible_bitrates.sort(reverse = True)
 
-		print(type(T_curr), type(availible_bitrates))
 
 		for rate in availible_bitrates:
 			if T_curr/rate >= 1.5:
@@ -53,7 +52,6 @@ class Proxy:
 
 		availible_bitrates = []
 
-		print("Found!")
 		for element in manifest:
 			if "bandwidth" in element:
 				new_elements = element.split(" ")
@@ -63,7 +61,7 @@ class Proxy:
 						availible_bitrates.append(int(new_temp[1]))
 
 
-    
+		print("Available Bitrates", availible_bitrates)
 		return availible_bitrates
 
 
