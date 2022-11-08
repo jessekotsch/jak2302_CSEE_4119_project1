@@ -252,10 +252,12 @@ if __name__ == '__main__':
 		try:
 			# Accept request from client
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
 			print("Waiting for Request Message")
 			message = connectionSocket.recv(bufferSize)
+			print("#############")
 			print(message.decode())
-
+			print("#############")
 			stime = time.time() #Start by saving time of chunk request
 
 			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
