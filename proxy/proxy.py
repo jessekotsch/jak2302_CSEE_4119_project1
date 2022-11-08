@@ -292,11 +292,10 @@ if __name__ == '__main__':
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					total_received += len(temp_response)
 					response += temp_response
+					print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
 					if total_received >= content_length:break
 
 
-			print("REPONSE")
-			print(response)
 
 			ftime = time.time()
 	
