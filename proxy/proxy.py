@@ -120,7 +120,7 @@ class Proxy:
 			print("############")
 			if "Content-Length:" in element:
 				content_length = element.split(" ")[1]
-				print("YAYA!!!)
+				print("YAYA!!!")
 
 		#print("CONTENT LENGHT")
 		#print(content_length)
