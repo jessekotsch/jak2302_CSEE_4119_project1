@@ -291,7 +291,7 @@ if __name__ == '__main__':
 
 			print("Partial flag:", partial_flag)
 
-			if content_length < len(body):
+			if (content_length < len(body)) and (content_length > buffer_size):
 				total_received = len(body)
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
