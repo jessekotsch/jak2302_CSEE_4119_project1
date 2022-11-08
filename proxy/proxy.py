@@ -91,14 +91,11 @@ class Proxy:
 		Inputs:
 			HTTP_mesaage (str) : HTTP message as string
 		Outputs:
-			header (list) : list of seperated header elements
-			body (str)    : body content 
+			header (list)                  : list of seperated header elements
+			body (str)                     : body content
 		"""
 
-		#split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
-		split = HTTP_mesaage.splitlines()
-
-		print("Length of split:" , len(split))
+		split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
 
 		header = split[0].split("\\r\\n")
 
@@ -118,13 +115,19 @@ class Proxy:
 			header (list) : HTTP repsonse header split into list by element
 
 		Output :
-			content_length (int) : content length of message
+			content_length (int)     : content length of message
+			partial_flag   (boolean) : partial content flag
 		"""
+
+		partial_flag = False
+
 		for element in header:
 			if "Content-Length:" in element:
 				content_length = element.split(" ")[1]
+			if "Partial Content" in element:
+				partial_flag = True
 
-		return int(content_length)
+		return int(content_length), partial_flag
 
 
 ###############################################
@@ -197,9 +200,21 @@ if __name__ == '__main__':
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
+			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
+
+			if partial_flag:
+				total_received = len(body)
+				while True:
+					temp_response = WebServerSideSocket.recv(bufferSize)
+					header, body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+					total_received += len(body)
+					reponse += temp_response
+					if total_received >= content_length:break
+
+			print("GOTOUT")
+			print(reponse)
 
 
 			ftime = time.time()
