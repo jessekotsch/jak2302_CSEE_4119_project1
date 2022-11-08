@@ -44,7 +44,9 @@ class Proxy:
 		availible_bitrates = []
 
 		print("Found!")
-		print(manifest[-2])
+		for element in manifest:
+			if "bitrate" in element
+				print(element)
 		#root = ET.fromstring(manifest)
 		#for child in root:
 
