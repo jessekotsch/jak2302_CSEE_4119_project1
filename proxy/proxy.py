@@ -93,7 +93,8 @@ class Proxy:
 		Outputs:
 
 		"""
-		split = HTTP_mesaage.split("/r/n/r/n", 1)
+
+		split = HTTP_mesaage.split(" ", 1)
 
 		print("HEADER")
 		print(split)
