@@ -10,9 +10,8 @@ import xml.etree.ElementTree as ET
 class Proxy:
 
 	def __init__(self, listenPort, fakeIP, webserverIP):
-		self.listenPort = listenPort
-		self.fakeIP = fakeIP
-		self.webserverIP = webserverIP
+		pass
+
 
 	def bitrate_select(self, T_curr, availible_bitrates):
 		"""
@@ -134,6 +133,33 @@ class Proxy:
 
 		return int(content_length), partial_flag
 
+	def log_data(self, stime, ftime):
+		"""
+		This process is responsible for logging important information into
+		the file name provided in the command line. The data is formatted as such:
+
+        <time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>
+
+		time: The current time in seconds since the epoch.
+
+		duration: A floating point number representing the number of seconds it took to download this chunk from the server to the proxy.
+
+		tput: The throughput you measured for the current link in Kbps.
+
+		avg-tput: Your current EWMA throughput estimate in Kbps.
+
+		actual bitrate: The actual bitrate your proxy requested for this chunk in Kbps (NOT LABELED).
+
+		server-ip: The IP address of the server to which the proxy forwarded this request
+
+		chunkname: The name of the file your proxy requested from the server (that is, the modified file name in the modified HTTP GET message).
+		"""
+
+		time = time.time()
+		duration = ftime - stime
+
+		log = time, duration
+		print(log)
 
 ###############################################
 ###############################################
@@ -184,6 +210,7 @@ if __name__ == '__main__':
 			message = connectionSocket.recv(bufferSize)
 
 			stime = time.time() #Start by saving time of chunk request
+
 			print("##########################")
 			print("##########################")
 			print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
@@ -208,9 +235,9 @@ if __name__ == '__main__':
 			print("Receiving Response....")
 			connectionSocket.send(response)
 
-			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+			header, body = Proxy.parse_header(str(response))
 
-			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
+			content_length, partial_flag = Proxy.find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
 			print("Partial Content:" + str(partial_flag))
@@ -220,7 +247,7 @@ if __name__ == '__main__':
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					connectionSocket.send(temp_response)
-					temp_header, temp_body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+					temp_header, temp_body  = Proxy.parse_header(str(response))
 					total_received += len(temp_body)
 					body += temp_body
 					print("Body:")
@@ -237,7 +264,7 @@ if __name__ == '__main__':
 			# At beginning search minifest file for availible bitrates
 			if 'mpd' in url:
 				print("Parsing Manifest")
-				availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(header)
+				availible_bitrates = Proxy.bitrate_search(header)
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
@@ -248,15 +275,18 @@ if __name__ == '__main__':
 
 			else:
 				print("Calculating Throughput")
-				T_new = Proxy(listenPort, fakeIP, webserverIP).throughput_calc(beta, ftime, stime)
-				T_curr = Proxy(listenPort, fakeIP, webserverIP).ewma_calc(T_curr, alpha, T_new)
-				bitrate = Proxy(listenPort, fakeIP, webserverIP).bitrate_select(T_curr, availible_bitrates)
+				T_new = Proxy.throughput_calc(beta, ftime, stime)
+				T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
+				bitrate = Proxy.bitrate_select(T_curr, availible_bitrates)
 			
 			
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
 			print("Response Sent")
+
+			print("output log:")
+			Proxy.log_data(stime, ftime)
 
 
 		except Exception as e:
