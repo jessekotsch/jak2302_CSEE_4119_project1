@@ -320,7 +320,7 @@ if __name__ == '__main__':
 				print("Calculating Throughput")
 				T_new = Proxy(0).throughput_calc(beta, ftime, stime)
 				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
-				bitrate = Proxy(0).bitrate_select(T_curr, availible_bitrates)
+				bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
 			
 			
 
