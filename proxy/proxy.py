@@ -165,10 +165,8 @@ class Proxy:
 		# Return nolist files so requested bandwidth will always be 1000
 		if 'mpd' in url:
 			mpd_flag = True
-			new_message = str_message
-			new_url = url
-			#new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
-			#new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
 			new_url = url.replace("1000bps", str(bitrate)+'bps')
@@ -260,6 +258,12 @@ if __name__ == '__main__':
 
 			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
 
+			if mpd_flag:
+				
+				# send request for manifest will all bitrates
+				WebServerSideSocket.send(message)
+				manifest = WebServerSideSocket.recv(bufferSize)
+				manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
 
 			# Forward request to server
 
@@ -292,7 +296,7 @@ if __name__ == '__main__':
 			print("Message Received")
 			# At beginning search minifest file for availible bitrates
 			if mpd_flag:
-				availible_bitrates = Proxy(0).bitrate_search(header)
+				availible_bitrates = Proxy(0).bitrate_search(manifest_header)
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
