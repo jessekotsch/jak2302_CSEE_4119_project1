@@ -46,7 +46,9 @@ class Proxy:
 		print("Found!")
 		for element in manifest:
 			if "bandwidth" in element:
+				print(element)
 				new_elements = element.split(" ")
+				print("NEW")
 				print(new_elements)
 
 
