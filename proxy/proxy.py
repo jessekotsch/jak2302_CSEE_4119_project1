@@ -13,7 +13,7 @@ class Proxy:
 		self.identifier = identifier
 
 
-	def bitrate_select(self, T_curr, availible_bitrates):
+	def bitrate_select(self, T_curr, bitrate, availible_bitrates):
 		"""
 		This function calculates the throughput of a single chunk
 		Inputs:
