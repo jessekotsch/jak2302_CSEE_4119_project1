@@ -176,7 +176,7 @@ class Proxy:
 		
 		print(url)
 
-		return new_message, mpd_flag
+		return new_message.encode(), mpd_flag
 
 	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP):
 		"""
@@ -228,7 +228,7 @@ if __name__ == '__main__':
 	alpha   = 1
 	T_curr  = 45514
 	T_new   = 45514
-	bitrate = '45514'
+	bitrate = 45514
 	availible_bitrates = None
 
 
