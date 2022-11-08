@@ -169,11 +169,11 @@ class Proxy:
 		if 'mpd' in url:
 			print("MPD File Received")
 			mpd_flag = True
-			new_message = message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
-			new_message = message.replace("1000bps", str(bitrate)+'bps')
+			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
 		else:
-			new_message = message
+			new_message = str_message
 
 		print("New Message")
 		print(new_message)
