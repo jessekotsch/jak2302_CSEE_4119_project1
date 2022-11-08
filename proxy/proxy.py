@@ -91,36 +91,37 @@ class Proxy:
 		Inputs:
 			HTTP_mesaage (str) : HTTP message as string
 		Outputs:
-
+			header (list) : list of seperated header elements
+			body (str)    : body content 
 		"""
 
 		split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
 
 		header = split[0].split("\\r\\n")
+
+		body = split[1]
+		
+		return header, body
+
 		
 		
 
-		print("HEADER")
-		print(len(header))
-
-		
-		
-
-	def find_content_length(self, response):
+	def find_content_length(self, header):
 		"""
 		This functions parses the HTTP response for the content length 
 		Inputs:
-			response (str) : HTTP repsonse message
+			header (list) : HTTP repsonse header split into list by element
 
 		Output :
 			content_length (int) : content length of message
 		"""
-		start = 'Content-Length:'
-		end = 'Content-Range'
-		
-		temp = ((response.split(start))[1].split(end)[0])
-		content_length = temp.split('\n')
-		print(len(content_length))
+		for element in header:
+			if "Content-Length:" in element:
+				content_length = element.split(" ")[1]
+
+		print("CONTENT LENGHT")
+		print(content_length)
+
 		return content_length
 
 
@@ -192,9 +193,9 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 
-			Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+			header = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-			#content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
+			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			ftime = time.time()
 
