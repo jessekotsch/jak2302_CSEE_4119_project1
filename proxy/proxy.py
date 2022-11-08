@@ -96,7 +96,7 @@ class Proxy:
 		"""
 
 		#split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
-		split HTTP_mesaage.splitlines()
+		split = HTTP_mesaage.splitlines()
 
 		print("Length of split:" , len(split))
 
