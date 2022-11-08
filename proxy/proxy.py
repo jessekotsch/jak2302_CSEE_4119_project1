@@ -74,6 +74,7 @@ class Proxy:
 			throughput : how much data is processed in a given time window
 		"""
 		throughput = beta/(ftime - stime)
+		print("Throughput Calculated")
 		return throughput
 
 
@@ -91,7 +92,7 @@ class Proxy:
 		"""
 
 		newT_curr = alpha*T_new + (1-alpha)*T_curr
-
+		print("Average Throughput Calculated")
 		return newT_curr
 
 	def parse_header(self, HTTP_mesaage):
