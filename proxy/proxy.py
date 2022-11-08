@@ -14,7 +14,6 @@ class Proxy:
 		self.fakeIP = fakeIP
 		self.webserverIP = webserverIP
 
-
 	def bitrate_select(self, T_curr, availible_bitrates):
 		"""
 		This function calculates the throughput of a single chunk
@@ -94,19 +93,11 @@ class Proxy:
 		Outputs:
 
 		"""
-		data = b""
-		first, *rest = data.split(HTTP_mesaage, maxsplit=1)
-		# no split was possible
-		if not rest:
-			return None
-		else:
-			data = separator.join(rest)
-			#return first
+		split = HTTP_mesaage.split("/r/n/r/n, 1)
 
 		print("HEADER")
-		print(first)
-		print("BODY")
-		print(last)
+		print(split)
+
 		
 		
 
@@ -194,7 +185,7 @@ if __name__ == '__main__':
 		
 			# Accept request from server
 
-			response = WebServerSideSocket.recv(bufferSize).decode()
+			response = WebServerSideSocket.recv(bufferSize)
 
 			Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
