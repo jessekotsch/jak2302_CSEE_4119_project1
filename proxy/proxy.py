@@ -209,7 +209,7 @@ class Proxy:
 
 		f = open(filename, "a")
 		for thing in log:
-			f.write(thing)
+			f.write(str(thing))
 		f.close()
 
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
