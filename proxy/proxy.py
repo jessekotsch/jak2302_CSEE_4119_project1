@@ -99,7 +99,7 @@ class Proxy:
 
 		header = split[0].split("\\r\\n")
 
-		body = split[1]
+		body = split[-1]
 		
 		return header, body
 
