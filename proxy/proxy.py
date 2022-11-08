@@ -27,8 +27,6 @@ class Proxy:
 		
 		availible_bitrates.sort(reverse = True)
 
-		print("Selecting Bitrate")
-
 		print(type(T_curr), type(availible_bitrates))
 
 		for rate in availible_bitrates:
@@ -37,7 +35,7 @@ class Proxy:
 				break
 			else:
 				bitrate = min(availible_bitrates)
-		print("New Bitrate", bitrate)
+
     
 		return bitrate
 
@@ -81,7 +79,7 @@ class Proxy:
 			throughput : how much data is processed in a given time window
 		"""
 		throughput = beta/(ftime - stime)
-		print("Throughput Calculated")
+
 		return throughput
 
 
@@ -97,9 +95,9 @@ class Proxy:
 		Output :
 			newT_curr : new current EWMA Threshold
 		"""
-		print(type(alpha),type(T_new),type(T_curr))
+
 		newT_curr = alpha*T_new + (1-alpha)*int(T_curr)
-		print("Average Throughput Calculated")
+
 		return newT_curr
 
 	def parse_header(self, HTTP_mesaage):
@@ -156,39 +154,31 @@ class Proxy:
 		Output:
 			new_message : edited HTTP message
 			mpd_flag    : indicates if mpd file was requested
+			new_url     : new chunk name for logging
 		"""
 
 		mpd_flag = False
 
-		print("##########################")
-		print("##########################")
-		print("CLIENT REQUEST MESSAGE. Time =" +str(stime))
 		str_message = message.decode()
-		print(message.decode())
-		print("##########################")
-		print("##########################")
 
-		print("Parsing GET Request")
-		print(type(str_message))
 		fields = str_message.split("\r\n")
 		url = fields[0] # GET / HTTP/1.1
 
 		# Return nolist files so requested bandwidth will always be 1000
 		if 'mpd' in url:
-			print("MPD File Received")
 			mpd_flag = True
 			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
+			new_url = url.replace("1000bps", str(bitrate)+'bps')
 		else:
 			new_message = str_message
+			new_url = url
 
-		print("New Message")
-		print(new_message)
+		return new_message.encode(), mpd_flag, new_url
 
-		return new_message.encode(), mpd_flag
-
-	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP):
+	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname):
 		"""
 		This process is responsible for logging important information into
 		the file name provided in the command line. The data is formatted as such:
@@ -255,7 +245,6 @@ if __name__ == '__main__':
 
 		try:
 			# Create socket on  web server side and try and connect
-			print("Connecting to Webserver") 
 			WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
 			WebServerSideSocket.bind((fakeIP, 0))
 			WebServerSideSocket.connect((webserverIP,8080))
@@ -268,26 +257,21 @@ if __name__ == '__main__':
 
 			stime = time.time() #Start by saving time of chunk request
 
-			new_message, mpd_flag = Proxy(0).edit_client_request_message(message, bitrate)
+			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
 
 
 			# Forward request to server
 
 			WebServerSideSocket.send(new_message)
-			print("Message forwarded to web server")
 		
 			# Accept request from server
 
 			response = WebServerSideSocket.recv(bufferSize)
-			print("Receiving Response....")
 			connectionSocket.send(response)
 
 			header, body = Proxy(0).parse_header(str(response))
 
 			content_length, partial_flag = Proxy(0).find_content_length(header)
-
-			print("Conetent length:" + str(content_length))
-			print("Partial Content:" + str(partial_flag))
 
 			if partial_flag:
 				total_received = len(body)
@@ -307,7 +291,6 @@ if __name__ == '__main__':
 			print("Message Received")
 			# At beginning search minifest file for availible bitrates
 			if mpd_flag:
-				print("Parsing Manifest")
 				availible_bitrates = Proxy(0).bitrate_search(header)
 
 				# Initialize current bitrate to lowest bitrate 
@@ -316,10 +299,8 @@ if __name__ == '__main__':
 				T_new   = T_curr
 
 			if availible_bitrates == None:
-				print("Need Manifest File")
 
 			else:
-				print("Calculating Throughput")
 				T_new = Proxy(0).throughput_calc(beta, ftime, stime)
 				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
 				bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
@@ -328,10 +309,8 @@ if __name__ == '__main__':
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
-			print("Response Sent")
 
-			print("output log:")
-			Proxy(0).log_data(stime, ftime, T_new, T_curr, bitrate, webserverIP)
+			Proxy(0).log_data(stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
 		except Exception as e:
