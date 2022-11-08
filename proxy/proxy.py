@@ -288,7 +288,7 @@ if __name__ == '__main__':
 				total_received = len(body)
 				print("Total Received:", total_received, "content_length:", content_length, "Difference:", content_length-total_received)
 				while True:
-					WebServerSideSocket.send(message)
+					#WebServerSideSocket.send(message)
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					total_received += len(temp_response)
 					response += temp_response
