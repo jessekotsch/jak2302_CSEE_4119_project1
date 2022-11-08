@@ -210,11 +210,11 @@ if __name__ == '__main__':
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					header, body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 					total_received += len(body)
-					reponse += temp_response
+					response += temp_response
 					if total_received >= content_length:break
 
 			print("GOTOUT")
-			print(reponse)
+			print(response)
 
 
 			ftime = time.time()
