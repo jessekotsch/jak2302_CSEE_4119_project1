@@ -100,6 +100,10 @@ class Proxy:
 		header = split[0].split("\\r\\n")
 
 		body = split[-1]
+
+		for element in split:
+			print(element)
+			print("###################")
 		
 		return header, body
 
@@ -190,13 +194,12 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 
-			header,body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
 			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
-			print("BODY:")
-			print(body)
+
 
 			ftime = time.time()
 
