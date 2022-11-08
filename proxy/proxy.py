@@ -252,6 +252,7 @@ if __name__ == '__main__':
 			
 			print("Waiting for Request Message")
 			message = connectionSocket.recv(bufferSize)
+			print(message.decod())
 
 			stime = time.time() #Start by saving time of chunk request
 
