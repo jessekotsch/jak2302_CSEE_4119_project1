@@ -49,7 +49,8 @@ class Proxy:
 				new_elements = element.split(" ")
 				for temp in new_elements:
 					if "bandwidth" in temp:
-						print(temp)
+						new_temp = temp.split('"')
+						print(new_temp)
 
 
     
