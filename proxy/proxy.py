@@ -91,7 +91,7 @@ class Proxy:
 			newT_curr : new current EWMA Threshold
 		"""
 		print(type(alpha),type(T_new),type(T_curr))
-		newT_curr = alpha*T_new + (1-alpha)*T_curr
+		newT_curr = alpha*T_new + (1-alpha)*int(T_curr)
 		print("Average Throughput Calculated")
 		return newT_curr
 
