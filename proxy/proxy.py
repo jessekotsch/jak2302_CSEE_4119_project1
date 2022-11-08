@@ -298,9 +298,8 @@ if __name__ == '__main__':
 				bitrate = min(availible_bitrates)
 				T_curr  = bitrate
 				T_new   = T_curr
-
-			if availible_bitrates == None:
-
+			elif availible_bitrates == None:
+				pass
 			else:
 				T_new = Proxy(0).throughput_calc(beta, ftime, stime)
 				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
