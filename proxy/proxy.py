@@ -281,6 +281,7 @@ if __name__ == '__main__':
 			header, body = Proxy(0).parse_header(str(response))
 
 			content_length, partial_flag = Proxy(0).find_content_length(header)
+			print("HERE")
 			print("	content length:" , content_length)
 
 			if partial_flag:
