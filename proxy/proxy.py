@@ -23,8 +23,14 @@ class Proxy:
 			bitrate (str)  : chosen bitrate (A connections can support a bitrate if the average throughput is at least 1.5x the bitrate)
         
 		"""
-		###TO DO
-		bitrate = 45514
+		###Make sure they are in decending order since we want the fastets rate it can support
+		
+		availible_bitrates.sort(reverse = True)
+
+		for rate in availible_bitrates:
+			if T_curr/rate >= 1.5:
+				bitrate = rate
+				break
     
 		return bitrate
 
@@ -133,7 +139,7 @@ class Proxy:
 
 		return int(content_length), partial_flag
 
-	def log_data(self, stime, ftime):
+	def log_data(self, stime, ftime, T_new, T_curr, bitrate, webserverIP):
 		"""
 		This process is responsible for logging important information into
 		the file name provided in the command line. The data is formatted as such:
@@ -158,7 +164,7 @@ class Proxy:
 		ctime = time.time()
 		duration = ftime - stime
 
-		log = ctime, duration
+		log = ctime, duration, T_new, T_curr, bitrate, webserverIP
 		print(log)
 
 ###############################################
@@ -287,7 +293,7 @@ if __name__ == '__main__':
 			print("Response Sent")
 
 			print("output log:")
-			Proxy(0).log_data(stime, ftime)
+			Proxy(0).log_data(stime, ftime, T_new, T_curr, bitrate, webserverIP)
 
 
 		except Exception as e:
