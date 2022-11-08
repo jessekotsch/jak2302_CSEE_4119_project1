@@ -44,7 +44,7 @@ class Proxy:
 		availible_bitrates = []
 
 		print("Found!")
-		print(manifest)
+		print(manifest[-1])
 		#root = ET.fromstring(manifest)
 		#for child in root:
 
@@ -205,17 +205,6 @@ if __name__ == '__main__':
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
-			print("##########################")
-			print("##########################")
-			print("HEADER")
-			print(header)
-			print("##########################")
-			print("##########################")
-			print("BODY")
-			print(body)
-			print("##########################")
-			print("##########################")
-
 			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
@@ -243,7 +232,7 @@ if __name__ == '__main__':
 			# At beginning search minifest file for availible bitrates
 			if 'mpd' in url:
 				print("Parsing Manifest")
-				availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(body)
+				availible_bitrates = Proxy(listenPort, fakeIP, webserverIP).bitrate_search(header)
 
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
