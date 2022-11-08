@@ -99,6 +99,8 @@ class Proxy:
 		print("HEADER!!!")
 		print(header)
 		print("#########")
+		print("EOH")
+		print(eoh)
 		
 		
 
