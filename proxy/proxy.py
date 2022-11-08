@@ -155,10 +155,10 @@ class Proxy:
 		chunkname: The name of the file your proxy requested from the server (that is, the modified file name in the modified HTTP GET message).
 		"""
 
-		time = time.time()
+		ctime = time.time()
 		duration = ftime - stime
 
-		log = time, duration
+		log = ctime, duration
 		print(log)
 
 ###############################################
@@ -257,7 +257,8 @@ if __name__ == '__main__':
 					if total_received >= content_length:break
 
 
-			ftime = time.time()
+
+		ftime = time.time()
 	
 		
 			print("Message Received")
