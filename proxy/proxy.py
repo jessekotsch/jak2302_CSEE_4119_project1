@@ -151,6 +151,7 @@ if __name__ == '__main__':
 	beta = 1
 	alpha = 1
 	T_curr = 45514
+	availible_bitrates = None
 
 
 	# Bind and listen on client side
@@ -231,6 +232,10 @@ if __name__ == '__main__':
 				# Initialize current bitrate to lowest bitrate 
 				bitrate = min(availible_bitrates)
 				T_curr = bitrate
+
+			elif availible_bitrates == None:
+				print("Need Manigfest File")
+
 			else:
 				print("Calculating Throughput")
 				T_new = Proxy(listenPort, fakeIP, webserverIP).throughput_calc(beta, ftime, stime)
