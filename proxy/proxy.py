@@ -35,7 +35,7 @@ class Proxy:
 			if T_curr/rate >= 1.5:
 				bitrate = rate
 				break
-			else
+			else:
 				bitrate = min(availible_bitrates)
 		print("New Bitrate", bitrate)
     
