@@ -60,7 +60,7 @@ class Proxy:
 				for temp in new_elements:
 					if "bandwidth" in temp:
 						new_temp = temp.split('"')
-						availible_bitrates.append(new_temp[1])
+						availible_bitrates.append(int(new_temp[1]))
 
 
     
