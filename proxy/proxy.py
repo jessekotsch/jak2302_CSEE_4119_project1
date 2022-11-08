@@ -94,7 +94,7 @@ class Proxy:
 			newT_curr : new current EWMA Threshold
 		"""
 
-		newT_curr = alpha*T_new + (1-alpha)*int(T_curr)
+		newT_curr = alpha*T_new + (1-alpha)*T_curr
 
 		return newT_curr
 
@@ -238,19 +238,19 @@ if __name__ == '__main__':
 
 	print("Listening on port: " + str(listenPort))
 
+	# Create socket on  web server side and try and connect
+	WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
+	WebServerSideSocket.bind((fakeIP, 0))
+	WebServerSideSocket.connect((webserverIP,8080))
 
+
+	# Accept request from client
+	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 	while True: 
 
 		try:
-			# Create socket on  web server side and try and connect
-			WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
-			WebServerSideSocket.bind((fakeIP, 0))
-			WebServerSideSocket.connect((webserverIP,8080))
-
-
-			# Accept request from client
-			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
+			
+			print("Waiting for Request Message")
 			message = connectionSocket.recv(bufferSize)
 
 			stime = time.time() #Start by saving time of chunk request
