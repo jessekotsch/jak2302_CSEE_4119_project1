@@ -94,13 +94,19 @@ class Proxy:
 		Outputs:
 
 		"""
-		eoh = HTTP_mesaage.split("\r\n\r\n");
-		header = eoh[0]
-		print("HEADER!!!")
-		print(header)
-		print("#########")
-		print("EOH")
-		print(eoh)
+		data = b""
+		first, *rest = data.split(HTTP_mesaage, maxsplit=1)
+        # no split was possible
+        if not rest:
+            return None
+        else:
+            data = separator.join(rest)
+            #return first
+
+		print("HEADER")
+		print(first)
+		print("BODY")
+		print(last)
 		
 		
 
