@@ -290,7 +290,7 @@ if __name__ == '__main__':
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					connectionSocket.send(temp_response)
-					temp_header, temp_body  = Proxy(0).parse_header(str(response))
+					temp_header, temp_body  = Proxy(0).parse_header(str(temp_response))
 					total_received += len(temp_body)
 					body += temp_body
 					if total_received >= content_length:break
