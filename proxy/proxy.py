@@ -270,6 +270,7 @@ if __name__ == '__main__':
 				manifest = WebServerSideSocket.recv(bufferSize)
 				manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
 
+
 			# Forward request to server
 
 			WebServerSideSocket.send(new_message)
@@ -277,7 +278,7 @@ if __name__ == '__main__':
 			# Accept request from server
 
 			response = WebServerSideSocket.recv(bufferSize)
-			connectionSocket.send(response)
+
 
 			header, body = Proxy(0).parse_header(str(response))
 
@@ -292,10 +293,8 @@ if __name__ == '__main__':
 				total_received = len(body)
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
-					connectionSocket.send(temp_response)
-					temp_header, temp_body  = Proxy(0).parse_header(str(temp_response))
-					total_received += len(temp_body)
-					body += temp_body
+					total_received += len(temp_response)
+					response += temp_response
 					if total_received >= content_length:break
 
 
