@@ -294,6 +294,7 @@ if __name__ == '__main__':
 			if (content_length < len(body)) and (content_length > bufferSize):
 				total_received = len(body)
 				while True:
+					WebServerSideSocket.send(message)
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					print("TEMP RESPONSE")
 					print(temp_response)
