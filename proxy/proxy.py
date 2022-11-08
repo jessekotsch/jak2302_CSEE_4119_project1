@@ -324,7 +324,7 @@ if __name__ == '__main__':
 			# Send Response Back to Client
 			connectionSocket.send(response)
 			print("WHAT")
-			Proxy(0).log_data(stime, filename, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+			Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
 		except Exception as e:
