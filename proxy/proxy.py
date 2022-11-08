@@ -102,12 +102,12 @@ class Proxy:
 		print("LENGTH:")
 		print(len(content_list))
 
-		header = content_list.pop()
+		header = content_list[:-1]
 
 		print("NEWLENGTH:")
 		print(len(header))
 
-		body = split[-1]
+		body = content_list[-1]
 
 		print(len(body))
 		
