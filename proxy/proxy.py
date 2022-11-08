@@ -206,8 +206,9 @@ class Proxy:
 		chunkname.replace('HTTP/1.1', '')
 
 		log = ctime, duration, T_new, T_curr, bitrate, webserverIP, chunkname
-
+		print("HERE")
 		f = open(filename, "a")
+		print("HERE1")
 		f.write(log)
 		f.close()
 
@@ -322,7 +323,6 @@ if __name__ == '__main__':
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
-			print("HERE")
 			Proxy(0).log_data(stime, filename, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
@@ -331,6 +331,7 @@ if __name__ == '__main__':
 			print(e)
 			time.sleep(3)
 	
+
 
 
 
