@@ -283,26 +283,20 @@ if __name__ == '__main__':
 			header, body = Proxy(0).parse_header(str(response))
 			print(header)
 			content_length, partial_flag = Proxy(0).find_content_length(header)
-			print("HERE")
-			print("	content length:" , content_length)
-			if content_length == 0:
-				print("ERROR:")
-				print(str(response))
 
-			print("Partial flag:", partial_flag)
 
 			if (content_length > bufferSize):
 				total_received = len(body)
 				while True:
 					WebServerSideSocket.send(message)
 					temp_response = WebServerSideSocket.recv(bufferSize)
-					print("TEMP RESPONSE")
-					print(temp_response)
 					total_received += len(temp_response)
 					response += temp_response
 					if total_received >= content_length:break
 
 
+			print("REPONSE")
+			print(response)
 
 			ftime = time.time()
 	
