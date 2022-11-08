@@ -94,16 +94,11 @@ class Proxy:
 		Outputs:
 
 		"""
-		eoh = strstr (HTTP_mesaage, "\r\n\r\n");
-		if (eoh == NULL):
-			print("No EOH")
-		elif (eoh == HTTP_mesaage):
-			print("Message Empty")
-		else:
-			header = HTTP_mesaage[0:eoh-1]
-			print("HEADER!!!")
-			print(header)
-			print("#########")
+		eoh = HTTP_mesaage.split("\r\n\r\n");
+		header = eoh[0]
+		print("HEADER!!!")
+		print(header)
+		print("#########")
 		
 		
 
