@@ -85,6 +85,28 @@ class Proxy:
 
 		return newT_curr
 
+	def parse_header(self, HTTP_mesaage):
+		"""
+		This functions takes in an HTTP  message and seperates the
+		body from the header
+		Inputs:
+			HTTP_mesaage (str) : HTTP message as string
+		Outputs:
+
+		"""
+		char *eoh = strstr (HTTP_mesaage, "\r\n\r\n");
+		if (eoh == NULL):
+			print("No EOH")
+		elif (eoh = HTTP_mesaage):
+			print("Message Empty")
+		else:
+			header = HTTP_mesaage[0:eoh-1]
+			print("HEADER!!!)
+			print(header)
+			print(#########)
+		
+		
+
 	def find_content_length(self, response):
 		"""
 		This functions parses the HTTP response for the content length 
@@ -171,10 +193,9 @@ if __name__ == '__main__':
 
 			response = WebServerSideSocket.recv(bufferSize)
 
-			content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
+			Proxy(listenPort, fakeIP, webserverIP).parse_header(self, HTTP_mesaage)
 
-			print("CONTENT LENGTH:")
-			print(content_lingth)
+			#content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
 
 			ftime = time.time()
 
