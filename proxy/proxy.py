@@ -134,7 +134,7 @@ class Proxy:
 		"""
 
 		partial_flag = False
-		content_length = None
+		content_length = 0
 
 		for element in header:
 			if "Content-Length:" in element:
