@@ -46,9 +46,10 @@ class Proxy:
 		print("Found!")
 		for element in manifest:
 			if "bandwidth" in element:
-				print(element)
-		#root = ET.fromstring(manifest)
-		#for child in root:
+				element = element.split(" ")
+				if "bandwidth" in element:
+					print(bandwidths)
+
 
     
 		return availible_bitrates
