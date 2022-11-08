@@ -94,8 +94,7 @@ class Proxy:
 
 		"""
 
-		split = HTTP_mesaage.split(" ")
-
+		split = HTTP_mesaage.split("/r/n/r/n")
 
 		print("HEADER")
 		print(len(split))
