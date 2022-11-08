@@ -101,7 +101,7 @@ class Proxy:
 		
 
 		print("HEADER")
-		print(header)
+		print(len(header))
 
 		
 		
