@@ -211,6 +211,8 @@ if __name__ == '__main__':
 				while True:
 					temp_response = WebServerSideSocket.recv(bufferSize)
 					header, body  = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
+					print("LOOK HERE")
+					print(body)
 					total_received += len(body)
 					response += temp_response
 					print("Total Received:" , total_received)
