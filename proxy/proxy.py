@@ -223,7 +223,7 @@ if __name__ == '__main__':
 	webserverIP = sys.argv[3]
 	bufferSize = 4096
  
-	alpha   = 1
+	alpha   = .5
 	T_curr  = 45514
 	T_new   = 45514
 	bitrate = 45514
