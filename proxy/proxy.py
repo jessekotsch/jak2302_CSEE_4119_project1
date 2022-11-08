@@ -165,8 +165,10 @@ class Proxy:
 		# Return nolist files so requested bandwidth will always be 1000
 		if 'mpd' in url:
 			mpd_flag = True
-			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
-			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			new_message = str_message
+			new_url = url
+			#new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
+			#new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
 			new_url = url.replace("1000bps", str(bitrate)+'bps')
