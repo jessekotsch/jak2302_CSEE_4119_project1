@@ -103,7 +103,7 @@ class Proxy:
 			header = HTTP_mesaage[0:eoh-1]
 			print("HEADER!!!")
 			print(header)
-			print(#########)
+			print("#########")
 		
 		
 
