@@ -101,7 +101,7 @@ class Proxy:
 			print("Message Empty")
 		else:
 			header = HTTP_mesaage[0:eoh-1]
-			print("HEADER!!!)
+			print("HEADER!!!")
 			print(header)
 			print(#########)
 		
