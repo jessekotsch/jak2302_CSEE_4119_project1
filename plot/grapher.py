@@ -31,7 +31,8 @@ BRs = defaultdict(list)
 TPUTs = defaultdict(list)
 for i,lf in enumerate(lfs):
     for l in lf:
-        print(l)
+        for one n L
+            print("Element", one)
         (t, dur, t_new, avg, br, ip, seg) = l.split(' ')
         t = int(float(t))
         if t in BRs and [m for m in BRs[t] if m[0] == i]:
