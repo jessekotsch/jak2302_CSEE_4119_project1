@@ -103,9 +103,7 @@ class Proxy:
 
 		body = split[-1]
 
-		for element in split:
-			print(element)
-			print("###################")
+		print(body)
 		
 		return header, body
 
