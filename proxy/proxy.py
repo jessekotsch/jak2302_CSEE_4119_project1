@@ -195,7 +195,7 @@ if __name__ == '__main__':
 			content_length = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
-			print("BODY:)
+			print("BODY:")
 			print(body)
 
 			ftime = time.time()
