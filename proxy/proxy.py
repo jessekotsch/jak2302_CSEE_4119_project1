@@ -200,6 +200,8 @@ if __name__ == '__main__':
 
 			header, body = Proxy(listenPort, fakeIP, webserverIP).parse_header(str(response))
 
+			print(header)
+
 			content_length, partial_flag = Proxy(listenPort, fakeIP, webserverIP).find_content_length(header)
 
 			print("Conetent length:" + str(content_length))
@@ -213,33 +215,9 @@ if __name__ == '__main__':
 					response += temp_response
 					if total_received >= content_length:break
 
-			print("GOTOUT")
-			print(response)
-
 
 			ftime = time.time()
-
-			"""
-
-			if 'Partial Content' in str(response):
-
-				content_lingth = Proxy(listenPort, fakeIP, webserverIP).find_content_length(str(response))
-				print("CONTENT LENGTH")
-				print(content_lingth)
-
-			
-			
-				while True:
-					# print("Adding Partial Content together")
-					try: 
-						partial_response = WebServerSideSocket.recv(bufferSize)
-						response += partial_response
-						#print("############")
-						#print(str(partial_response))
-					except:
-						break
-					
-			"""
+	
 			
 			availible_bitrates = [45514,176827,506300,1006743] ###~!!! NEED TO CHANGE
 			print("Message Received")
