@@ -47,9 +47,7 @@ class Proxy:
 		for element in manifest:
 			if "bandwidth" in element:
 				new_elements = element.split(" ")
-				for bandwidth in new_elements:
-					if "bandwidth" in new_elements:
-						print(bandwidths)
+				print(new_elements)
 
 
     
