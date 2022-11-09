@@ -207,7 +207,7 @@ class Proxy:
 
 		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)+'\\r\\n'
 
-		if 'mpbs' in chunkname:
+		if 'mpbs' in str(chunkname):
 			f = open(filename, "a")
 			f.write(log)
 			f.close()
