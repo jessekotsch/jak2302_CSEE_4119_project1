@@ -37,8 +37,7 @@ class Proxy:
 			else:
 				bitrate = min(availible_bitrates)
 
-    
-		return bitrate
+		return 45514
 
 
 	def bitrate_search(self, manifest):
