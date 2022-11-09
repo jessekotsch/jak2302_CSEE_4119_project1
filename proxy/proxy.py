@@ -369,6 +369,8 @@ if __name__ == '__main__':
 					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
+					ClientSideSocket.close()
+					connectionSocket.close()
 					break
 
 	
