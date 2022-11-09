@@ -12,6 +12,7 @@ class Proxy:
 
 	def __init__(self, identifier):
 		self.identifier = identifier
+		self.server_connected = False
 
 
 	def bitrate_select(self, T_curr, bitrate, availible_bitrates):
@@ -218,6 +219,37 @@ class Proxy:
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
 
+	def connect_to_server(self,fakeIP, webserverIP):
+		"""
+		This process creates a server side socket and binds to the provided IP address
+		Inputs:
+			fakeIP      : fake IP address provided in command line
+			webserverIP : server IP address provided in command line
+		Outputs:
+			WebServerSideSocket : server side socket
+		"""
+
+		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
+		WebServerSideSocket.bind((fakeIP, 0))
+		WebServerSideSocket.connect((webserverIP,8080))
+
+		return WebServerSideSocket
+
+	def connect_to_client(self, listenPort):
+		"""
+		This process creates a client side socket and
+		Inputs:
+			listenPort       : listening port number provided in command line
+		Outputs:
+			ClientSideSocket : client side socket
+		"""
+
+		ClientSideSocket = socket(AF_INET, SOCK_STREAM)
+		ClientSideSocket.bind(('', listenPort))
+		ClientSideSocket.listen(10)
+
+		return ClientSideSocket
+
 ###############################################
 ###############################################
 ###############################################
@@ -251,17 +283,13 @@ if __name__ == '__main__':
 
 			# Bind and listen on client side
 
-			ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-			ClientSideSocket.bind(('', listenPort))
-			ClientSideSocket.listen(10)
+			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
 			print("Listening on port: " + str(listenPort))
 
 			# Create socket on  web server side and try and connect
 
-			WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
-			WebServerSideSocket.bind((fakeIP, 0))
-			WebServerSideSocket.connect((webserverIP,8080))
+			WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
 
 
 			# Accept request from client
