@@ -338,6 +338,7 @@ if __name__ == '__main__':
 							temp_response = WebServerSideSocket.recv(bufferSize)
 							total_received += len(temp_response)
 							response += temp_response
+							print("REsponse length: " ,len(response))
 							if len(temp_response) < bufferSize: break
 
 
