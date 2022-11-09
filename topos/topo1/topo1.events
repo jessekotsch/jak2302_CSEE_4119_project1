@@ -31,9 +31,9 @@
 
 # continue with your own test scenarios...
 0 link1 1500kbit 0ms  # start link BW at 1 mbps
-* link1 1000kbit 0ms  # after 20 seconds, decrease to 500 kbps
-* link1 800kbit 0ms  # starting at 40 seconds, alternate b/w 250 and 500
-* link1 1000kbit 0ms  # starting at 40 seconds, alternate b/w 250 and 500
-* link1 800kbit 0ms
-* link1 700kbit 0ms
-* link1 1000kbit 0ms
+20 link1 1000kbit 0ms  # after 20 seconds, decrease to 500 kbps
+20 link1 800kbit 0ms  # starting at 40 seconds, alternate b/w 250 and 500
+20 link1 1000kbit 0ms  # starting at 40 seconds, alternate b/w 250 and 500
+20 link1 800kbit 0ms
+20 link1 700kbit 0ms
+20 link1 1000kbit 0ms
