@@ -267,7 +267,7 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha)):
+	def manage_client(self, connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
 		while True: 
 
 			
