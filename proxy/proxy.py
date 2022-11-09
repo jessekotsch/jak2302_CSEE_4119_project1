@@ -344,12 +344,13 @@ if __name__ == '__main__':
 		print(e)
 		# Close client and sever connections and restart
 		print("Closing connection socket")
+		ClientSideSocket
 		connectionSocket.close()
 		#close socket connection
 
 		# Assuming socket connection never fails for preliminary stage 
 		print("Closing Server Side Socket...")
-		ServerSideSocket.close()
+		WebServerSideSocket.close()
 
 
 
