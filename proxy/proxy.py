@@ -266,6 +266,87 @@ class Proxy:
 ###############################################
 ###############################################
 
+
+def manage_client(self):
+	while True: 
+
+			
+		# Accept request from client
+		#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+			
+		message = connectionSocket.recv(bufferSize)
+		if len(message) != 0:
+			stime = time.time() #Start by saving time of chunk request
+
+			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
+
+			if mpd_flag:
+				
+				# send request for manifest will all bitrates
+				WebServerSideSocket.send(message)
+				manifest = WebServerSideSocket.recv(bufferSize)
+				manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
+
+
+			# Forward request to server
+
+			WebServerSideSocket.send(new_message)
+			print("Request Forwarded to Server")
+		
+			# Accept request from server
+
+			response = WebServerSideSocket.recv(bufferSize)
+
+
+			header, body = Proxy(0).parse_header(str(response))
+			content_length, partial_flag = Proxy(0).find_content_length(header)
+
+
+			if (content_length > bufferSize):
+				total_received = len(body)
+				while True:
+					temp_response = WebServerSideSocket.recv(bufferSize)
+					total_received += len(temp_response)
+					response += temp_response
+					if len(temp_response) < bufferSize:
+						break
+
+			
+
+			ftime = time.time()
+	
+		
+			# At beginning search minifest file for availible bitrates
+
+			if mpd_flag:
+				availible_bitrates = Proxy(0).bitrate_search(manifest_header)
+
+				# Initialize current bitrate to lowest bitrate 
+				bitrate = min(availible_bitrates)
+				T_curr  = bitrate
+				T_new   = T_curr
+			elif availible_bitrates == None:
+				pass
+			else:
+				T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
+				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
+				bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
+			
+			
+
+			# Send Response Back to Client
+
+			connectionSocket.send(response)
+			print("Video Chunk Sent")
+			Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+
+		else:
+			ClientSideSocket.close()
+			connectionSocket.close() 
+			break 
+
+
+
 if __name__ == '__main__':
 
 	#Inputs: <filename> <alpha> <listen-port> <fake-ip> <server-ip>
@@ -281,6 +362,7 @@ if __name__ == '__main__':
 	T_new   = 45514
 	bitrate = 45514
 	availible_bitrates = None
+
 
 	while True:
 
@@ -301,82 +383,11 @@ if __name__ == '__main__':
 			# Accept request from client
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-			while True: 
+			t1 = threading.Thread(target=manage_client)
+			t1.start()
+			t1.join()
 
-			
-				# Accept request from client
-				#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-			
-				message = connectionSocket.recv(bufferSize)
-				if len(message) != 0:
-					stime = time.time() #Start by saving time of chunk request
-
-					new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
-
-					if mpd_flag:
-				
-						# send request for manifest will all bitrates
-						WebServerSideSocket.send(message)
-						manifest = WebServerSideSocket.recv(bufferSize)
-						manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
-
-
-					# Forward request to server
-
-					WebServerSideSocket.send(new_message)
-					print("Request Forwarded to Server")
 		
-					# Accept request from server
-
-					response = WebServerSideSocket.recv(bufferSize)
-
-
-					header, body = Proxy(0).parse_header(str(response))
-					content_length, partial_flag = Proxy(0).find_content_length(header)
-
-
-					if (content_length > bufferSize):
-						total_received = len(body)
-						while True:
-							temp_response = WebServerSideSocket.recv(bufferSize)
-							total_received += len(temp_response)
-							response += temp_response
-							if len(temp_response) < bufferSize:
-								break
-
-			
-
-					ftime = time.time()
-	
-		
-					# At beginning search minifest file for availible bitrates 
-					if mpd_flag:
-						availible_bitrates = Proxy(0).bitrate_search(manifest_header)
-
-						# Initialize current bitrate to lowest bitrate 
-						bitrate = min(availible_bitrates)
-						T_curr  = bitrate
-						T_new   = T_curr
-					elif availible_bitrates == None:
-						pass
-					else:
-						T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
-						T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
-						bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
-			
-			
-
-					# Send Response Back to Client
-
-					connectionSocket.send(response)
-					print("Video Chunk Sent")
-					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
-
-				else:
-					ClientSideSocket.close()
-					connectionSocket.close()
-					break
-
 	
 		except Exception as e:
 			print("An Error Has Occured:")
