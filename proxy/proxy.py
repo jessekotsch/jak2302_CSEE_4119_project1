@@ -207,10 +207,9 @@ class Proxy:
 
 		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)+'\\r\\n'
 
-		if 'mpbs' in str(chunkname):
-			f = open(filename, "a")
-			f.write(log)
-			f.close()
+		f = open(filename, "a")
+		f.write(log)
+		f.close()
 
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
