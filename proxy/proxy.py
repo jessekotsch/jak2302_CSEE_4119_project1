@@ -212,7 +212,7 @@ class Proxy:
 		f.close()
 
 
-		f = open('test.txt, "a")
+		f = open('test.txt', "a")
 		f.write('help')
 		f.close()
 
