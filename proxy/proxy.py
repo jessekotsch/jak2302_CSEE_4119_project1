@@ -205,11 +205,12 @@ class Proxy:
 		chunkname = chunkname.replace('GET', '')
 		chunkname = chunkname.replace('HTTP/1.1', '\n')
 
-		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)+'/n'
+		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)+'\\r\\n'
 
-		f = open(filename, "a")
-		f.write(log)
-		f.close()
+		if 'mpbs' in chunkname:
+			f = open(filename, "a")
+			f.write(log)
+			f.close()
 
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
