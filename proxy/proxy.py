@@ -303,6 +303,7 @@ if __name__ == '__main__':
 			
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
+				print("Length of message:", len(message))
 				print(message.decode())
 				stime = time.time() #Start by saving time of chunk request
 
