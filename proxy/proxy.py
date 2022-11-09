@@ -32,12 +32,13 @@ class Proxy:
 
 		for rate in availible_bitrates:
 			if T_curr/rate >= 1.5:
+				print("Ratio ", T_curr/rate)
 				bitrate = rate
 				break
 			else:
 				bitrate = min(availible_bitrates)
 
-		return 45514
+		return bitrate
 
 
 	def bitrate_search(self, manifest):
