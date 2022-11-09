@@ -383,7 +383,7 @@ if __name__ == '__main__':
 		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-		t1 = threading.Thread(target=manage_client)
+		t1 = Thread(target=manage_client)
 		t1.start()
 		t1.join()
 
