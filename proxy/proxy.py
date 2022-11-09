@@ -364,6 +364,8 @@ if __name__ == '__main__':
 	bitrate = 45514
 	availible_bitrates = None
 
+	# Create socket on  web server side and try and connect
+	WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
 
 	while True:
 
@@ -376,14 +378,9 @@ if __name__ == '__main__':
 
 		print("Listening on port: " + str(listenPort))
 
-		# Create socket on  web server side and try and connect
-
-		WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
-
 
 		t = Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 		t.start()
-		t.join()
 
 		
 	
@@ -391,14 +388,16 @@ if __name__ == '__main__':
 		#print("An Error Has Occured:")
 		#print(e)
 		# Close client and sever connections and restart
-		print("Closing connection socket")
-		ClientSideSocket.close()
-		connectionSocket.close()
+
+		#print("Closing connection socket")
+		#ClientSideSocket.close()
+
+		#connectionSocket.close()
 		#close socket connection
 
 		# Assuming socket connection never fails for preliminary stage 
-		print("Closing Server Side Socket...")
-		WebServerSideSocket.close()
+		#print("Closing Server Side Socket...")
+		#WebServerSideSocket.close()
 
 
 
