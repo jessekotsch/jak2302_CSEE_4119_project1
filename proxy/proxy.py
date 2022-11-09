@@ -207,7 +207,7 @@ class Proxy:
 
 		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)
 
-		if chunkname == '/BigBuckBunny/_6s_nolist.mpd' or '/favicon.ico':
+		if len(chunkname) <= 30:
 			print("BAD CHUNKNAME:", chunkname, len(chunkname))
 		else:
 			f = open(filename, "a")
