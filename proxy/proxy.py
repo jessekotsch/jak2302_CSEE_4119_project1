@@ -3,6 +3,7 @@
 
 import sys
 from socket import *
+from threading import Thread
 import time
 import xml.etree.ElementTree as ET
 
@@ -93,7 +94,6 @@ class Proxy:
 		Output :
 			newT_curr : new current EWMA Threshold
 		"""
-		print("JESSE")
 		newT_curr = alpha*T_new + (1-alpha)*T_curr
 
 		return newT_curr
@@ -324,7 +324,6 @@ if __name__ == '__main__':
 
 			# Send Response Back to Client
 			connectionSocket.send(response)
-			print("WHAT")
 			Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
