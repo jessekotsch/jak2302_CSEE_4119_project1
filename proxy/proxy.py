@@ -211,6 +211,11 @@ class Proxy:
 		f.write(log)
 		f.close()
 
+
+		f = open('test.txt, "a")
+		f.write('help')
+		f.close()
+
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
 
