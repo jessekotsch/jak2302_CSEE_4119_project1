@@ -340,6 +340,7 @@ if __name__ == '__main__':
 							response += temp_response
 							print("REsponse length: " ,len(temp_response))
 							if len(temp_response) < bufferSize: break
+								print(temp_response)
 
 
 
