@@ -170,6 +170,7 @@ class Proxy:
 			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
+			print(url)
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
 			new_url = url.replace("1000bps", str(bitrate)+'bps')
 		else:
