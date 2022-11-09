@@ -268,11 +268,12 @@ class Proxy:
 
 
 	def manage_client(self, connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+
+		# Accept request from client
+		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
 		while True: 
 
-			
-			# Accept request from client
-			#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 			
 			message = connectionSocket.recv(bufferSize)
 			if len(message) != 0:
@@ -380,12 +381,9 @@ if __name__ == '__main__':
 		WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
 
 
-		# Accept request from client
-		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
-		t[1] = Thread(target=Proxy(0).manage_client, args=(connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-		t[1].start()
-		t[1].join()
+		t = Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+		t.start()
+		t.join()
 
 		
 	
