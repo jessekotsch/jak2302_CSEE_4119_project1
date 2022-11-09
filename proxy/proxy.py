@@ -172,9 +172,12 @@ class Proxy:
 		elif "BigBuckBunny" in url:
 			print(url)
 			temp_url = url.split('/')
+			temp_url[1] = 'bunny_'+str(bitrate)+'bps'
+			glue = '/'
+			temp_url = glue.join(temp_url)
 			print(temp_url)
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
-			new_url = url.replace("1000bps", str(bitrate)+'bps')
+			new_url = temp_url
 		else:
 			new_message = str_message
 			new_url = url
@@ -338,7 +341,6 @@ if __name__ == '__main__':
 							temp_response = WebServerSideSocket.recv(bufferSize)
 							total_received += len(temp_response)
 							response += temp_response
-							print("REsponse length: " ,len(temp_response))
 							if len(temp_response) < bufferSize:
 								break
 
