@@ -204,8 +204,9 @@ class Proxy:
 
 		chunkname = chunkname.replace('GET', '')
 		chunkname = chunkname.replace('HTTP/1.1', '\n')
+		chunkname = chunkname.replace(' ', '')
 
-		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+str(chunkname)
+		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+ ' '+str(chunkname)
 
 		if len(chunkname) <= 30:
 			print("BAD CHUNKNAME:", chunkname, len(chunkname))
