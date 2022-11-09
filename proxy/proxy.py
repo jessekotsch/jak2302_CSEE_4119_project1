@@ -303,6 +303,7 @@ if __name__ == '__main__':
 			
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
+				print(message.decode())
 				stime = time.time() #Start by saving time of chunk request
 
 				new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
