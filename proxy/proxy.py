@@ -171,6 +171,8 @@ class Proxy:
 			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
 			print(url)
+			url = url.split('/')
+			print(url)
 			new_message = str_message.replace("1000bps", str(bitrate)+'bps')
 			new_url = url.replace("1000bps", str(bitrate)+'bps')
 		else:
@@ -338,7 +340,6 @@ if __name__ == '__main__':
 							response += temp_response
 							print("REsponse length: " ,len(temp_response))
 							if len(temp_response) < bufferSize:
-								print(temp_response)
 								break
 
 			
