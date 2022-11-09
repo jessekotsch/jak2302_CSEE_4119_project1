@@ -252,6 +252,7 @@ if __name__ == '__main__':
 	print("Listening on port: " + str(listenPort))
 
 	# Create socket on  web server side and try and connect
+
 	WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
 	WebServerSideSocket.bind((fakeIP, 0))
 	WebServerSideSocket.connect((webserverIP,8080))
@@ -265,8 +266,9 @@ if __name__ == '__main__':
 		try:
 			# Accept request from client
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
+			
 			message = connectionSocket.recv(bufferSize)
+			print("Request Received")
 			stime = time.time() #Start by saving time of chunk request
 
 			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
@@ -282,6 +284,7 @@ if __name__ == '__main__':
 			# Forward request to server
 
 			WebServerSideSocket.send(new_message)
+			print("Request Forwarded to Server")
 		
 			# Accept request from server
 
@@ -323,7 +326,9 @@ if __name__ == '__main__':
 			
 
 			# Send Response Back to Client
+
 			connectionSocket.send(response)
+			print("Video Chunk Sent")
 			Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 
