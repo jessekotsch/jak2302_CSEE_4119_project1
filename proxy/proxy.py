@@ -242,199 +242,128 @@ if __name__ == '__main__':
 	bitrate = 45514
 	availible_bitrates = None
 
-
-	# Bind and listen on client side
-
-	ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-	ClientSideSocket.bind(('', listenPort))
-	ClientSideSocket.listen(10)
-
-	print("Listening on port: " + str(listenPort))
-
-	# Create socket on  web server side and try and connect
-
-	WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
-	WebServerSideSocket.bind((fakeIP, 0))
-	WebServerSideSocket.connect((webserverIP,8080))
-
-
-	# Accept request from client
-	connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
-	while True: 
-
-		try:
-			# Accept request from client
-			#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-			
-			message = connectionSocket.recv(bufferSize)
-			print("Request Received")
-			stime = time.time() #Start by saving time of chunk request
-
-			new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
-
-			if mpd_flag:
-				
-				# send request for manifest will all bitrates
-				WebServerSideSocket.send(message)
-				manifest = WebServerSideSocket.recv(bufferSize)
-				manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
-
-
-			# Forward request to server
-
-			WebServerSideSocket.send(new_message)
-			print("Request Forwarded to Server")
-		
-			# Accept request from server
-
-			response = WebServerSideSocket.recv(bufferSize)
-
-
-			header, body = Proxy(0).parse_header(str(response))
-			content_length, partial_flag = Proxy(0).find_content_length(header)
-
-
-			if (content_length > bufferSize):
-				total_received = len(body)
-				while True:
-					temp_response = WebServerSideSocket.recv(bufferSize)
-					total_received += len(temp_response)
-					response += temp_response
-					if len(temp_response) < bufferSize: break
-
-
-
-			ftime = time.time()
-	
-		
-			# At beginning search minifest file for availible bitrates 
-			if mpd_flag:
-				availible_bitrates = Proxy(0).bitrate_search(manifest_header)
-
-				# Initialize current bitrate to lowest bitrate 
-				bitrate = min(availible_bitrates)
-				T_curr  = bitrate
-				T_new   = T_curr
-			elif availible_bitrates == None:
-				pass
-			else:
-				T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
-				T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
-				bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
-			
-			
-
-			# Send Response Back to Client
-
-			connectionSocket.send(response)
-			print("Video Chunk Sent")
-			Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
-
-
-		except Exception as e:
-			print("An Error Has Occured:")
-			print(e)
-			time.sleep(3)
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#########################
-# ORIGINAL PROXY CODE
-# SAVE JUST IN CASE
-########################
-"""
-#Inputs: <listen-port> <fake-ip> <server-ip>
-listenPort = int(sys.argv[1])
-fakeIP = sys.argv[2]
-serverIP = sys.argv[3]
-
-bufferSize = 8
-
-
-
-# Create client side socket, bind and listen 
-print("Connecting Client")
-ClientSideSocket = socket(AF_INET, SOCK_STREAM)
-ClientSideSocket.bind(('', listenPort))
-ClientSideSocket.listen(10)
-
-
-while True:
 	try:
-		# Connect to server  
-		print("Connecting Server")
-		ServerSideSocket = socket(AF_INET, SOCK_STREAM)
-		ServerSideSocket.bind((fakeIP, 0))
-		ServerSideSocket.connect((serverIP,8080))
-		
-	except Exception as e:
-		# If server is not running print error and keep tryin to connect
-		print(e)
-		time.sleep(3)
-	else:
-		# if Server connects then wait for client 
-		print("Listening for Client...")
+
+
+		# Bind and listen on client side
+
+		ClientSideSocket = socket(AF_INET, SOCK_STREAM)
+		ClientSideSocket.bind(('', listenPort))
+		ClientSideSocket.listen(10)
+
+		print("Listening on port: " + str(listenPort))
+
+		# Create socket on  web server side and try and connect
+
+		WebServerSideSocket = socket(AF_INET, SOCK_STREAM)
+		WebServerSideSocket.bind((fakeIP, 0))
+		WebServerSideSocket.connect((webserverIP,8080))
+
+
+		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-		while True:
-            
-			# client has connected to wait until message is recieved 
-			print("Client Connected: Ready to recieve message")
-			message = connectionSocket.recv(bufferSize)
-			# if the connection with the client drops before the first message is sent then close the connection and start over
-			if not message:
-				print("Client Connection Has Beed Lost. Closing Connections...")
-				break
-			else:
-				print("Message Received...")
-				print(message)
+		while True: 
+
+			try:
+				# Accept request from client
+				#connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+			
+				message = connectionSocket.recv(bufferSize)
+				print("Request Received")
+				stime = time.time() #Start by saving time of chunk request
+
+				new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
+
+				if mpd_flag:
+				
+					# send request for manifest will all bitrates
+					WebServerSideSocket.send(message)
+					manifest = WebServerSideSocket.recv(bufferSize)
+					manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
+
+
+				# Forward request to server
+
+				WebServerSideSocket.send(new_message)
+				print("Request Forwarded to Server")
+		
+				# Accept request from server
+
+				response = WebServerSideSocket.recv(bufferSize)
+
+
+				header, body = Proxy(0).parse_header(str(response))
+				content_length, partial_flag = Proxy(0).find_content_length(header)
+
+
+				if (content_length > bufferSize):
+					total_received = len(body)
+					while True:
+						temp_response = WebServerSideSocket.recv(bufferSize)
+						total_received += len(temp_response)
+						response += temp_response
+						if len(temp_response) < bufferSize: break
+
+
+
+				ftime = time.time()
+	
+		
+				# At beginning search minifest file for availible bitrates 
+				if mpd_flag:
+					availible_bitrates = Proxy(0).bitrate_search(manifest_header)
+
+					# Initialize current bitrate to lowest bitrate 
+					bitrate = min(availible_bitrates)
+					T_curr  = bitrate
+					T_new   = T_curr
+				elif availible_bitrates == None:
+					pass
+				else:
+					T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
+					T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
+					bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
+			
+			
+
+				# Send Response Back to Client
+
+				connectionSocket.send(response)
+				print("Video Chunk Sent")
+				Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+
+
+			except Exception as e:
+				print("An Error Has Occured:")
+				print(e)
+				time.sleep(3)
 	
 
-			# try sending the message to the server
-			try:
-				ServerSideSocket.send(message)
-			except:
-				# If message fails to send the server has been disconnected
-				print("Server Connection Has Beed Lost. Closing Connections...")
-				break
-
-
-		# Close client and sever connections and restart
-		print("Closing connection socket")
-		connectionSocket.close()
-		#close socket connection
-
-		# Assuming socket connection never fails for preliminary stage 
-		print("Closing Server Side Socket...")
-		ServerSideSocket.close()
+	except Exception as e:
+		print("An Error Has Occured:")
+		print(e)
+		time.sleep(3)
 
 
 
-"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
