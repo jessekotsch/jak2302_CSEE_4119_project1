@@ -390,8 +390,8 @@ if __name__ == '__main__':
 		
 	
 		#except Exception as e:
-		print("An Error Has Occured:")
-		print(e)
+		#print("An Error Has Occured:")
+		#print(e)
 		# Close client and sever connections and restart
 		print("Closing connection socket")
 		ClientSideSocket.close()
