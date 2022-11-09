@@ -383,9 +383,9 @@ if __name__ == '__main__':
 		# Accept request from client
 		connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-		t1 = Thread(target=Proxy(0).manage_client, args=(connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-		t1.start()
-		t1.join()
+		t(1) = Thread(target=Proxy(0).manage_client, args=(connectionSocket, WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+		t(1).start()
+		t(1).join()
 
 		
 	
