@@ -339,10 +339,11 @@ if __name__ == '__main__':
 							total_received += len(temp_response)
 							response += temp_response
 							print("REsponse length: " ,len(temp_response))
-							if len(temp_response) < bufferSize: break
+							if len(temp_response) < bufferSize:
 								print(temp_response)
+								break
 
-
+			
 
 					ftime = time.time()
 	
