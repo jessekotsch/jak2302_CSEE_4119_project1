@@ -177,7 +177,6 @@ class Proxy:
 			temp_url = glue.join(temp_url)
 			print(temp_url)
 			new_message = str_message.replace(url, temp_url)
-			print(new_message)
 			new_url = temp_url
 		else:
 			new_message = str_message
