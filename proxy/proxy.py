@@ -205,16 +205,14 @@ class Proxy:
 		chunkname = chunkname.replace('GET', '')
 		chunkname = chunkname.replace('HTTP/1.1', '\n')
 
-		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)+'\\r\\n'
+		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)
 
-		f = open(filename, "a")
-		f.write(log)
-		f.close()
-
-
-		f = open('test.txt', "a")
-		f.write('help')
-		f.close()
+		if chunkname = '/' or '/BigBuckBunny/_6s_nolist.mpd' or '/favicon.ico':
+			pass
+		else:
+			f = open(filename, "a")
+			f.write(log)
+			f.close()
 
 		print("<time> <duration> <tput> <avg-tput> <bitrate> <server-ip> <chunkname>")
 		print(log)
