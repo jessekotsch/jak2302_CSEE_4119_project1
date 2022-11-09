@@ -207,7 +207,7 @@ class Proxy:
 
 		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+' '+str(chunkname)
 
-		if chunkname = '/' or '/BigBuckBunny/_6s_nolist.mpd' or '/favicon.ico':
+		if chunkname == '/' or '/BigBuckBunny/_6s_nolist.mpd' or '/favicon.ico':
 			pass
 		else:
 			f = open(filename, "a")
