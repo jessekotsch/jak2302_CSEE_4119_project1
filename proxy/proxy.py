@@ -359,7 +359,7 @@ class Proxy:
 
 					connectionSocket.send(response)
 					print("Video Chunk Sent")
-					Proxy(client_throughputs).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+					Proxy.log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
 					print("Closing All Sockets")
