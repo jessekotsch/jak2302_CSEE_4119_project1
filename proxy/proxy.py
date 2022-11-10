@@ -25,15 +25,19 @@ class Proxy:
 		"""
 		###Make sure they are in decending order since we want the fastets rate it can support
 		
-		self.availible_bitrates.sort(reverse = True)
+		if self.availible_bitrates:
+			self.availible_bitrates.sort(reverse = True)
 
 
-		for rate in self.availible_bitrates:
-			if T_curr/rate >= 1.5:
-				bitrate = rate
-				break
-			else:
-				bitrate = min(self.availible_bitrates)
+			for rate in self.availible_bitrates:
+				if T_curr/rate >= 1.5:
+					bitrate = rate
+					break
+				else:
+					bitrate = min(self.availible_bitrates)
+
+		else:
+			bitrate = min(self.availible_bitrates)
 		return bitrate
 
 
