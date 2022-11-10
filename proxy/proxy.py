@@ -347,7 +347,7 @@ class Proxy:
 						self.availible_bitrates = Proxy.bitrate_search(manifest_header)
 
 						# Initialize current bitrate to lowest bitrate
-						print("HERE1")
+						print("HERE1", self.availible_bitrates)
 						bitrate = min(self.availible_bitrates)
 						print("HERE2")
 						T_curr  = bitrate
