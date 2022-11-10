@@ -352,7 +352,7 @@ class Proxy:
 						T_new = Proxy.throughput_calc(content_length, ftime, stime)
 						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
 						bitrate = Proxy.bitrate_select(T_curr, bitrate)
-						Proxy.client_throughputs[addr] = T_curr
+						Proxy.client_throughputs[addr[0]] = T_curr
 						print("Client Throughputs:", Proxy.client_throughputs)
 						
 			
