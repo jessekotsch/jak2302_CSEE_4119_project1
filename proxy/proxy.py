@@ -117,11 +117,12 @@ class Proxy:
 		print(len(HTTP_mesaage))
 		header = content_list[:-1]
 		print("HEADER")
-		print(len(header))
+		print(len(header), type(header))
 
 		body = content_list[-1]
 		print("body")
 		print(len(body))
+		print(len(bytearaay(body))
 		
 		return header, body
 
