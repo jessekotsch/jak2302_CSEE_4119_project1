@@ -423,9 +423,8 @@ if __name__ == '__main__':
 			print(e)
 			# Close client and sever connections and restart
 
-			print("Closing connection socket")
-			ClientSideSocket.close()
-
+			print("Resetting Client connection socket")
+			ClientSideSocket.reset()
 			connectionSocket.close()
 			#close socket connection
 
