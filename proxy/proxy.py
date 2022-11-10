@@ -393,6 +393,7 @@ if __name__ == '__main__':
 	T_new   = 45514
 	bitrate = 45514
 	availible_bitrates = None
+	client_throughputs = {}
 
 	while True:
 
@@ -418,14 +419,8 @@ if __name__ == '__main__':
 
 	
 		except Exception as e:
-			print("An Error Has Occured:")
+			print("An Error Has Occured, Starting Over:")
 			print(e)
-			# Close client and sever connections and restart
-
-			print("Closing connection socket")
-			#ClientSideSocket.reset()
-			connectionSocket.close()
-			#close socket connection
 
 
 
