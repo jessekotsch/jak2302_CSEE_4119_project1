@@ -273,90 +273,101 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, WebServerSideSocket,ClientSideSocket, connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+	def manage_client(self, WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+		try:
+			# Bind and listen on client side
+
+			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+			# Accept request from client
+			connectionSocket1, addr1 = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
+			print("Listening on port: " + str(listenPort))
 
 	
 
-		while True: 
+			while True: 
 
 			
-			message = connectionSocket.recv(bufferSize)
+				message = connectionSocket.recv(bufferSize)
 
-			if len(message) != 0:
-				stime = time.time() #Start by saving time of chunk request
+				if len(message) != 0:
+					stime = time.time() #Start by saving time of chunk request
 
-				new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
+					new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
 
-				if mpd_flag:
+					if mpd_flag:
 				
-					# send request for manifest will all bitrates
+						# send request for manifest will all bitrates
 
-					WebServerSideSocket.send(message)
-					manifest = WebServerSideSocket.recv(bufferSize)
-					manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
+						WebServerSideSocket.send(message)
+						manifest = WebServerSideSocket.recv(bufferSize)
+						manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
 
 
-				# Forward request to server
+					# Forward request to server
 
-				WebServerSideSocket.send(new_message)
-				print("Request Forwarded to Server")
+					WebServerSideSocket.send(new_message)
+					print("Request Forwarded to Server")
 		
-				# Accept request from server
+					# Accept request from server
 
-				response = WebServerSideSocket.recv(bufferSize)
+					response = WebServerSideSocket.recv(bufferSize)
 
 
-				header, body = Proxy(0).parse_header(str(response))
-				content_length, partial_flag = Proxy(0).find_content_length(header)
+					header, body = Proxy(0).parse_header(str(response))
+					content_length, partial_flag = Proxy(0).find_content_length(header)
 
-				print("Content Length:", str(content_length))
-				if (content_length > bufferSize):
-					total_received = len(response)
-					while True:
-						temp_response = WebServerSideSocket.recv(bufferSize)
-						total_received += len(temp_response)
-						response += temp_response
+					print("Content Length:", str(content_length))
+					if (content_length > bufferSize):
+						total_received = len(response)
+						while True:
+							temp_response = WebServerSideSocket.recv(bufferSize)
+							total_received += len(temp_response)
+							response += temp_response
 						
-						#if len(temp_response) < bufferSize:
+							#if len(temp_response) < bufferSize:
 
-						if total_received > content_length and len(temp_response) < bufferSize:
-							print("Response Length:", len(temp_response))
-							break
+							if total_received > content_length and len(temp_response) < bufferSize:
+								print("Response Length:", len(temp_response))
+								break
 
-					print("Total recieved:", str(total_received))
+						print("Total recieved:", str(total_received))
 
-				ftime = time.time()
+					ftime = time.time()
 	
 		
-				# At beginning search minifest file for availible bitrates
+					# At beginning search minifest file for availible bitrates
 
-				if mpd_flag:
-					availible_bitrates = Proxy(0).bitrate_search(manifest_header)
+					if mpd_flag:
+						availible_bitrates = Proxy(0).bitrate_search(manifest_header)
 
-					# Initialize current bitrate to lowest bitrate 
-					bitrate = min(availible_bitrates)
-					T_curr  = bitrate
-					T_new   = T_curr
-				elif availible_bitrates == None:
-					pass
+						# Initialize current bitrate to lowest bitrate 
+						bitrate = min(availible_bitrates)
+						T_curr  = bitrate
+						T_new   = T_curr
+					elif availible_bitrates == None:
+						pass
+					else:
+						T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
+						T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
+						bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
+			
+			
+
+					# Send Response Back to Client
+
+					connectionSocket.send(response)
+					print("Video Chunk Sent")
+					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
+
 				else:
-					T_new = Proxy(0).throughput_calc(content_length, ftime, stime)
-					T_curr = Proxy(0).ewma_calc(T_curr, alpha, T_new)
-					bitrate = Proxy(0).bitrate_select(T_curr, bitrate, availible_bitrates)
-			
-			
-
-				# Send Response Back to Client
-
-				connectionSocket.send(response)
-				print("Video Chunk Sent")
-				Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
-
-			else:
-				ClientSideSocket.close()
-				connectionSocket.close() 
-				break 
-
+					ClientSideSocket.close()
+					connectionSocket.close() 
+					break
+		except:
+			ClientSideSocket.close()
+			connectionSocket.close() 	
+		
 
 
 if __name__ == '__main__':
@@ -383,28 +394,27 @@ if __name__ == '__main__':
 		try:
 
 
-			# Bind and listen on client side
-
-			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
-
-			print("Listening on port: " + str(listenPort))
-
-			# Accept request from client
-			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
-
-			#Proxy(0).manage_client(WebServerSideSocket,connectionSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha)
-
-
-			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			#t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-
+	
+			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
-			#t2.start()
+
+
+			t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t2.start()
+
+			t3= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t3.start()
+
+			t4= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t4.start()
 
 			t1.join()
-			#t2.join()
+			t2.join()
+			t2.join()
+			t4.join()
 
+
+		
 		
 	
 		except Exception as e:
