@@ -274,12 +274,11 @@ class Proxy:
 
 
 	def manage_client(self, WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
-		try:
-		
-			# Accept request from client
-			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
+
+		try:
 	
+			WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
 
 			while True: 
 
@@ -357,7 +356,7 @@ class Proxy:
 					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
-					connectionSocket.close() 
+					WebServerSideSocket.close() 
 					break
 		except:
 			connectionSocket.close() 	
@@ -381,17 +380,19 @@ if __name__ == '__main__':
 	availible_bitrates = None
 
 	# Create socket on  web server side and try and connect
-	WebServerSideSocket = Proxy(0).connect_to_server(fakeIP, webserverIP)
+
+	ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
 	while True:
 
 		try:
-			# Bind and listen on client side
 
-			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+			# Accept request from client
+
+			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 	
-			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
 
 			t1.join()
@@ -412,10 +413,6 @@ if __name__ == '__main__':
 			connectionSocket.close()
 			#close socket connection
 
-			# Assuming socket connection never fails for preliminary stage
-
-			print("Closing Server Side Socket...")
-			WebServerSideSocket.close()
 
 
 
