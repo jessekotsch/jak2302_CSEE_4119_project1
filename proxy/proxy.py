@@ -343,10 +343,13 @@ class Proxy:
 					# At beginning search minifest file for availible bitrates
 
 					if mpd_flag:
+
 						self.availible_bitrates = Proxy.bitrate_search(manifest_header)
 
-						# Initialize current bitrate to lowest bitrate 
+						# Initialize current bitrate to lowest bitrate
+						print("HERE1")
 						bitrate = min(self.availible_bitrates)
+						print("HERE2")
 						T_curr  = bitrate
 						T_new   = T_curr
 					else:
