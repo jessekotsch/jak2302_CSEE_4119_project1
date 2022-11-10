@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 class Proxy:
 
-	def __init__(self, client_throughputs={}, availible_bitrates=None):
+	def __init__(self, client_throughputs={}, availible_bitrates=[]):
 		self.client_throughputs = client_throughputs 
 		self.availible_bitrates = availible_bitrates
 
@@ -345,8 +345,6 @@ class Proxy:
 						bitrate = min(self.availible_bitrates)
 						T_curr  = bitrate
 						T_new   = T_curr
-					elif self.availible_bitrates == None:
-						pass
 					else:
 						T_new = Proxy.throughput_calc(content_length, ftime, stime)
 						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
