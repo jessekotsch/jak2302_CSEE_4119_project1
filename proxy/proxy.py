@@ -37,7 +37,7 @@ class Proxy:
 					bitrate = min(self.availible_bitrates)
 
 		else:
-			bitrate = min(self.availible_bitrates)
+			bitrate = 45514
 		return bitrate
 
 
