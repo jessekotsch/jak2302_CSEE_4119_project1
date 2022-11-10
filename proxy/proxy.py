@@ -273,7 +273,7 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+	def manage_client(self, WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
 		try:
 		
 			# Accept request from client
@@ -391,17 +391,17 @@ if __name__ == '__main__':
 			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
 	
-			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
 
 
-			t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t2.start()
 
-			t3= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t3= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t3.start()
 
-			t4= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t4= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t4.start()
 
 			t1.join()
