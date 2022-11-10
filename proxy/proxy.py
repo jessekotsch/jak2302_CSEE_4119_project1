@@ -32,7 +32,6 @@ class Proxy:
 
 		for rate in availible_bitrates:
 			if T_curr/rate >= 1.5:
-				print("Ratio ", T_curr/rate)
 				bitrate = rate
 				break
 			else:
@@ -115,14 +114,14 @@ class Proxy:
 		content_list = HTTP_mesaage.split("\\r\\n")
 
 		print("ALL")
-		print(content_list)
+		print(len(content_list))
 		header = content_list[:-1]
 		print("HEADER")
-		print(header)
+		print(len(header))
 
 		body = content_list[-1]
 		print("body")
-		print(body)
+		print(len(body))
 		
 		return header, body
 
