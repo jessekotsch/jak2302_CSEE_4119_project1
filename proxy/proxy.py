@@ -37,7 +37,7 @@ class Proxy:
 				break
 			else:
 				bitrate = min(availible_bitrates)
-		return 45514
+		return 1006743
 		#return bitrate
 
 
