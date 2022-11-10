@@ -321,7 +321,7 @@ class Proxy:
 						if total_received >= content_length:
 							break
 
-				print("Total recieved:", str(total_received))
+					print("Total recieved:", str(total_received))
 
 				ftime = time.time()
 	
