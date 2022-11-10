@@ -115,9 +115,15 @@ class Proxy:
 
 		content_list = HTTP_mesaage.split("\\r\\n")
 
+		print("ALL")
+		print(content_list)
 		header = content_list[:-1]
+		print("HEADER")
+		print(header)
 
 		body = content_list[-1]
+		print("body")
+		print(body)
 		
 		return header, body
 
@@ -307,16 +313,15 @@ class Proxy:
 				print("Content Length:", str(content_length))
 				if (content_length > len(body)) and (len(body) != 1):
 					total_received = len(body)
-					print("Total recieved:", str(total_received))
 					while True:
 						temp_response = WebServerSideSocket.recv(bufferSize)
 						total_received += len(temp_response)
 						response += temp_response
-						print("Total recieved:", str(total_received))
+						
 						if total_received >= content_length:
 							break
 
-			
+				print("Total recieved:", str(total_received))
 
 				ftime = time.time()
 	
