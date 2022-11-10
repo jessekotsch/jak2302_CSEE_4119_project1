@@ -378,6 +378,8 @@ class Proxy:
 
 if __name__ == '__main__':
 
+	Proxy = Proxy()
+
 	#Inputs: <filename> <alpha> <listen-port> <fake-ip> <server-ip>
 	filename = str(sys.argv[1])
 	alpha = float(sys.argv[2])
