@@ -292,7 +292,7 @@ class Proxy:
 				print("Waiting to receive request message....")
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
-				print(message)
+				print(len(message))
 
 				if message:
 					stime = time.time() #Start by saving time of chunk request
@@ -365,6 +365,9 @@ class Proxy:
 					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
+					print("Closing All Sockets")
+					ClientSideSocket.close()
+					connectionSocket.close()
 					WebServerSideSocket.close()	
 					break
 		except:
