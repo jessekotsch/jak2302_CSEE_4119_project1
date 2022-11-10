@@ -285,6 +285,7 @@ class Proxy:
 				if mpd_flag:
 				
 					# send request for manifest will all bitrates
+
 					WebServerSideSocket.send(message)
 					manifest = WebServerSideSocket.recv(bufferSize)
 					manifest_header, manifest_body = Proxy(0).parse_header(str(manifest))
@@ -358,7 +359,7 @@ if __name__ == '__main__':
 	fakeIP = sys.argv[4]
 	webserverIP = sys.argv[5]
 
-	bufferSize = 4096
+	bufferSize = 9999
  
 	T_curr  = 45514
 	T_new   = 45514
