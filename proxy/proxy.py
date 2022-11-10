@@ -415,6 +415,8 @@ if __name__ == '__main__':
 		except Exception as e:
 			print("An Error Has Occured, Starting Over:")
 			print(e)
+			ClientSideSocket.reset()
+			connectionSocket.close()
 
 
 
