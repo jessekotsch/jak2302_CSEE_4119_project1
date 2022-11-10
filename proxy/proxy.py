@@ -383,6 +383,7 @@ if __name__ == '__main__':
 			#t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
 			#t2.start()
+
 			t1.join()
 			#t2.join()
 
