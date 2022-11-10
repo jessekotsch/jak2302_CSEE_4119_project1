@@ -287,7 +287,7 @@ class Proxy:
 			while True: 
 
 				print("Waiting to receive request message....")
-				print(Tcurr, T_new, bitrate)
+				print(T_curr, T_new, bitrate)
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
 				print(len(message))
