@@ -401,7 +401,7 @@ if __name__ == '__main__':
 
 		try: 
 
-			ClientSideSocket = Proxy(client_throughputs).connect_to_client(listenPort)
+			ClientSideSocket = Proxy.connect_to_client(listenPort)
 
 			while True:
 
