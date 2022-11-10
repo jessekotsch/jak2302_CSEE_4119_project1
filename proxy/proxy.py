@@ -369,39 +369,40 @@ if __name__ == '__main__':
 
 	while True:
 
-		#try:
+		try:
 
 
-		# Bind and listen on client side
+			# Bind and listen on client side
 
-		ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
-		print("Listening on port: " + str(listenPort))
+			print("Listening on port: " + str(listenPort))
 
 
-		t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-		t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-		t1.start()
-		t2.start()
-		t1.join()
-		t2.join()
+			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			#t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t1.start()
+			#t2.start()
+			t1.join()
+			#t2.join()
 
 		
 	
-		#except Exception as e:
-		#print("An Error Has Occured:")
-		#print(e)
-		# Close client and sever connections and restart
+		except Exception as e:
+			print("An Error Has Occured:")
+			print(e)
+			# Close client and sever connections and restart
 
-		#print("Closing connection socket")
-		#ClientSideSocket.close()
+			print("Closing connection socket")
+			ClientSideSocket.close()
 
-		#connectionSocket.close()
-		#close socket connection
+			connectionSocket.close()
+			#close socket connection
 
-		# Assuming socket connection never fails for preliminary stage 
-		#print("Closing Server Side Socket...")
-		#WebServerSideSocket.close()
+			# Assuming socket connection never fails for preliminary stage
+
+			print("Closing Server Side Socket...")
+			WebServerSideSocket.close()
 
 
 
