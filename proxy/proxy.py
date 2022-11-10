@@ -356,10 +356,11 @@ class Proxy:
 					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
-					WebServerSideSocket.close() 
+					WebServerSideSocket.close()	
 					break
 		except:
-			connectionSocket.close() 	
+			connectionSocket.close()
+			WebServerSideSocket.close()	
 		
 
 
@@ -381,11 +382,11 @@ if __name__ == '__main__':
 
 	# Create socket on  web server side and try and connect
 
-	ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+	try: 
 
-	while True:
+		ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
-		try:
+		while True:
 
 			# Accept request from client
 
@@ -395,23 +396,17 @@ if __name__ == '__main__':
 			t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
 
-			t1.join()
-
-
-
-		
-		
 	
-		except Exception as e:
-			print("An Error Has Occured:")
-			print(e)
-			# Close client and sever connections and restart
+	except Exception as e:
+		print("An Error Has Occured:")
+		print(e)
+		# Close client and sever connections and restart
 
-			print("Closing connection socket")
-			ClientSideSocket.close()
+		print("Closing connection socket")
+		ClientSideSocket.close()
 
-			connectionSocket.close()
-			#close socket connection
+		connectionSocket.close()
+		#close socket connection
 
 
 
