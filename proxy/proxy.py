@@ -167,12 +167,10 @@ class Proxy:
 			new_message = str_message.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 			new_url = url.replace("BigBuckBunny_6s.mpd", "BigBuckBunny_6s_nolist.mpd")
 		elif "BigBuckBunny" in url:
-			print(url)
 			temp_url = url.split('/')
 			temp_url[1] = 'bunny_'+str(bitrate)+'bps'
 			glue = '/'
 			temp_url = glue.join(temp_url)
-			print(temp_url)
 			new_message = str_message.replace(url, temp_url)
 			new_url = temp_url
 		else:
@@ -213,7 +211,7 @@ class Proxy:
 		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+ ' '+str(chunkname)
 
 		if len(chunkname) <= 30:
-			print("BAD CHUNKNAME:", chunkname, len(chunkname))
+			pass
 		else:
 			f = open(filename, "a")
 			f.write(log)
@@ -320,7 +318,7 @@ class Proxy:
 					header, body = Proxy(client_throughputs).parse_header(str(response))
 					content_length, partial_flag = Proxy(client_throughputs).find_content_length(header)
 
-					print("Content Length:", str(content_length))
+
 					if (content_length > bufferSize):
 						total_received = len(response)
 						while True:
@@ -331,10 +329,8 @@ class Proxy:
 							#if len(temp_response) < bufferSize:
 
 							if total_received > content_length and len(temp_response) < bufferSize:
-								print("Response Length:", len(temp_response))
 								break
 
-						print("Total recieved:", str(total_received))
 
 					ftime = time.time()
 	
@@ -414,8 +410,6 @@ if __name__ == '__main__':
 	
 				t1= Thread(target=Proxy(client_throughputs).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 				t1.start()
-
-				print("GOT BACK HERE")
 
 	
 		except Exception as e:
