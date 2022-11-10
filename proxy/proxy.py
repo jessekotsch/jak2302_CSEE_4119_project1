@@ -282,7 +282,7 @@ class Proxy:
 
 		try:
 	
-			WebServerSideSocket = Proxy(client_throughputs).connect_to_server(fakeIP, webserverIP)
+			WebServerSideSocket = Proxy.connect_to_server(fakeIP, webserverIP)
 
 			while True: 
 
@@ -294,7 +294,7 @@ class Proxy:
 				if message:
 					stime = time.time() #Start by saving time of chunk request
 
-					new_message, mpd_flag, chunkname = Proxy(client_throughputs).edit_client_request_message(message, bitrate)
+					new_message, mpd_flag, chunkname = Proxy.edit_client_request_message(message, bitrate)
 
 					if mpd_flag:
 				
@@ -302,7 +302,7 @@ class Proxy:
 
 						WebServerSideSocket.send(message)
 						manifest = WebServerSideSocket.recv(bufferSize)
-						manifest_header, manifest_body = Proxy(client_throughputs).parse_header(str(manifest))
+						manifest_header, manifest_body = Proxy.parse_header(str(manifest))
 
 
 					# Forward request to server
@@ -315,8 +315,8 @@ class Proxy:
 					response = WebServerSideSocket.recv(bufferSize)
 
 
-					header, body = Proxy(client_throughputs).parse_header(str(response))
-					content_length, partial_flag = Proxy(client_throughputs).find_content_length(header)
+					header, body = Proxy.parse_header(str(response))
+					content_length, partial_flag = Proxy.find_content_length(header)
 
 
 					if (content_length > bufferSize):
@@ -338,7 +338,7 @@ class Proxy:
 					# At beginning search minifest file for availible bitrates
 
 					if mpd_flag:
-						availible_bitrates = Proxy(client_throughputs).bitrate_search(manifest_header)
+						availible_bitrates = Proxy.bitrate_search(manifest_header)
 
 						# Initialize current bitrate to lowest bitrate 
 						bitrate = min(availible_bitrates)
@@ -347,9 +347,9 @@ class Proxy:
 					elif availible_bitrates == None:
 						pass
 					else:
-						T_new = Proxy(client_throughputs).throughput_calc(content_length, ftime, stime)
-						T_curr = Proxy(client_throughputs).ewma_calc(T_curr, alpha, T_new)
-						bitrate = Proxy(client_throughputs).bitrate_select(T_curr, bitrate, availible_bitrates)
+						T_new = Proxy.throughput_calc(content_length, ftime, stime)
+						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
+						bitrate = Proxy.bitrate_select(T_curr, bitrate, availible_bitrates)
 						Proxy.client_throughputs[addr] = T_curr
 						
 			
@@ -419,7 +419,7 @@ if __name__ == '__main__':
 				print("ADDRESS:",addr)
 
 	
-				t1= Thread(target=Proxy(client_throughputs).manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+				t1= Thread(target=Proxy.manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 				t1.start()
 
 	
