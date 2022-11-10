@@ -292,7 +292,7 @@ class Proxy:
 			
 				message = connectionSocket.recv(bufferSize)
 
-				if len(message) != 0:
+				if message:
 					stime = time.time() #Start by saving time of chunk request
 
 					new_message, mpd_flag, chunkname = Proxy(0).edit_client_request_message(message, bitrate)
