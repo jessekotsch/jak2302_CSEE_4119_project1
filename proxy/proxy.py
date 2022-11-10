@@ -109,21 +109,13 @@ class Proxy:
 			body (str)                     : body content
 		"""
 
-		#split = HTTP_mesaage.split("\\r\\n\\r\\n\\")
 
 		content_list = HTTP_mesaage.split("\\r\\n")
 
-		print("ALL")
-		print(len(HTTP_mesaage))
 		header = content_list[:-1]
-		print("HEADER")
-		print(len(header), type(header))
 
 		body = content_list[-1]
-		print("body")
-		print(len(body))
-
-		
+	
 		return header, body
 
 		
@@ -266,7 +258,7 @@ class Proxy:
 ###############################################
 ###############################################
 ###############################################
-## PROXY CODE
+## Main PROXY CODE
 ###############################################
 ###############################################
 ###############################################
@@ -274,6 +266,21 @@ class Proxy:
 
 
 	def manage_client(self, fakeIP, webserverIP, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+
+		"""
+		This function hasndles recieving requests from a connected client, edits them, forwards them to the server and returns video data
+		Inputs:
+			fakeIP
+			webserverIP
+			ClientSideSocket
+			T_curr
+			T_new
+			bitrate
+			availible_bitrates
+			filename
+			alpha
+			
+		"""
 
 
 		try:
@@ -359,8 +366,10 @@ class Proxy:
 					WebServerSideSocket.close()	
 					break
 		except:
+			print("Client COnnection Closing...")
 			connectionSocket.close()
-			WebServerSideSocket.close()	
+			WebServerSideSocket.close()
+			break
 		
 
 
@@ -391,6 +400,8 @@ if __name__ == '__main__':
 			# Accept request from client
 
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+
+			print("ADDRESS:",addr)
 
 	
 			t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
