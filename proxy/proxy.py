@@ -79,7 +79,7 @@ class Proxy:
 		Outputs:
 			throughput : how much data is processed in a given time window
 		"""
-		throughput = beta/(ftime - stime)
+		throughput = ((beta)*8)/(ftime - stime)
 
 		return throughput
 
