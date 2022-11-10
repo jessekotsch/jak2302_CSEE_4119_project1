@@ -10,31 +10,30 @@ import xml.etree.ElementTree as ET
 
 class Proxy:
 
-	def __init__(self, client_throughputs = {}):
+	def __init__(self, client_throughputs={}, availible_bitrates=None):
 		self.client_throughputs = client_throughputs 
+		self.availible_bitrates = availible_bitrates
 
-
-	def bitrate_select(self, T_curr, bitrate, availible_bitrates):
+	def bitrate_select(self, T_curr, bitrate):
 		"""
 		This function calculates the throughput of a single chunk
 		Inputs:
 			T_curr (int)               : current EWMA Threshold
-			availible_bitrates [list]  : availible bitrates found from parsing minifest file
 		Outputs:
 			bitrate (str)  : chosen bitrate (A connections can support a bitrate if the average throughput is at least 1.5x the bitrate)
         
 		"""
 		###Make sure they are in decending order since we want the fastets rate it can support
 		
-		availible_bitrates.sort(reverse = True)
+		self.availible_bitrates.sort(reverse = True)
 
 
-		for rate in availible_bitrates:
+		for rate in self.availible_bitrates:
 			if T_curr/rate >= 1.5:
 				bitrate = rate
 				break
 			else:
-				bitrate = min(availible_bitrates)
+				bitrate = min(self.availible_bitrates)
 		return bitrate
 
 
@@ -50,7 +49,7 @@ class Proxy:
 
 		"""
 
-		availible_bitrates = []
+		self.availible_bitrates = []
 
 		for element in manifest:
 			if "bandwidth" in element:
@@ -58,11 +57,11 @@ class Proxy:
 				for temp in new_elements:
 					if "bandwidth" in temp:
 						new_temp = temp.split('"')
-						availible_bitrates.append(int(new_temp[1]))
+						self.availible_bitrates.append(int(new_temp[1]))
 
 
-		print("Available Bitrates", availible_bitrates)
-		return availible_bitrates
+		print("Available Bitrates", self.availible_bitrates)
+
 
 
 
@@ -262,7 +261,7 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, addr, fakeIP, webserverIP, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+	def manage_client(self, addr, fakeIP, webserverIP, ClientSideSocket, T_curr, T_new, bitrate,filename, alpha):
 
 		"""
 		This function hasndles recieving requests from a connected client, edits them, forwards them to the server and returns video data
@@ -340,18 +339,18 @@ class Proxy:
 					# At beginning search minifest file for availible bitrates
 
 					if mpd_flag:
-						availible_bitrates = Proxy.bitrate_search(manifest_header)
+						self.availible_bitrates = Proxy.bitrate_search(manifest_header)
 
 						# Initialize current bitrate to lowest bitrate 
-						bitrate = min(availible_bitrates)
+						bitrate = min(self.availible_bitrates)
 						T_curr  = bitrate
 						T_new   = T_curr
-					elif availible_bitrates == None:
+					elif self.availible_bitrates == None:
 						pass
 					else:
 						T_new = Proxy.throughput_calc(content_length, ftime, stime)
 						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
-						bitrate = Proxy.bitrate_select(T_curr, bitrate, availible_bitrates)
+						bitrate = Proxy.bitrate_select(T_curr, bitrate)
 						Proxy.client_throughputs[addr] = T_curr
 						print("Client Throughputs:", client_throughputs)
 						
@@ -396,8 +395,6 @@ if __name__ == '__main__':
 	T_curr  = 45514
 	T_new   = 45514
 	bitrate = 45514
-	availible_bitrates = None
-	client_throughputs = {}
 
 	while True:
 
@@ -424,7 +421,7 @@ if __name__ == '__main__':
 				print("ADDRESS:",addr)
 
 	
-				t1= Thread(target=Proxy.manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+				t1= Thread(target=Proxy.manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate,filename, alpha))
 				t1.start()
 
 	
