@@ -79,7 +79,7 @@ class Proxy:
 		Outputs:
 			throughput : how much data is processed in a given time window
 		"""
-		throughput = ((beta)*8)/1000*(ftime - stime) #Kbps
+		throughput = ((beta)*8)/(ftime - stime)
 
 		return throughput
 
@@ -211,7 +211,7 @@ class Proxy:
 		chunkname = chunkname.replace('HTTP/1.1', '\n')
 		chunkname = chunkname.replace(' ', '')
 
-		log = str(ctime)+' '+str(duration)+' '+str(T_new)+' '+str(T_curr)+ ' '+str(bitrate)+ ' '+str(webserverIP)+ ' '+str(chunkname)
+		log = str(ctime)+' '+str(duration)+' '+str(T_new/1000)+' '+str(T_curr/1000)+ ' '+str(bitrate)+ ' '+str(webserverIP)+ ' '+str(chunkname)
 
 		if len(chunkname) <= 30:
 			pass
