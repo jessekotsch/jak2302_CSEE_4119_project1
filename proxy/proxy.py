@@ -275,13 +275,9 @@ class Proxy:
 
 	def manage_client(self, WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
 		try:
-			# Bind and listen on client side
-
-			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+		
 			# Accept request from client
 			connectionSocket1, addr1 = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
-
-			print("Listening on port: " + str(listenPort))
 
 	
 
@@ -361,11 +357,9 @@ class Proxy:
 					Proxy(0).log_data(filename, stime, ftime, T_new, T_curr, bitrate, webserverIP, chunkname)
 
 				else:
-					ClientSideSocket.close()
 					connectionSocket.close() 
 					break
 		except:
-			ClientSideSocket.close()
 			connectionSocket.close() 	
 		
 
@@ -392,7 +386,9 @@ if __name__ == '__main__':
 	while True:
 
 		try:
+			# Bind and listen on client side
 
+			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
 	
 			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
