@@ -366,10 +366,10 @@ class Proxy:
 					WebServerSideSocket.close()	
 					break
 		except:
-			print("Client COnnection Closing...")
+			print("Client Connection Closing...")
 			connectionSocket.close()
+			print("Server Connection Closing...")
 			WebServerSideSocket.close()
-			break
 		
 
 
