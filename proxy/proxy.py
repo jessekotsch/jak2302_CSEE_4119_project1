@@ -122,7 +122,7 @@ class Proxy:
 		body = content_list[-1]
 		print("body")
 		print(len(body))
-		print(len(bytearaay(body))
+		print(len(bytearaay(body)))
 		
 		return header, body
 
