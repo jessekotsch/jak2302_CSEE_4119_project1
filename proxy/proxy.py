@@ -287,16 +287,6 @@ class Proxy:
 
 			while True:
 
-				if addr[0] not in Proxy.client_throughputs:
-					print("New Client Delected")
-					Proxy.client_throughputs[addr[0]] = 45514
-				else:
-					print("Welcome Back")
-					T_curr = Proxy.client_throughputs.get(addr[0])
-					print("TCURR:", T_curr)
-			
-				print("ADDRESS:",addr)
-
 				print("Waiting to receive request message....")
 				print(T_curr, T_new, bitrate)
 				message = connectionSocket.recv(bufferSize)
@@ -363,6 +353,7 @@ class Proxy:
 						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
 						bitrate = Proxy.bitrate_select(T_curr, bitrate, availible_bitrates)
 						Proxy.client_throughputs[addr] = T_curr
+						print("Client Throughputs:", client_throughputs)
 						
 			
 			
@@ -422,6 +413,15 @@ if __name__ == '__main__':
 
 				connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
+				if addr[0] not in Proxy.client_throughputs:
+					print("New Client Delected")
+					Proxy.client_throughputs[addr[0]] = 45514
+				else:
+					print("Welcome Back")
+					T_curr = Proxy.client_throughputs.get(addr[0])
+					print("TCURR:", T_curr)
+			
+				print("ADDRESS:",addr)
 
 	
 				t1= Thread(target=Proxy.manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
