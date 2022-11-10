@@ -311,7 +311,7 @@ class Proxy:
 
 				print("Content Length:", str(content_length))
 				if (content_length > bufferSize):
-					total_received = len(body)/5
+					total_received = len(response)
 					while True:
 						temp_response = WebServerSideSocket.recv(bufferSize)
 						total_received += len(temp_response)
