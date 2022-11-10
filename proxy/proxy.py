@@ -277,7 +277,7 @@ class Proxy:
 		try:
 		
 			# Accept request from client
-			connectionSocket1, addr1 = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 	
 
@@ -394,20 +394,8 @@ if __name__ == '__main__':
 			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
 
-
-			t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			t2.start()
-
-			t3= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			t3.start()
-
-			t4= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			t4.start()
-
 			t1.join()
-			t2.join()
-			t2.join()
-			t4.join()
+
 
 
 		
