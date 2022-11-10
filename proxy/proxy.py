@@ -273,7 +273,7 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, WebServerSideSocket,connectionSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+	def manage_client(self, WebServerSideSocket,ClientSideSocket, connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
 
 	
 
@@ -393,15 +393,16 @@ if __name__ == '__main__':
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 
-			Proxy(0).manage_client(WebServerSideSocket,connectionSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha)
+			#Proxy(0).manage_client(WebServerSideSocket,connectionSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha)
 
 
-			#t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			#t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			#t1.start()
+
+			t1.start()
 			#t2.start()
 
-			#t1.join()
+			t1.join()
 			#t2.join()
 
 		
