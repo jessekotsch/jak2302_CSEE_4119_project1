@@ -295,7 +295,7 @@ class Proxy:
 					T_curr = Proxy.client_throughputs.get(addr[0])
 					print("TCURR:", T_curr)
 			
-			print("ADDRESS:",addr)
+				print("ADDRESS:",addr)
 
 				print("Waiting to receive request message....")
 				print(T_curr, T_new, bitrate)
