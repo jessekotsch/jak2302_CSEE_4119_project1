@@ -282,19 +282,20 @@ class Proxy:
 
 		try:
 
-			if addr[0] not in Proxy.client_throughputs:
-				print("New Client Delected")
-				Proxy.client_throughputs[addr[0]] = 45514
-			else:
-				print("Welcome Back")
-				T_curr = Proxy.client_throughputs.get(addr[0])
-				print("TCURR:", T_curr)
-			
-			print("ADDRESS:",addr)
 	
 			WebServerSideSocket = Proxy.connect_to_server(fakeIP, webserverIP)
 
-			while True: 
+			while True:
+
+				if addr[0] not in Proxy.client_throughputs:
+					print("New Client Delected")
+					Proxy.client_throughputs[addr[0]] = 45514
+				else:
+					print("Welcome Back")
+					T_curr = Proxy.client_throughputs.get(addr[0])
+					print("TCURR:", T_curr)
+			
+			print("ADDRESS:",addr)
 
 				print("Waiting to receive request message....")
 				print(T_curr, T_new, bitrate)
