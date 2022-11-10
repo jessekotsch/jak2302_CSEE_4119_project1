@@ -262,7 +262,7 @@ class Proxy:
 ###############################################
 
 
-	def manage_client(self, fakeIP, webserverIP, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
+	def manage_client(self, addr, fakeIP, webserverIP, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha):
 
 		"""
 		This function hasndles recieving requests from a connected client, edits them, forwards them to the server and returns video data
@@ -350,6 +350,8 @@ class Proxy:
 						T_new = Proxy(client_throughputs).throughput_calc(content_length, ftime, stime)
 						T_curr = Proxy(client_throughputs).ewma_calc(T_curr, alpha, T_new)
 						bitrate = Proxy(client_throughputs).bitrate_select(T_curr, bitrate, availible_bitrates)
+						Proxy.client_throughputs[addr] = T_curr
+						
 			
 			
 
@@ -405,10 +407,17 @@ if __name__ == '__main__':
 
 				connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
+				if addr[0] not in Proxy.client_throughputs:
+					print("New Client Delected")
+					Proxy.client_throughputs[addr[0]] = 45514
+				else
+					print("Welcome Back")
+					T_curr = Proxy.client_throughputs.get(addr[0])
+			
 				print("ADDRESS:",addr)
 
 	
-				t1= Thread(target=Proxy(client_throughputs).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+				t1= Thread(target=Proxy(client_throughputs).manage_client, args=(addr, fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 				t1.start()
 
 	
