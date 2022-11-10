@@ -316,7 +316,9 @@ class Proxy:
 						total_received += len(temp_response)
 						response += temp_response
 						
-						if len(temp_response) < bufferSize:
+						#if len(temp_response) < bufferSize:
+
+						if total_received > content_length:
 							print("Response Length:", len(temp_response))
 							break
 
