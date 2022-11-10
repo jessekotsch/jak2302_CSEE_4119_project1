@@ -368,7 +368,8 @@ class Proxy:
 					print("Closing All Sockets")
 					ClientSideSocket.close()
 					connectionSocket.close()
-					WebServerSideSocket.close()	
+					WebServerSideSocket.close()
+
 					break
 		except:
 			print("Client Connection Closing...")
@@ -411,6 +412,8 @@ if __name__ == '__main__':
 	
 			t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			t1.start()
+
+			print("GOT BACK HERE")
 
 	
 	except Exception as e:
