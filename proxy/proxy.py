@@ -289,8 +289,9 @@ class Proxy:
 
 			while True: 
 
-			
+				print("Waiting to receive request message....")
 				message = connectionSocket.recv(bufferSize)
+				print("Request Received")
 
 				if message:
 					stime = time.time() #Start by saving time of chunk request
