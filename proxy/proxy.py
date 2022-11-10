@@ -344,11 +344,11 @@ class Proxy:
 
 					if mpd_flag:
 
-						self.availible_bitrates = Proxy.bitrate_search(manifest_header)
+						Proxy.bitrate_search(manifest_header)
 
 						# Initialize current bitrate to lowest bitrate
-						print("HERE1", self.availible_bitrates)
-						bitrate = min(self.availible_bitrates)
+						print("HERE1", Proxy.availible_bitrates)
+						bitrate = min(Proxy.availible_bitrates)
 						print("HERE2")
 						T_curr  = bitrate
 						T_new   = T_curr
@@ -357,7 +357,7 @@ class Proxy:
 						T_curr = Proxy.ewma_calc(T_curr, alpha, T_new)
 						bitrate = Proxy.bitrate_select(T_curr, bitrate)
 						Proxy.client_throughputs[addr] = T_curr
-						print("Client Throughputs:", self.client_throughputs)
+						print("Client Throughputs:", Proxy.client_throughputs)
 						
 			
 			
