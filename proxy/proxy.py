@@ -410,7 +410,7 @@ if __name__ == '__main__':
 				if addr[0] not in Proxy.client_throughputs:
 					print("New Client Delected")
 					Proxy.client_throughputs[addr[0]] = 45514
-				else
+				else:
 					print("Welcome Back")
 					T_curr = Proxy.client_throughputs.get(addr[0])
 			
