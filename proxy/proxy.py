@@ -304,14 +304,16 @@ class Proxy:
 				header, body = Proxy(0).parse_header(str(response))
 				content_length, partial_flag = Proxy(0).find_content_length(header)
 
-
-				if (content_length > bufferSize):
+                print("Content Length:", str(content_length))
+				if (content_length > len(body)):
 					total_received = len(body)
+					print("Total recieved:", str(total_received))
 					while True:
 						temp_response = WebServerSideSocket.recv(bufferSize)
 						total_received += len(temp_response)
 						response += temp_response
-						if len(temp_response) < bufferSize:
+						print("Total recieved:", str(total_received))
+						if total_received >= content_length:
 							break
 
 			
@@ -359,7 +361,7 @@ if __name__ == '__main__':
 	fakeIP = sys.argv[4]
 	webserverIP = sys.argv[5]
 
-	bufferSize = 9999
+	bufferSize = 4096
  
 	T_curr  = 45514
 	T_new   = 45514
