@@ -122,8 +122,7 @@ class Proxy:
 		body = content_list[-1]
 		print("body")
 		print(len(body))
-		body = body.replace("\","")
-		print(len((body)))
+
 		
 		return header, body
 
@@ -312,15 +311,15 @@ class Proxy:
 
 				print("Content Length:", str(content_length))
 				if (content_length > bufferSize):
-					total_received = len(body)
+					total_received = len(body)/5
 					while True:
 						temp_response = WebServerSideSocket.recv(bufferSize)
 						total_received += len(temp_response)
 						response += temp_response
 						
-						if len(temp_response) < bufferSize:
+						#if len(temp_response) < bufferSize:
 
-						#if total_received > content_length:
+						if total_received > content_length:
 							print("Response Length:", len(temp_response))
 							break
 
