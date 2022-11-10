@@ -37,8 +37,7 @@ class Proxy:
 				break
 			else:
 				bitrate = min(availible_bitrates)
-		return 1006743
-		#return bitrate
+		return bitrate
 
 
 
@@ -311,14 +310,14 @@ class Proxy:
 				content_length, partial_flag = Proxy(0).find_content_length(header)
 
 				print("Content Length:", str(content_length))
-				if (content_length > len(body)) and (len(body) != 1):
+				if (content_length > bufferSize):
 					total_received = len(body)
 					while True:
 						temp_response = WebServerSideSocket.recv(bufferSize)
 						total_received += len(temp_response)
 						response += temp_response
 						
-						if total_received >= content_length:
+						if len(temp_response) < bufferSize:
 							break
 
 					print("Total recieved:", str(total_received))
