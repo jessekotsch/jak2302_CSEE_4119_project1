@@ -79,7 +79,7 @@ class Proxy:
 		Outputs:
 			throughput : how much data is processed in a given time window
 		"""
-		throughput = ((beta)*8)/(ftime - stime)
+		throughput = ((beta)*8)/1000*(ftime - stime) #Kbps
 
 		return throughput
 
@@ -290,13 +290,12 @@ class Proxy:
 
 			while True:
 
-				print("Waiting to receive request message....")
-				print(T_curr, T_new, bitrate)
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
-				print(len(message))
+
 
 				if message:
+
 					stime = time.time() #Start by saving time of chunk request
 
 					new_message, mpd_flag, chunkname = Proxy.edit_client_request_message(message, bitrate)
@@ -331,7 +330,6 @@ class Proxy:
 							total_received += len(temp_response)
 							response += temp_response
 						
-							#if len(temp_response) < bufferSize:
 
 							if total_received > content_length and len(temp_response) < bufferSize:
 								break
@@ -347,9 +345,7 @@ class Proxy:
 						Proxy.bitrate_search(manifest_header)
 
 						# Initialize current bitrate to lowest bitrate
-						print("HERE1", Proxy.availible_bitrates)
 						bitrate = min(Proxy.availible_bitrates)
-						print("HERE2")
 						T_curr  = bitrate
 						T_new   = T_curr
 					else:
