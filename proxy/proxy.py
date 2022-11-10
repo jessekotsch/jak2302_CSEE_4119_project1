@@ -275,6 +275,7 @@ class Proxy:
 
 			
 			message = connectionSocket.recv(bufferSize)
+
 			if len(message) != 0:
 				stime = time.time() #Start by saving time of chunk request
 
@@ -381,12 +382,15 @@ if __name__ == '__main__':
 			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
 
-			t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+			Proxy(0).manage_client(WebServerSideSocket,connectionSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha)
+
+
+			#t1= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket,connectionSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
 			#t2= Thread(target=Proxy(0).manage_client, args=(WebServerSideSocket, ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			t1.start()
+			#t1.start()
 			#t2.start()
 
-			t1.join()
+			#t1.join()
 			#t2.join()
 
 		
