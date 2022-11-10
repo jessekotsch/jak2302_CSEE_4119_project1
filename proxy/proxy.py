@@ -114,7 +114,7 @@ class Proxy:
 		content_list = HTTP_mesaage.split("\\r\\n")
 
 		print("ALL")
-		print(len(content_list))
+		print(len(HTTP_mesaage))
 		header = content_list[:-1]
 		print("HEADER")
 		print(len(header))
