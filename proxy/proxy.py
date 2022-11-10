@@ -395,37 +395,39 @@ if __name__ == '__main__':
 	bitrate = 45514
 	availible_bitrates = None
 
-	# Create socket on  web server side and try and connect
+	while True:
 
-	try: 
+		# Create socket on  web server side and try and connect
 
-		ClientSideSocket = Proxy(0).connect_to_client(listenPort)
+		try: 
 
-		while True:
+			ClientSideSocket = Proxy(0).connect_to_client(listenPort)
 
-			# Accept request from client
+			while True:
 
-			connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
+				# Accept request from client
 
-			print("ADDRESS:",addr)
+				connectionSocket, addr = ClientSideSocket.accept() ## RETURNS CONNECTION SOCKET
 
-	
-			t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
-			t1.start()
-
-			print("GOT BACK HERE")
+				print("ADDRESS:",addr)
 
 	
-	except Exception as e:
-		print("An Error Has Occured:")
-		print(e)
-		# Close client and sever connections and restart
+				t1= Thread(target=Proxy(0).manage_client, args=(fakeIP, webserverIP,ClientSideSocket, T_curr, T_new, bitrate, availible_bitrates,filename, alpha))
+				t1.start()
 
-		print("Closing connection socket")
-		ClientSideSocket.close()
+				print("GOT BACK HERE")
 
-		connectionSocket.close()
-		#close socket connection
+	
+		except Exception as e:
+			print("An Error Has Occured:")
+			print(e)
+			# Close client and sever connections and restart
+
+			print("Closing connection socket")
+			ClientSideSocket.close()
+
+			connectionSocket.close()
+			#close socket connection
 
 
 
