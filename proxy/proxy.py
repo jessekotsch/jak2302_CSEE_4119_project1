@@ -287,6 +287,7 @@ class Proxy:
 			while True: 
 
 				print("Waiting to receive request message....")
+				print(Tcurr, T_new, bitrate)
 				message = connectionSocket.recv(bufferSize)
 				print("Request Received")
 				print(len(message))
@@ -416,6 +417,7 @@ if __name__ == '__main__':
 				else:
 					print("Welcome Back")
 					T_curr = Proxy.client_throughputs.get(addr[0])
+					print("TCURR:", T_curr)
 			
 				print("ADDRESS:",addr)
 
